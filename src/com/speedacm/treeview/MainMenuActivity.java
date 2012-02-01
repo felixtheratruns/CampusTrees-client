@@ -39,7 +39,8 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
     }
     
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+	{
 		// since each menu entry already has an event handler bound to it,
 		// there is no need to do anything fancy, just call its handler
 		
