@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">UofL Trees</string>
+    <string name="mmenu_news">News</string>
+    <string name="mmenu_map">Browse Tree Map</string>
+    <string name="mmenu_plantfacts">Plant Facts</string>
+    <string name="mmenu_wildfacts">Wildlife Facts</string>
+    <string name="mmenu_scavhunt">Scavenger Hunt</string>
+    <string name="mmenu_about">About</string>
+    <string name="mmenu_creds">Credits</string>
+
+</resources>
