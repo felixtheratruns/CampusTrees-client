@@ -9,5 +9,6 @@
     <string name="mmenu_scavhunt">Scavenger Hunt</string>
     <string name="mmenu_about">About</string>
     <string name="mmenu_creds">Credits</string>
+    <string name="aboutlabel">About This App</string>
 
 </resources>
