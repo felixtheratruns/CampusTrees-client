@@ -10,5 +10,6 @@
     <string name="mmenu_about">About</string>
     <string name="mmenu_creds">Credits</string>
     <string name="aboutlabel">About This App</string>
+    <string name="about_text">This app was developed for the urban wildlife research lab for uofl in spring 2012</string>
 
 </resources>
