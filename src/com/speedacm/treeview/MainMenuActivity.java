@@ -38,7 +38,7 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
         mmenu.setAdapter(new ArrayAdapter<MenuEntry>(this, android.R.layout.simple_list_item_1, menuEntries));
     }
     
-	@Override
+    @Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 	{
 		// since each menu entry already has an event handler bound to it,
