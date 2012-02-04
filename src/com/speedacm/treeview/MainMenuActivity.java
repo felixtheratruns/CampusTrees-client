@@ -16,6 +16,7 @@ import com.speedacm.treeview.menu.ActivityStarter;
 import com.speedacm.treeview.menu.MenuActionListener;
 import com.speedacm.treeview.menu.MenuEntry;
 import com.speedacm.treeview.views.AboutActivity;
+import com.speedacm.treeview.views.TreeMapActivity;
 
 public class MainMenuActivity extends Activity implements OnItemClickListener
 {	
@@ -62,7 +63,7 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
 		// later on, put specific event handlers for each menu entry
 		
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_news), todoHandler));
-		menuEntries.add(new MenuEntry(getString(R.string.mmenu_map), todoHandler));
+		menuEntries.add(new MenuEntry(getString(R.string.mmenu_map), new ActivityStarter(this, TreeMapActivity.class)));
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_plantfacts), todoHandler));
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_wildfacts), todoHandler));
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_scavhunt), todoHandler));

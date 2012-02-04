@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".views.AboutActivity"></activity>
+        <activity android:name=".views.TreeMapActivity"></activity>
     </application>
 
 </manifest>
