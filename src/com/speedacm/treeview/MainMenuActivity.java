@@ -16,11 +16,6 @@ import com.speedacm.treeview.menu.ActivityStarter;
 import com.speedacm.treeview.menu.MenuActionListener;
 import com.speedacm.treeview.menu.MenuEntry;
 import com.speedacm.treeview.views.AboutActivity;
-import com.speedacm.treeview.views.CredsActivity;
-import com.speedacm.treeview.views.NewsActivity;
-import com.speedacm.treeview.views.PlantFactsActivity;
-import com.speedacm.treeview.views.ScavHuntActivity;
-import com.speedacm.treeview.views.WildFactsActivity;
 
 public class MainMenuActivity extends Activity implements OnItemClickListener
 {	
@@ -66,12 +61,12 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
 		
 		// later on, put specific event handlers for each menu entry
 		
-		menuEntries.add(new MenuEntry(getString(R.string.mmenu_news),  new ActivityStarter(this, NewsActivity.class)));
+		menuEntries.add(new MenuEntry(getString(R.string.mmenu_news), todoHandler));
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_map), todoHandler));
-		menuEntries.add(new MenuEntry(getString(R.string.mmenu_plantfacts), new ActivityStarter(this, PlantFactsActivity.class)));
-		menuEntries.add(new MenuEntry(getString(R.string.mmenu_wildfacts), new ActivityStarter(this, WildFactsActivity.class)));
-		menuEntries.add(new MenuEntry(getString(R.string.mmenu_scavhunt), new ActivityStarter(this, ScavHuntActivity.class)));
+		menuEntries.add(new MenuEntry(getString(R.string.mmenu_plantfacts), todoHandler));
+		menuEntries.add(new MenuEntry(getString(R.string.mmenu_wildfacts), todoHandler));
+		menuEntries.add(new MenuEntry(getString(R.string.mmenu_scavhunt), todoHandler));
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_about), new ActivityStarter(this, AboutActivity.class)));
-		menuEntries.add(new MenuEntry(getString(R.string.mmenu_creds), new ActivityStarter(this, CredsActivity.class)));
+		menuEntries.add(new MenuEntry(getString(R.string.mmenu_creds), todoHandler));
 	}
 }
