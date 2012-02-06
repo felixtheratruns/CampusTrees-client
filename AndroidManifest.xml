@@ -19,6 +19,8 @@
         </activity>
         <activity android:name=".views.AboutActivity"></activity>
         <activity android:name=".views.TreeMapActivity"></activity>
+        
+        <uses-library android:name="com.google.android.maps" />
     </application>
 
 </manifest>
