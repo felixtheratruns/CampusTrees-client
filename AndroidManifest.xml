@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".views.AboutActivity"></activity>
-        <activity android:name=".views.TreeMapActivity"></activity>
+        <activity android:name=".views.TreeMapActivity" android:theme="@android:style/Theme" android:label="Tree Map"></activity>
         
         <uses-library android:name="com.google.android.maps" />
     </application>
