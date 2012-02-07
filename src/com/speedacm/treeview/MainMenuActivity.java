@@ -20,7 +20,7 @@ import com.speedacm.treeview.views.CredsActivity;
 import com.speedacm.treeview.views.NewsActivity;
 import com.speedacm.treeview.views.PlantFactsActivity;
 import com.speedacm.treeview.views.ScavHuntActivity;
-import com.speedacm.treeview.views.WildFactsActivity;
+import com.speedacm.treeview.views.WildLifeFactsActivity;
 
 public class MainMenuActivity extends Activity implements OnItemClickListener
 {	
@@ -69,7 +69,7 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_news),  new ActivityStarter(this, NewsActivity.class)));
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_map), todoHandler));
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_plantfacts), new ActivityStarter(this, PlantFactsActivity.class)));
-		menuEntries.add(new MenuEntry(getString(R.string.mmenu_wildfacts), new ActivityStarter(this, WildFactsActivity.class)));
+		menuEntries.add(new MenuEntry(getString(R.string.mmenu_wildfacts), new ActivityStarter(this, WildLifeFactsActivity.class)));
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_scavhunt), new ActivityStarter(this, ScavHuntActivity.class)));
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_about), new ActivityStarter(this, AboutActivity.class)));
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_creds), new ActivityStarter(this, CredsActivity.class)));
