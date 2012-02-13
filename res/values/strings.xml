@@ -18,8 +18,8 @@
     <string name="wild_life_facts_label">These are facts about Uofl\'s wildlife</string>
     <string name="wild_life_facts_text" >These are facts about Uofl\'s wildlife label</string><string name="scav_hunt_label"/>
     <string name="scav_hunt_text" /><string name="creds_label"/>
-    
-    
     <string name="creds_text"/>
+    <string name="mapmenu_filtertrees">Filter Trees</string>
+    <string name="map_label">Tree Map</string>
 
 </resources>

@@ -5,6 +5,11 @@
     android:versionName="1.0" >
 
     <uses-sdk android:minSdkVersion="8" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -23,6 +28,9 @@
         <activity android:name=".views.WildLifeFactsActivity"></activity>
         <activity android:name=".views.ScavHuntActivity"></activity>
         <activity android:name=".views.CredsActivity"></activity>
+        <activity android:name=".views.TreeMapActivity" android:theme="@android:style/Theme" android:label="Tree Map"></activity>
+        
+        <uses-library android:name="com.google.android.maps" />
     </application>
 
 </manifest>
