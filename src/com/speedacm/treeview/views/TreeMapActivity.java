@@ -3,9 +3,11 @@ package com.speedacm.treeview.views;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.speedacm.treeview.R;
 
@@ -33,9 +35,18 @@ public class TreeMapActivity extends MapActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.treemap);
 		mMap = (MapView)findViewById(R.id.mainTreeMap);
-		mMap.getController().setCenter(mUofL_LatLong);
-		mMap.getController().setZoom(mUofL_DefZoom);
+		resetMap(false); // don't animate to point
 		mMap.setBuiltInZoomControls(true);
+	}
+	
+	private void resetMap(boolean animate)
+	{
+		MapController mc = mMap.getController();
+		mc.setZoom(mUofL_DefZoom);
+		if(animate)
+			mc.animateTo(mUofL_LatLong);
+		else
+			mc.setCenter(mUofL_LatLong);
 	}
 	
 	/** This function is only called once, before the menu is shown */
@@ -54,6 +65,23 @@ public class TreeMapActivity extends MapActivity
 		if(!mFetchedTreeTypes)
 		{
 			// TODO: fetch trees from server and use menu.add
+		}
+		return true;
+	}
+	
+	/** This function is how we hook into the options handlers */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch(item.getItemId())
+		{
+			case R.id.mapm_filtertrees:
+				break;
+			case R.id.mapm_treetypes:
+				break;
+			case R.id.mapm_resetview:
+				resetMap(true); // animate to reset point
+				break;
 		}
 		return true;
 	}
