@@ -35,6 +35,7 @@ public class TreeMapActivity extends MapActivity
 		mMap = (MapView)findViewById(R.id.mainTreeMap);
 		mMap.getController().setCenter(mUofL_LatLong);
 		mMap.getController().setZoom(mUofL_DefZoom);
+		mMap.setBuiltInZoomControls(true);
 	}
 	
 	/** This function is only called once, before the menu is shown */

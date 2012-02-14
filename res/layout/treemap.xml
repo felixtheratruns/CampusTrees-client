@@ -8,6 +8,7 @@
         android:id="@+id/mainTreeMap"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:apiKey="0EcPjhTF9O5EV3oKYiEMfverKnBwGUu3tIvO9Tw" />
+        android:apiKey="0EcPjhTF9O5EV3oKYiEMfverKnBwGUu3tIvO9Tw"
+        android:clickable="true" />
 
 </LinearLayout>
