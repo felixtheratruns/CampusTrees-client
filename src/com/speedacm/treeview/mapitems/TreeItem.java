@@ -36,7 +36,7 @@ public class TreeItem extends Overlay
 	@Override
 	public void draw(Canvas canvas, MapView mapview, boolean shadow)
 	{	
-		// figure out the screen coords for our tree
+		// figure out the screen coordinates for our tree
 		Point screenPt = new Point();
 		mapview.getProjection().toPixels(mTree.getLocation(), screenPt);
 		
