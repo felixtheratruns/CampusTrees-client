@@ -6,11 +6,13 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.Point;
+import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.Projection;
+import com.speedacm.treeview.helpers.GeoMath;
 import com.speedacm.treeview.models.Zone;
 
 public class ZoneItem extends Overlay
@@ -26,7 +28,13 @@ public class ZoneItem extends Overlay
 	@Override
 	public boolean onTap(GeoPoint p, MapView mapView)
 	{
-		// TODO: compare the point to see if it falls within the polygon
+		
+		if(GeoMath.pointInPolygon(p, mZone.getPoints()))
+		{
+			// TODO: actual processing of zone hit
+			Toast.makeText(mapView.getContext(), "Zone Hit", Toast.LENGTH_SHORT).show();
+		}
+		
 		return false;
 	}
 	
