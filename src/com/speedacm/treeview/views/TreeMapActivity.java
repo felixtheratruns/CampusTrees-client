@@ -1,5 +1,7 @@
 package com.speedacm.treeview.views;
 
+import java.util.List;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,6 +39,14 @@ public class TreeMapActivity extends MapActivity
 		mMap = (MapView)findViewById(R.id.mainTreeMap);
 		resetMap(false); // don't animate to point
 		mMap.setBuiltInZoomControls(true);
+		
+		setupFakeZones();
+	}
+	
+	private void setupFakeZones()
+	{
+		List<Overlay> overlays = mMap.getOverlays();
+		
 	}
 	
 	private void resetMap(boolean animate)
