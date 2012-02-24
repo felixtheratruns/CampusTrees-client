@@ -14,8 +14,9 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.speedacm.treeview.R;
 import com.speedacm.treeview.mapitems.MultiTreeItem;
-import com.speedacm.treeview.mapitems.TreeItem;
+import com.speedacm.treeview.mapitems.ZoneItem;
 import com.speedacm.treeview.models.Tree;
+import com.speedacm.treeview.models.Zone;
 
 public class TreeMapActivity extends MapActivity
 {
@@ -53,7 +54,14 @@ public class TreeMapActivity extends MapActivity
 		
 		Tree testTree1 = new Tree(); testTree1.setLocation(new GeoPoint(38214901, -85757474));
 		Tree testTree2 = new Tree(); testTree2.setLocation(new GeoPoint(38215901, -85758474));
-		Tree testTree3 = new Tree(); testTree3.setLocation(new GeoPoint(38215901, -85759474));
+		Tree testTree3 = new Tree(); testTree3.setLocation(new GeoPoint(38216901, -85759474));
+		
+		Zone zone = new Zone();
+		zone.addPoint(new GeoPoint(38217901, -85757474));
+		zone.addPoint(new GeoPoint(38218901, -85756074));
+		zone.addPoint(new GeoPoint(38219901, -85755474));
+		zone.addPoint(new GeoPoint(38220901, -85756474));
+		zone.addPoint(new GeoPoint(38221901, -85757074));
 		
 		MultiTreeItem mti = new MultiTreeItem();
 		mti.addTree(testTree1);
@@ -61,6 +69,7 @@ public class TreeMapActivity extends MapActivity
 		mti.addTree(testTree3);
 		
 		overlays.add(mti);
+		overlays.add(new ZoneItem(zone));
 	}
 	
 	private void resetMap(boolean animate)
