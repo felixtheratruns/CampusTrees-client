@@ -11,7 +11,10 @@ import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
+import com.google.android.maps.Overlay;
 import com.speedacm.treeview.R;
+import com.speedacm.treeview.mapitems.TreeItem;
+import com.speedacm.treeview.models.Tree;
 
 public class TreeMapActivity extends MapActivity
 {
@@ -40,13 +43,15 @@ public class TreeMapActivity extends MapActivity
 		resetMap(false); // don't animate to point
 		mMap.setBuiltInZoomControls(true);
 		
-		setupFakeZones();
+		setupFakeData();
 	}
 	
-	private void setupFakeZones()
+	private void setupFakeData()
 	{
 		List<Overlay> overlays = mMap.getOverlays();
-		
+		Tree testTree = new Tree();
+		testTree.setLocation(new GeoPoint(38214901, -85757474));
+		overlays.add(new TreeItem(testTree));
 	}
 	
 	private void resetMap(boolean animate)
