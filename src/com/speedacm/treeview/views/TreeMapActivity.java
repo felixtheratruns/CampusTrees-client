@@ -13,6 +13,7 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.speedacm.treeview.R;
+import com.speedacm.treeview.mapitems.MultiTreeItem;
 import com.speedacm.treeview.mapitems.TreeItem;
 import com.speedacm.treeview.models.Tree;
 
@@ -49,9 +50,17 @@ public class TreeMapActivity extends MapActivity
 	private void setupFakeData()
 	{
 		List<Overlay> overlays = mMap.getOverlays();
-		Tree testTree = new Tree();
-		testTree.setLocation(new GeoPoint(38214901, -85757474));
-		overlays.add(new TreeItem(testTree));
+		
+		Tree testTree1 = new Tree(); testTree1.setLocation(new GeoPoint(38214901, -85757474));
+		Tree testTree2 = new Tree(); testTree2.setLocation(new GeoPoint(38215901, -85758474));
+		Tree testTree3 = new Tree(); testTree3.setLocation(new GeoPoint(38215901, -85759474));
+		
+		MultiTreeItem mti = new MultiTreeItem();
+		mti.addTree(testTree1);
+		mti.addTree(testTree2);
+		mti.addTree(testTree3);
+		
+		overlays.add(mti);
 	}
 	
 	private void resetMap(boolean animate)
