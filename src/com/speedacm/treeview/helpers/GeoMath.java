@@ -6,9 +6,9 @@ public final class GeoMath
 {
 	/**
 	 * Tests to see if a point lies within a polygon.
-	 * @param pt
-	 * @param polygon
-	 * @return Whether or not the point is within the polygon
+	 * @param pt The point to test.
+	 * @param polygon A list of points that forms the polygon.
+	 * @return Whether or not the point is within the polygon.
 	 */
 	public static boolean pointInPolygon(Point pt, Iterable<Point> polygon)
 	{
