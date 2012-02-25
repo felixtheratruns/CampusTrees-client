@@ -1,8 +1,6 @@
 package com.speedacm.treeview.helpers;
 
-import java.util.List;
-
-import com.google.android.maps.GeoPoint;
+import android.graphics.Point;
 
 public final class GeoMath
 {
@@ -12,23 +10,32 @@ public final class GeoMath
 	 * @param polygon
 	 * @return Whether or not the point is within the polygon
 	 */
-	public static boolean pointInPolygon(GeoPoint pt, List<GeoPoint> polygon)
+	public static boolean pointInPolygon(Point pt, Iterable<Point> polygon)
 	{
 		
+		boolean first = true;
 		int intersections = 0;
 		
 		// first get the maximum X coordinate from the list
 		int maxX = Integer.MIN_VALUE;
-		for(GeoPoint p : polygon)
-			maxX = Math.max(maxX, p.getLatitudeE6());
+		for(Point p : polygon)
+			maxX = Math.max(maxX, p.x);
 		maxX += 1; // make sure it lies beyond the final line
 
 		// we're creating a horizontal line segment
-		GeoPoint rayPoint = new GeoPoint(maxX, pt.getLongitudeE6());
+		Point rayPoint = new Point(maxX, pt.y);
 		
-		GeoPoint prevPoint = null;
-		for(GeoPoint point : polygon)
+		Point prevPoint = null;
+		Point firstPoint = null;
+		
+		// check all intersections between the ray and the edges
+		for(Point point : polygon)
 		{
+			if(first)
+			{
+				firstPoint = point;
+				first = false;
+			}
 			if(prevPoint != null)
 			{
 				if(lineIntersect(pt, rayPoint, prevPoint, point))
@@ -36,6 +43,11 @@ public final class GeoMath
 			}
 			prevPoint = point;
 		}
+		
+		// now complete the loop by checking the edge formed
+		// by the last point and the first point
+		if(lineIntersect(pt, rayPoint, prevPoint, firstPoint))
+			intersections++;
 		
 		// if the number of intersections is odd,
 		// the point lies within the polygon.
@@ -50,27 +62,15 @@ public final class GeoMath
 	 * @param b2 The second point of the second segment.
 	 * @return True if the lines intersect, False otherwise.
 	 */
-	public static boolean lineIntersect(GeoPoint a1, GeoPoint a2, GeoPoint b1, GeoPoint b2)
+	public static boolean lineIntersect(Point a1, Point a2, Point b1, Point b2)
 	{
 		
-		float a1x = a1.getLongitudeE6() / 1E6f;
-		float a1y = a1.getLatitudeE6() / 1E6f;
-		
-		float a2x = a2.getLongitudeE6() / 1E6f;
-		float a2y = a2.getLatitudeE6() / 1E6f;
-		
-		float b1x = b1.getLongitudeE6() / 1E6f;
-		float b1y = b1.getLatitudeE6() / 1E6f;
-		
-		float b2x = b2.getLongitudeE6() / 1E6f;
-		float b2y = b2.getLatitudeE6() / 1E6f;
-		
-		float denom = (b2y - b1y) * (a2x - a1x) - (b2x - b1x) * (a2y - a1y);
+		float denom = (b2.y - b1.y) * (a2.x - a1.x) - (b2.x - b1.x) * (a2.y - a1.y);
 		if(denom == 0) return false;
 		
 		// figure out how "far" on each line the intersection point lies
-		float uA = ((b2x - b1x) * (a1y - b1y) - (b2y - b1y) * (a1x - b1x)) / denom;
-		float uB = ((a2x - a1x) * (a1y - b1y) - (a2y - a1y) * (a1x - b1x)) / denom;
+		float uA = ((b2.x - b1.x) * (a1.y - b1.y) - (b2.y - b1.y) * (a1.x - b1.x)) / denom;
+		float uB = ((a2.x - a1.x) * (a1.y - b1.y) - (a2.y - a1.y) * (a1.x - b1.x)) / denom;
 		
 		// if both are within 0 and 1, that means the intersection point lies
 		// on the lines themselves. Otherwise, the segments don't intersect.

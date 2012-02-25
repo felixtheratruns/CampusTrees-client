@@ -13,6 +13,7 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.Projection;
 import com.speedacm.treeview.helpers.GeoMath;
+import com.speedacm.treeview.helpers.GeoToScreen;
 import com.speedacm.treeview.models.Zone;
 
 public class ZoneItem extends Overlay
@@ -28,8 +29,11 @@ public class ZoneItem extends Overlay
 	@Override
 	public boolean onTap(GeoPoint p, MapView mapView)
 	{
+		Projection proj = mapView.getProjection();
+		Point scrnPt = new Point();
+		proj.toPixels(p, scrnPt);
 		
-		if(GeoMath.pointInPolygon(p, mZone.getPoints()))
+		if(GeoMath.pointInPolygon(scrnPt, GeoToScreen.Convert(mapView.getProjection(), mZone.getPoints())))
 		{
 			// TODO: actual processing of zone hit
 			Toast.makeText(mapView.getContext(), "Zone Hit", Toast.LENGTH_SHORT).show();
