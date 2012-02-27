@@ -33,6 +33,7 @@ public class ZoneItem extends Overlay
 		Point scrnPt = new Point();
 		proj.toPixels(p, scrnPt);
 		
+		// cannot cache the result of GeoToScreen.Convert due to changing projection each time
 		if(GeoMath.pointInPolygon(scrnPt, GeoToScreen.Convert(mapView.getProjection(), mZone.getPoints())))
 		{
 			// TODO: actual processing of zone hit

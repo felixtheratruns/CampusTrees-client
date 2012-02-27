@@ -15,6 +15,9 @@ public class Zone
 	public Zone(String jsonText)
 	{
 		this();
+		
+		// TODO: parse the json text
+		
 		recalcBounds();
 	}
 	
@@ -34,7 +37,7 @@ public class Zone
 		int minLat = Integer.MAX_VALUE;
 		int maxLat = Integer.MIN_VALUE;
 		int minLng = Integer.MAX_VALUE;
-		int maxLng = Integer.MAX_VALUE;
+		int maxLng = Integer.MIN_VALUE;
 		
 		for(GeoPoint p : mPoints)
 		{
@@ -50,6 +53,15 @@ public class Zone
 		mBoundingBox = new Rect(minLng, maxLat, maxLng, minLat);
 	}
 	
+	public boolean inBounds(GeoPoint p)
+	{
+		int lat = p.getLatitudeE6();
+		int lng = p.getLongitudeE6();
+		
+		return (lat >= mBoundingBox.bottom && lat <= mBoundingBox.top && 
+				lng >= mBoundingBox.left   && lng <= mBoundingBox.right);
+	}
+	
 	public List<GeoPoint> getPoints() { return mPoints; }
-	public void setPoints(List<GeoPoint> points) { mPoints = points; }
+	public void setPoints(List<GeoPoint> points) { mPoints = points; recalcBounds(); }
 }
