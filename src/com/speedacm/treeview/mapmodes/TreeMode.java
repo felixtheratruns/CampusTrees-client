@@ -10,6 +10,7 @@ import com.speedacm.treeview.mapitems.MultiTreeItem;
 import com.speedacm.treeview.mapitems.ZoneItem;
 import com.speedacm.treeview.models.Tree;
 import com.speedacm.treeview.models.Zone;
+import com.speedacm.treeview.views.DynamicMapActivity;
 
 
 public class TreeMode extends MapMode
@@ -19,13 +20,15 @@ public class TreeMode extends MapMode
 	private List<Tree> mTrees;
 	private MultiTreeItem mActiveTrees;
 	private ZoneItem mActiveZone;
+	private DynamicMapActivity mParent;
 
-	public TreeMode()
+	public TreeMode(DynamicMapActivity parent)
 	{
 		mZoneItems = new ArrayList<ZoneItem>();
 		mTrees = new ArrayList<Tree>();
 		mActiveTrees = null;
 		mActiveZone = null;
+		mParent = parent;
 	}
 	
 	/**

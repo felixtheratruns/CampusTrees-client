@@ -3,7 +3,8 @@
 
     <string name="app_name">UofL Trees</string>
     <string name="mmenu_news">News</string>
-    <string name="mmenu_map">Browse Tree Map</string>
+    <string name="mmenu_treemap">Browse Tree Map</string>
+    <string name="mmenu_sustmap">Browse Sustainability Map</string>
     <string name="mmenu_plantfacts">Plant Facts</string>
     <string name="mmenu_wildfacts">Wildlife Facts</string>
     <string name="mmenu_scavhunt">Scavenger Hunt</string>
@@ -20,6 +21,7 @@
     <string name="scav_hunt_text" /><string name="creds_label"/>
     <string name="creds_text"/>
     <string name="mapmenu_filtertrees">Filter Trees</string>
-    <string name="map_label">Tree Map</string>
+    <string name="treemap_label">Tree Map</string>
+    <string name="sustmap_label">Sustainability Map</string>
 
 </resources>

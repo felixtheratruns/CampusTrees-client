@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.speedacm.treeview.menu.ActivityStarter;
+import com.speedacm.treeview.menu.DynamicMapStarter;
 import com.speedacm.treeview.menu.MenuActionListener;
 import com.speedacm.treeview.menu.MenuEntry;
 import com.speedacm.treeview.views.AboutActivity;
@@ -68,7 +69,8 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
 		// later on, put specific event handlers for each menu entry
 		
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_news),  new ActivityStarter(this, NewsActivity.class)));
-		menuEntries.add(new MenuEntry(getString(R.string.mmenu_map), new ActivityStarter(this, DynamicMapActivity.class)));
+		menuEntries.add(new MenuEntry(getString(R.string.mmenu_treemap), new DynamicMapStarter(this, DynamicMapActivity.TREE_MODE)));
+		menuEntries.add(new MenuEntry(getString(R.string.mmenu_sustmap), new DynamicMapStarter(this, DynamicMapActivity.SUSTAIN_MODE)));
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_plantfacts), new ActivityStarter(this, PlantFactsActivity.class)));
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_wildfacts), new ActivityStarter(this, WildLifeFactsActivity.class)));
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_scavhunt), new ActivityStarter(this, ScavHuntActivity.class)));

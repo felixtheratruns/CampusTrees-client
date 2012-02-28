@@ -8,15 +8,18 @@ import android.graphics.Canvas;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
 import com.speedacm.treeview.mapitems.BuildingItem;
+import com.speedacm.treeview.views.DynamicMapActivity;
 
 public class SustainMode extends MapMode
 {
 
 	private List<BuildingItem> mBuildings;
+	private DynamicMapActivity mParent;
 	
-	public SustainMode()
+	public SustainMode(DynamicMapActivity parent)
 	{
 		mBuildings = new ArrayList<BuildingItem>();
+		mParent = parent;
 	}
 	
 	/**
