@@ -76,4 +76,16 @@ public final class GeoMath
 		// on the lines themselves. Otherwise, the segments don't intersect.
 		return (uA > 0 && uA < 1 && uB > 0 && uB < 1);
 	}
+	
+	public static float pointDistanceSquared(Point a, Point b)
+	{
+		float dx = a.x - b.x;
+		float dy = a.y - b.y;
+		return dx*dx + dy*dy;
+	}
+	
+	public static float pointDistance(Point a, Point b)
+	{
+		return (float)Math.sqrt((double)pointDistanceSquared(a,b));
+	}
 }
