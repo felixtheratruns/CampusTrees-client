@@ -26,15 +26,22 @@ public class ZoneItem extends Overlay
 		mZone = zone;
 	}
 	
-	@Override
-	public boolean onTap(GeoPoint p, MapView mapView)
+	public boolean pointInZone(GeoPoint p, MapView mapView)
 	{
 		Projection proj = mapView.getProjection();
 		Point scrnPt = new Point();
 		proj.toPixels(p, scrnPt);
 		
-		// cannot cache the result of GeoToScreen.Convert due to changing projection each time
-		if(GeoMath.pointInPolygon(scrnPt, GeoToScreen.Convert(mapView.getProjection(), mZone.getPoints())))
+		return GeoMath.pointInPolygon(scrnPt, GeoToScreen.Convert(proj, mZone.getPoints()));
+	}
+	
+	@Override
+	public boolean onTap(GeoPoint p, MapView mapView)
+	{
+		
+		boolean zoneHit = pointInZone(p, mapView);
+		
+		if(zoneHit)
 		{
 			// TODO: actual processing of zone hit
 			Toast.makeText(mapView.getContext(), "Zone Hit", Toast.LENGTH_SHORT).show();
