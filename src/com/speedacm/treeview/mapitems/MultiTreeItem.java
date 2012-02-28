@@ -1,6 +1,7 @@
 package com.speedacm.treeview.mapitems;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import android.graphics.Canvas;
@@ -13,7 +14,7 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.speedacm.treeview.models.Tree;
 
-public class MultiTreeItem extends Overlay
+public class MultiTreeItem extends Overlay implements Iterable<Tree>
 {
 	
 	private List<Tree> mTrees;
@@ -65,6 +66,11 @@ public class MultiTreeItem extends Overlay
 			
 			canvas.drawCircle(screenPt.x, screenPt.y, 4f, mPaint);
 		}
+	}
+
+	@Override
+	public Iterator<Tree> iterator() {
+		return mTrees.iterator(); 
 	}
 
 }
