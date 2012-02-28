@@ -20,7 +20,7 @@ import com.speedacm.treeview.views.CredsActivity;
 import com.speedacm.treeview.views.NewsActivity;
 import com.speedacm.treeview.views.PlantFactsActivity;
 import com.speedacm.treeview.views.ScavHuntActivity;
-import com.speedacm.treeview.views.TreeMapActivity;
+import com.speedacm.treeview.views.DynamicMapActivity;
 import com.speedacm.treeview.views.WildLifeFactsActivity;
 
 public class MainMenuActivity extends Activity implements OnItemClickListener
@@ -68,7 +68,7 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
 		// later on, put specific event handlers for each menu entry
 		
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_news),  new ActivityStarter(this, NewsActivity.class)));
-		menuEntries.add(new MenuEntry(getString(R.string.mmenu_map), new ActivityStarter(this, TreeMapActivity.class)));
+		menuEntries.add(new MenuEntry(getString(R.string.mmenu_map), new ActivityStarter(this, DynamicMapActivity.class)));
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_plantfacts), new ActivityStarter(this, PlantFactsActivity.class)));
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_wildfacts), new ActivityStarter(this, WildLifeFactsActivity.class)));
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_scavhunt), new ActivityStarter(this, ScavHuntActivity.class)));

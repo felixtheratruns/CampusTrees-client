@@ -15,10 +15,11 @@ import com.google.android.maps.Overlay;
 import com.speedacm.treeview.R;
 import com.speedacm.treeview.mapitems.MultiTreeItem;
 import com.speedacm.treeview.mapitems.ZoneItem;
+import com.speedacm.treeview.mapmodes.MapMode;
 import com.speedacm.treeview.models.Tree;
 import com.speedacm.treeview.models.Zone;
 
-public class TreeMapActivity extends MapActivity
+public class DynamicMapActivity extends MapActivity
 {
 	
 	//
@@ -26,9 +27,9 @@ public class TreeMapActivity extends MapActivity
 	// whether or not we have our available 
 	// maps, tree locations, tree types, etc
 	//
-	private boolean mFetchedTreeTypes = false;
-	private boolean mFetchedMap = false;
+	
 	private MapView mMap;
+	private MapMode mMapMode;
 	
 	// latitude and longitude of "University of Louisville"
 	// according to google: 38.2159018, -85.7581278
@@ -95,10 +96,6 @@ public class TreeMapActivity extends MapActivity
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu)
 	{
-		if(!mFetchedTreeTypes)
-		{
-			// TODO: fetch trees from server and use menu.add
-		}
 		return true;
 	}
 	

@@ -7,10 +7,9 @@ import android.graphics.Canvas;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
-import com.google.android.maps.Overlay;
 import com.speedacm.treeview.mapitems.BuildingItem;
 
-public class SustainMode extends Overlay
+public class SustainMode extends MapMode
 {
 
 	private List<BuildingItem> mBuildings;
@@ -21,7 +20,7 @@ public class SustainMode extends Overlay
 	}
 	
 	/**
-	 * Fetches the tree data from the server
+	 * Fetches the building data from the server
 	 */
 	public void fetch()
 	{
@@ -49,6 +48,16 @@ public class SustainMode extends Overlay
 		}
 		
 		return false;
+	}
+	
+	public void onActivate()
+	{
+		
+	}
+	
+	public void onDeactivate()
+	{
+		
 	}
 	
 	
