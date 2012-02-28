@@ -55,19 +55,7 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
 	}
 	
 	private void addMenuItems()
-	{
-		// for now, just define a default event handler for any unimplemented
-		// events, that will just display "TODO: Whatever" on the phone
-		
-		final Context baseCtx = this; // need this to go inside onMenuAction
-		MenuActionListener todoHandler = new MenuActionListener() {
-			public void onMenuAction(MenuEntry item) {
-				Toast.makeText(baseCtx, "TODO: " + item.getName(), Toast.LENGTH_SHORT).show();
-			}
-		};
-		
-		// later on, put specific event handlers for each menu entry
-		
+	{		
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_news),  new ActivityStarter(this, NewsActivity.class)));
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_treemap), new DynamicMapStarter(this, DynamicMapActivity.TREE_MODE)));
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_sustmap), new DynamicMapStarter(this, DynamicMapActivity.SUSTAIN_MODE)));
