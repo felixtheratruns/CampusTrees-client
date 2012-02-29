@@ -23,8 +23,8 @@ import com.speedacm.treeview.views.DynamicMapActivity;
 public class TreeMode extends MapMode
 {
 	
-	// tree hit threshold, in pixels
-	private final float treeHitThresh = 5f;
+	// tree hit threshold, in pixels (squared)
+	private final float treeHitThresh = 20f*20f;
 	
 	private List<ZoneItem> mZoneItems;
 	private MultiTreeItem mActiveTrees;
@@ -108,7 +108,7 @@ public class TreeMode extends MapMode
 				for(Tree t : mActiveTrees)
 				{
 					Point treePoint = new Point();
-					proj.toPixels(p, treePoint);
+					proj.toPixels(t.getLocation(), treePoint);
 					
 					float distsqr = GeoMath.pointDistanceSquared(treePoint, hitPoint);
 					
