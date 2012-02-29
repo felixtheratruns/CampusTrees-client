@@ -10,6 +10,7 @@ import com.google.android.maps.GeoPoint;
 public class Zone
 {
 	private List<GeoPoint> mPoints;
+	private List<Tree> mTrees;
 	private Rect mBoundingBox;
 	
 	public Zone(String jsonText)
@@ -23,6 +24,7 @@ public class Zone
 	
 	public Zone()
 	{
+		mTrees = new ArrayList<Tree>();
 		mPoints = new ArrayList<GeoPoint>();
 	}
 	
@@ -30,6 +32,11 @@ public class Zone
 	{
 		mPoints.add(p);
 		recalcBounds();
+	}
+	
+	public void addTree(Tree t)
+	{
+		mTrees.add(t);
 	}
 	
 	private void recalcBounds()
@@ -64,4 +71,7 @@ public class Zone
 	
 	public List<GeoPoint> getPoints() { return mPoints; }
 	public void setPoints(List<GeoPoint> points) { mPoints = points; recalcBounds(); }
+	
+	public List<Tree> getTrees() { return mTrees; }
+	public void setTrees(List<Tree> trees) { mTrees = trees; }
 }

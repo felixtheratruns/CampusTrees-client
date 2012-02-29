@@ -3,25 +3,22 @@ package com.speedacm.treeview;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.speedacm.treeview.menu.ActivityStarter;
 import com.speedacm.treeview.menu.DynamicMapStarter;
-import com.speedacm.treeview.menu.MenuActionListener;
 import com.speedacm.treeview.menu.MenuEntry;
 import com.speedacm.treeview.views.AboutActivity;
 import com.speedacm.treeview.views.CredsActivity;
+import com.speedacm.treeview.views.DynamicMapActivity;
 import com.speedacm.treeview.views.NewsActivity;
 import com.speedacm.treeview.views.PlantFactsActivity;
 import com.speedacm.treeview.views.ScavHuntActivity;
-import com.speedacm.treeview.views.DynamicMapActivity;
 import com.speedacm.treeview.views.WildLifeFactsActivity;
 
 public class MainMenuActivity extends Activity implements OnItemClickListener

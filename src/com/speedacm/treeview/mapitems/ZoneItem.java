@@ -35,6 +35,8 @@ public class ZoneItem extends Overlay
 		return GeoMath.pointInPolygon(scrnPt, GeoToScreen.Convert(proj, mZone.getPoints()));
 	}
 	
+	public Zone getZone() { return mZone; }
+	
 	@Override
 	public boolean onTap(GeoPoint p, MapView mapView)
 	{

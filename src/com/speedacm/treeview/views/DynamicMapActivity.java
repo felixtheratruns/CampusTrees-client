@@ -42,7 +42,10 @@ public class DynamicMapActivity extends MapActivity
 	private void setMapMode(int type)
 	{
 		if(mMapMode != null)
+		{
+			mMap.getOverlays().clear();
 			mMapMode.onDeactivate();
+		}
 		
 		switch(type)
 		{
@@ -58,6 +61,7 @@ public class DynamicMapActivity extends MapActivity
 		}
 		
 		mMapMode.onActivate();
+		mMap.getOverlays().add(mMapMode);
 	}
 	
 	public void resetMap(boolean animate)
