@@ -18,7 +18,7 @@ public class DataStore
 	{
 		final int newRequestID = mNextRequestID++;
 		
-		mTasks.put(newRequestID, new AsyncTask<Void, Void, Zone[]>() {
+		AsyncTask<Void, Void, Zone[]> task = new AsyncTask<Void, Void, Zone[]>() {
 			@Override
 			protected Zone[] doInBackground(Void... params) {
 				return getAllZones();
@@ -29,7 +29,10 @@ public class DataStore
 				listener.onDSResultReceived(newRequestID, result);
 				mTasks.remove(this);
 			}
-		}).execute();
+		};
+		
+		mTasks.put(newRequestID, task);
+		task.execute();
 		
 		return newRequestID;
 	}
@@ -38,7 +41,7 @@ public class DataStore
 	{
 		final int newRequestID = mNextRequestID++;
 		
-		mTasks.put(newRequestID, new AsyncTask<Void, Void, Zone>() {
+		AsyncTask<Void, Void, Zone> task = new AsyncTask<Void, Void, Zone>() {
 			@Override
 			protected Zone doInBackground(Void... params) {
 				return getZone(id);
@@ -49,7 +52,10 @@ public class DataStore
 				listener.onDSResultReceived(newRequestID, result);
 				mTasks.remove(this);
 			}
-		}).execute();
+		};
+		
+		mTasks.put(newRequestID, task);
+		task.execute();
 		
 		return newRequestID;
 	}

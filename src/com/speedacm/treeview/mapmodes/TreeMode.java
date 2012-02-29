@@ -10,6 +10,8 @@ import android.widget.Toast;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Projection;
+import com.speedacm.treeview.data.DSResultListener;
+import com.speedacm.treeview.data.DataStore;
 import com.speedacm.treeview.helpers.GeoMath;
 import com.speedacm.treeview.mapitems.MultiTreeItem;
 import com.speedacm.treeview.mapitems.ZoneItem;
@@ -28,6 +30,17 @@ public class TreeMode extends MapMode
 	private MultiTreeItem mActiveTrees;
 	private ZoneItem mActiveZone;
 	private DynamicMapActivity mParent;
+	
+	// listener for when we load the original zones
+	private DSResultListener<Zone[]> mZoneLoadListener =
+		new DSResultListener<Zone[]>() {
+			
+			@Override
+			public void onDSResultReceived(int requestID, Zone[] payload) {
+				// TODO: actually process the loading of zones
+				Toast.makeText(mParent, "Zones Loaded", Toast.LENGTH_SHORT).show();
+			}
+		};
 
 	public TreeMode(DynamicMapActivity parent)
 	{
@@ -35,6 +48,8 @@ public class TreeMode extends MapMode
 		mActiveTrees = null;
 		mActiveZone = null;
 		mParent = parent;
+		
+		DataStore.getInstance().beginGetAllZones(mZoneLoadListener);
 	}
 	
 	/**
