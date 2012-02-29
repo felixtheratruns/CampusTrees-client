@@ -10,6 +10,26 @@ import com.speedacm.treeview.models.Zone;
 public class DataStore
 {
 	
+	// helper class to abstract out the AsyncTask boilerplate
+	private abstract class DSTask<T> extends AsyncTask<Void, Void, T>
+	{
+		private DSResultListener<T> mListener;
+		private int mRequestID;
+		
+		public DSTask(DSResultListener<T> listener, int requestID)
+		{
+			mListener = listener;
+			mRequestID = requestID;
+		}
+		
+		@Override
+		protected void onPostExecute(T result)
+		{
+			mListener.onDSResultReceived(mRequestID, result);
+			mTasks.remove(mRequestID);
+		}
+	}
+	
 	/*
 	 * Asynchronous Functions
 	 */
@@ -18,16 +38,10 @@ public class DataStore
 	{
 		final int newRequestID = mNextRequestID++;
 		
-		AsyncTask<Void, Void, Zone[]> task = new AsyncTask<Void, Void, Zone[]>() {
+		DSTask<Zone[]> task = new DSTask<Zone[]>(listener, newRequestID) {
 			@Override
 			protected Zone[] doInBackground(Void... params) {
 				return getAllZones();
-			}
-			
-			@Override
-			protected void onPostExecute(Zone[] result) {
-				listener.onDSResultReceived(newRequestID, result);
-				mTasks.remove(this);
 			}
 		};
 		
@@ -41,16 +55,10 @@ public class DataStore
 	{
 		final int newRequestID = mNextRequestID++;
 		
-		AsyncTask<Void, Void, Zone> task = new AsyncTask<Void, Void, Zone>() {
+		DSTask<Zone> task = new DSTask<Zone>(listener, newRequestID) {
 			@Override
 			protected Zone doInBackground(Void... params) {
 				return getZone(id);
-			}
-			
-			@Override
-			protected void onPostExecute(Zone result) {
-				listener.onDSResultReceived(newRequestID, result);
-				mTasks.remove(this);
 			}
 		};
 		
@@ -88,7 +96,7 @@ public class DataStore
 	
 	public void cancelRequest(int requestID)
 	{
-		AsyncTask<Void, Void, ?> task = mTasks.remove(requestID);
+		DSTask<?> task = mTasks.remove(requestID);
 		
 		if(task != null)
 			task.cancel(false);
@@ -101,11 +109,11 @@ public class DataStore
 	private static DataStore mSingleton = null;
 	
 	private int mNextRequestID = 1;
-	private Map<Integer, AsyncTask<Void, Void, ?>> mTasks;
+	private Map<Integer, DSTask<?>> mTasks;
 	
 	private DataStore()
 	{
-		mTasks = new HashMap<Integer, AsyncTask<Void,Void,?>>();
+		mTasks = new HashMap<Integer, DSTask<?>>();
 	}
 	
 }
