@@ -39,6 +39,7 @@ public class TreeMode extends MapMode
 			public void onDSResultReceived(int requestID, Zone[] payload) {
 				// TODO: actually process the loading of zones
 				Toast.makeText(mParent, "Zones Loaded", Toast.LENGTH_SHORT).show();
+				mParent.setBusyIndicator(false);
 			}
 		};
 
@@ -49,6 +50,7 @@ public class TreeMode extends MapMode
 		mActiveZone = null;
 		mParent = parent;
 		
+		mParent.setBusyIndicator(true);
 		DataStore.getInstance().beginGetAllZones(mZoneLoadListener);
 	}
 	
@@ -122,7 +124,7 @@ public class TreeMode extends MapMode
 				if(closestTree != null)
 				{
 					// we hit a tree
-					Toast.makeText(mapView.getContext(), "Tree hit", Toast.LENGTH_SHORT).show();
+					popUpTreeInfo(closestTree);
 					return true;
 				}
 				

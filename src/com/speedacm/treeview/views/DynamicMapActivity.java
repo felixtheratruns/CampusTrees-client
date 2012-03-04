@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.Window;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -32,6 +33,7 @@ public class DynamicMapActivity extends MapActivity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.treemap);
 		mMap = (MapView)findViewById(R.id.mainTreeMap);
 		resetMap(false); // don't animate to point
@@ -62,6 +64,11 @@ public class DynamicMapActivity extends MapActivity
 		
 		mMapMode.onActivate();
 		mMap.getOverlays().add(mMapMode);
+	}
+	
+	public void setBusyIndicator(boolean enabled)
+	{
+		setProgressBarIndeterminateVisibility(enabled);
 	}
 	
 	public void resetMap(boolean animate)
