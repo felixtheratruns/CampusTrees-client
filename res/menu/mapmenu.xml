@@ -13,4 +13,5 @@
     </item>
     <item android:id="@+id/mapm_treetypes" android:title="Tree Types"></item>
     <item android:id="@+id/mapm_resetview" android:title="Reset Location"></item>
+    <item android:id="@+id/mapm_switchmode"></item>
 </menu>

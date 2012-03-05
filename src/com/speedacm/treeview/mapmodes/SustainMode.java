@@ -20,6 +20,9 @@ public class SustainMode extends MapMode
 	{
 		mBuildings = new ArrayList<BuildingItem>();
 		mParent = parent;
+		
+		// just some fake data
+		mBuildings.add(new BuildingItem(new GeoPoint(38215901, -85758128)));
 	}
 	
 	/**

@@ -3,16 +3,22 @@ package com.speedacm.treeview.mapmodes;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Dialog;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.text.Html;
+import android.view.Window;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Projection;
+import com.speedacm.treeview.R;
 import com.speedacm.treeview.data.DSResultListener;
 import com.speedacm.treeview.data.DataStore;
 import com.speedacm.treeview.helpers.GeoMath;
+import com.speedacm.treeview.helpers.HTMLBuilder;
 import com.speedacm.treeview.mapitems.MultiTreeItem;
 import com.speedacm.treeview.mapitems.ZoneItem;
 import com.speedacm.treeview.models.Tree;
@@ -155,7 +161,29 @@ public class TreeMode extends MapMode
 	
 	private void popUpTreeInfo(Tree t)
 	{
+		// instantiate dialog and load layout
+		Dialog d = new Dialog(mParent);
+		d.setContentView(R.layout.treeinfo);
+		d.setTitle("Tree Information");
 		
+		HTMLBuilder hb = new HTMLBuilder();
+		TextView htmlText = (TextView)d.findViewById(R.id.treeHtmlText);
+		
+		htmlText.setText(Html.fromHtml(hb.begin()
+			.addH5("Species").addString("Birch")
+			.addH5("DBH").addString("unknown")
+			.addH5("Age").addString("39")
+			.addH5("O2 Production").addString("unknown")
+			.addH5("CO2 Sequestered/yr").addString("unknown")
+			.addH5("CO2 Seq. total").addString("unknown")
+			.addH5("Weight").addString("unknown")
+			.addH5("Carbon amount").addString("something")
+			.end()));
+		
+		
+		// TODO: find each view within the dialog and set their values
+		
+		d.show();
 	}
 	
 	public void onActivate()

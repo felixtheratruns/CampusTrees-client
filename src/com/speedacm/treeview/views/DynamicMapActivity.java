@@ -19,6 +19,7 @@ public class DynamicMapActivity extends MapActivity
 {	
 	private MapView mMap;
 	private MapMode mMapMode;
+	private int mMapModeID;
 	
 	public static final int TREE_MODE = 0;
 	public static final int SUSTAIN_MODE = 1;
@@ -49,6 +50,8 @@ public class DynamicMapActivity extends MapActivity
 			mMapMode.onDeactivate();
 		}
 		
+		mMapModeID = type;
+		
 		switch(type)
 		{
 		case TREE_MODE:
@@ -64,6 +67,7 @@ public class DynamicMapActivity extends MapActivity
 		
 		mMapMode.onActivate();
 		mMap.getOverlays().add(mMapMode);
+		mMap.invalidate();
 	}
 	
 	public void setBusyIndicator(boolean enabled)
@@ -94,7 +98,32 @@ public class DynamicMapActivity extends MapActivity
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu)
 	{
+		MenuItem swmode = menu.findItem(R.id.mapm_switchmode);
+		
+		switch(mMapModeID)
+		{
+		case TREE_MODE:
+			swmode.setTitle("Switch to Sustainability");
+			break;
+			
+		case SUSTAIN_MODE:
+			swmode.setTitle("Switch to Tree Map");
+			break;
+		}
 		return true;
+	}
+	
+	private void cycleMode()
+	{
+		switch(mMapModeID)
+		{
+		case TREE_MODE:
+			setMapMode(SUSTAIN_MODE);
+			break;
+		case SUSTAIN_MODE:
+			setMapMode(TREE_MODE);
+			break;
+		}
 	}
 	
 	/** This function is how we hook into the options handlers */
@@ -110,6 +139,9 @@ public class DynamicMapActivity extends MapActivity
 				break;
 			case R.id.mapm_resetview:
 				resetMap(true); // animate to reset point
+				break;
+			case R.id.mapm_switchmode:
+				cycleMode();
 				break;
 		}
 		return true;
