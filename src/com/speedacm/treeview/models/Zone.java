@@ -6,12 +6,18 @@ import java.util.List;
 import android.graphics.Rect;
 
 import com.google.android.maps.GeoPoint;
+import com.speedacm.treeview.data.DSResultListener;
+import com.speedacm.treeview.data.DataStore;
 
 public class Zone
 {
 	private List<GeoPoint> mPoints;
 	private List<Tree> mTrees;
 	private Rect mBoundingBox;
+	
+	private boolean mFetched = false;
+	
+	private int mID;
 	
 	public Zone(String jsonText)
 	{
@@ -24,8 +30,29 @@ public class Zone
 	
 	public Zone()
 	{
-		mTrees = new ArrayList<Tree>();
 		mPoints = new ArrayList<GeoPoint>();
+	}
+	
+	
+	public boolean isFetched()
+	{
+		return mFetched;
+	}
+	
+	// TODO: maybe abstract this interface out to just a ZoneFetchListener or something
+	public int fetch(final DSResultListener<Zone> listener)
+	{
+		final Zone retInstance = this; // need to pass this outside
+		
+		return DataStore.getInstance().beginGetZone(mID, new DSResultListener<Zone>() {
+			
+			@Override
+			public void onDSResultReceived(int requestID, Zone payload) {
+				mFetched = true;
+				mTrees = payload.getTrees();
+				listener.onDSResultReceived(-1, retInstance);
+			}
+		});
 	}
 	
 	public void addPoint(GeoPoint p)
@@ -36,6 +63,13 @@ public class Zone
 	
 	public void addTree(Tree t)
 	{
+		if(mTrees == null)
+		{
+			// this is just dummy code in case someone
+			// is attempting to create a zone manually
+			mTrees = new ArrayList<Tree>();
+			mFetched = true; // prevent fetches
+		}
 		mTrees.add(t);
 	}
 	

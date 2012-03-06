@@ -7,7 +7,6 @@ import android.app.Dialog;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.text.Html;
-import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +35,7 @@ public class TreeMode extends MapMode
 	private MultiTreeItem mActiveTrees;
 	private ZoneItem mActiveZone;
 	private DynamicMapActivity mParent;
+	private int mCurrentFetchID = DataStore.NO_REQUEST;
 	
 	// listener for when we load the original zones
 	private DSResultListener<Zone[]> mZoneLoadListener =
@@ -46,6 +46,28 @@ public class TreeMode extends MapMode
 				// TODO: actually process the loading of zones
 				Toast.makeText(mParent, "Zones Loaded", Toast.LENGTH_SHORT).show();
 				mParent.setBusyIndicator(false);
+				mCurrentFetchID = DataStore.NO_REQUEST;
+				
+				for(Zone z : payload)
+				{
+					mZoneItems.add(new ZoneItem(z));
+				}
+			}
+		};
+	
+	private DSResultListener<Zone> mZoneDetailsListener = 
+		new DSResultListener<Zone>() {
+		
+			@Override
+			public void onDSResultReceived(int requestID, Zone payload) {
+				
+				// tell the map to redraw, and make it so we are drawing
+				// the current list of trees from this zone
+				
+				mParent.setBusyIndicator(false);
+				mCurrentFetchID = DataStore.NO_REQUEST;
+				mActiveTrees = getTreesFromZone(payload);
+				mParent.invalidateMap();
 			}
 		};
 
@@ -55,22 +77,6 @@ public class TreeMode extends MapMode
 		mActiveTrees = null;
 		mActiveZone = null;
 		mParent = parent;
-		
-		mParent.setBusyIndicator(true);
-		DataStore.getInstance().beginGetAllZones(mZoneLoadListener);
-	}
-	
-	/**
-	 * Fetches the tree/zone data from the server
-	 */
-	private void fetchZones()
-	{
-		mZoneItems.clear();
-	}
-	
-	private void fetchTreesForZone(Zone z)
-	{
-		mActiveTrees = null;
 	}
 	
 	private MultiTreeItem getTreesFromZone(Zone z)
@@ -150,8 +156,20 @@ public class TreeMode extends MapMode
 		{
 			if(zi.pointInZone(p, mapView))
 			{
+				Zone z = zi.getZone();
+				if(z.isFetched())
+				{
+					mActiveTrees = getTreesFromZone(z);
+				}
+				else
+				{
+					// if we're currently fetching something, stop and do another
+					if(mCurrentFetchID != DataStore.NO_REQUEST)
+						DataStore.getInstance().cancelRequest(mCurrentFetchID);
+					mCurrentFetchID = z.fetch(mZoneDetailsListener);
+					mParent.setBusyIndicator(true);
+				}
 				mActiveZone = zi;
-				mActiveTrees = getTreesFromZone(zi.getZone());
 				return true;
 			}
 		}
@@ -188,22 +206,13 @@ public class TreeMode extends MapMode
 	
 	public void onActivate()
 	{
-		// setup some fake data
-		Zone z = new Zone();
-		z.addPoint(new GeoPoint(38215852,-85758372));
-		z.addPoint(new GeoPoint(38215852,-85757972));
-		z.addPoint(new GeoPoint(38215452,-85757972));
-		z.addPoint(new GeoPoint(38215452,-85758372));
-		
-		Tree t = new Tree();
-		t.setLocation(new GeoPoint(38215652,-85758172));
-		z.addTree(t);
-		
-		mZoneItems.add(new ZoneItem(z));
+		mParent.setBusyIndicator(true);
+		mCurrentFetchID = DataStore.getInstance().beginGetAllZones(mZoneLoadListener);
 	}
 	
 	public void onDeactivate()
 	{
-		
+		if(mCurrentFetchID != DataStore.NO_REQUEST)
+			DataStore.getInstance().cancelRequest(mCurrentFetchID);
 	}
 }

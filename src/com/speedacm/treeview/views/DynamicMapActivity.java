@@ -42,6 +42,13 @@ public class DynamicMapActivity extends MapActivity
 		setMapMode(getIntent().getExtras().getInt("mapmode"));
 	}
 	
+	@Override
+	public void onStop()
+	{
+		super.onStop();
+		mMapMode.onDeactivate();
+	}
+	
 	private void setMapMode(int type)
 	{
 		if(mMapMode != null)
@@ -68,6 +75,13 @@ public class DynamicMapActivity extends MapActivity
 		mMapMode.onActivate();
 		mMap.getOverlays().add(mMapMode);
 		mMap.invalidate();
+	}
+	
+	public void invalidateMap()
+	{
+		mMap.invalidate();
+		// FIXME: this is a total hack and should be a jailable offense
+		//mMap.getController().animateTo(mMap.getMapCenter());
 	}
 	
 	public void setBusyIndicator(boolean enabled)
@@ -98,15 +112,20 @@ public class DynamicMapActivity extends MapActivity
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu)
 	{
+		// TODO: abstract this stuff out into each MapMode
 		MenuItem swmode = menu.findItem(R.id.mapm_switchmode);
 		
 		switch(mMapModeID)
 		{
 		case TREE_MODE:
+			menu.findItem(R.id.mapm_filtertrees).setVisible(true);
+			menu.findItem(R.id.mapm_treetypes).setVisible(true);
 			swmode.setTitle("Switch to Sustainability");
 			break;
 			
 		case SUSTAIN_MODE:
+			menu.findItem(R.id.mapm_filtertrees).setVisible(false);
+			menu.findItem(R.id.mapm_treetypes).setVisible(false);
 			swmode.setTitle("Switch to Tree Map");
 			break;
 		}

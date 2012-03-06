@@ -10,16 +10,22 @@ import android.graphics.Point;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
+import com.google.android.maps.Projection;
 import com.speedacm.treeview.R;
+import com.speedacm.treeview.helpers.GeoMath;
+import com.speedacm.treeview.models.Building;
 
 public class BuildingItem extends Overlay
 {
 	private static Bitmap mIcon = null;
 	private static Paint mPaint = null;
 	
-	private GeoPoint mLocation;
+	// squared distance threshold for hit test
+	private static final int hitThresh = 16*16;
 	
-	public BuildingItem(GeoPoint location)
+	private Building mBuilding;
+	
+	public BuildingItem(Building b)
 	{
 		if(mPaint == null)
 		{
@@ -27,7 +33,7 @@ public class BuildingItem extends Overlay
 			mPaint.setColor(Color.WHITE);
 		}
 		
-		mLocation = location;
+		mBuilding = b;
 	}
 	
 	@Override
@@ -41,8 +47,21 @@ public class BuildingItem extends Overlay
 		
 		// get the pixel location of the icon
 		Point p = new Point();
-		mapView.getProjection().toPixels(mLocation, p);
+		mapView.getProjection().toPixels(mBuilding.getLocation(), p);
 		
 		canvas.drawBitmap(mIcon, p.x - (mIcon.getWidth() / 2), p.y - (mIcon.getHeight() / 2), mPaint);
+	}
+	
+	@Override
+	public boolean onTap(GeoPoint p, MapView mapView)
+	{
+		Projection proj = mapView.getProjection();
+		Point hitPoint = new Point();
+		Point bldPoint = new Point();
+		
+		proj.toPixels(p, hitPoint);
+		proj.toPixels(mBuilding.getLocation(), bldPoint);
+		
+		return (GeoMath.pointDistanceSquared(hitPoint, bldPoint) < hitThresh);
 	}
 }

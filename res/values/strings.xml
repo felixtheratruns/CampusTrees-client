@@ -11,15 +11,15 @@
     <string name="mmenu_about">About</string>
     <string name="mmenu_creds">Credits</string>
     <string name="about_label">About This App</string>
-    <string name="about_text">This app was developed for the urban wildlife research lab at UofL in spring 2012</string>
+    <string name="about_text">-- placeholder text for the About Box --</string>
     <string name="plant_facts_label">Plant Facts</string>
     <string name="plant_facts_text">Facts about the plants on UofL\'s campus</string>
     <string name="news_label">UofL ecology news</string>
     <string name="news_text">UofL ecology news</string>
     <string name="wild_life_facts_label">These are facts about Uofl\'s wildlife</string>
-    <string name="wild_life_facts_text" >These are facts about Uofl\'s wildlife label</string><string name="scav_hunt_label"/>
-    <string name="scav_hunt_text" /><string name="creds_label"/>
-    <string name="creds_text"/>
+    <string name="wild_life_facts_text" >These are facts about Uofl\'s wildlife label</string><string name="scav_hunt_label">Scavenger Hunt</string>
+    <string name="scav_hunt_text" >-- placeholder for Scavenger Hunt --</string><string name="creds_label">Credits</string>
+    <string name="creds_text">-- placeholder text for Credits --</string>
     <string name="mapmenu_filtertrees">Filter Trees</string>
     <string name="treemap_label">Tree Map</string>
     <string name="sustmap_label">Sustainability Map</string>
