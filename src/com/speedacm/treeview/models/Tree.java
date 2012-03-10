@@ -4,6 +4,8 @@ import com.google.android.maps.GeoPoint;
 
 public class Tree
 {
+	private int mID;
+	private Species mSpecies;
 	private GeoPoint mLatLong;
 	
 	public Tree(String jsonText)
@@ -14,6 +16,8 @@ public class Tree
 	{
 	}
 	
+	public int getID() { return mID; }
+	public Species getSpecies() { return mSpecies; }
 	public GeoPoint getLocation() { return mLatLong; }
 	public void setLocation(GeoPoint latLong) { mLatLong = latLong; }
 }
