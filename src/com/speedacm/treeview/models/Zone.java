@@ -19,20 +19,24 @@ public class Zone
 	
 	private int mID;
 	
-	public Zone(String jsonText)
+	public Zone(int id, List<GeoPoint> points)
 	{
-		this();
-		
-		// TODO: parse the json text
-		
-		recalcBounds();
+		mID = id;
+		mPoints = points;
+		mFetched = false;
+	}
+	
+	public Zone(int id, List<GeoPoint> points, List<Tree> trees)
+	{
+		this(id, points);
+		mTrees = trees;
+		mFetched = true;
 	}
 	
 	public Zone()
 	{
-		mPoints = new ArrayList<GeoPoint>();
+		this(-1, new ArrayList<GeoPoint>());
 	}
-	
 	
 	public boolean isFetched()
 	{

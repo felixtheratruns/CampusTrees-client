@@ -8,10 +8,6 @@ public class Tree
 	private Species mSpecies;
 	private GeoPoint mLatLong;
 	
-	public Tree(String jsonText)
-	{
-	}
-	
 	public Tree()
 	{
 	}

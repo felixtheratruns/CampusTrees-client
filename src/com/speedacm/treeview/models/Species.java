@@ -16,11 +16,6 @@ public class Species
 	private boolean mFruiting;
 	private NativeType mNativity;
 	
-	public Species(String jsonText)
-	{
-		
-	}
-	
 	public Species(int id, String name, boolean flowers, boolean fruits, NativeType nat)
 	{
 		mID = id;

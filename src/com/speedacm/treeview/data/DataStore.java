@@ -6,6 +6,10 @@ import java.util.Map;
 import android.os.AsyncTask;
 
 import com.google.android.maps.GeoPoint;
+import com.speedacm.treeview.data.storage.AbstractStorage;
+import com.speedacm.treeview.data.storage.DiskStorage;
+import com.speedacm.treeview.data.storage.MemStorage;
+import com.speedacm.treeview.data.storage.NetStorage;
 import com.speedacm.treeview.models.Building;
 import com.speedacm.treeview.models.Tree;
 import com.speedacm.treeview.models.Zone;
@@ -101,19 +105,12 @@ public class DataStore
 		} catch (InterruptedException e) {
 		}
 		
-		Zone[] z = new Zone[1];
-		z[0] = new Zone();
-		z[0].addPoint(new GeoPoint(38215852,-85758372));
-		z[0].addPoint(new GeoPoint(38215852,-85757972));
-		z[0].addPoint(new GeoPoint(38215452,-85757972));
-		z[0].addPoint(new GeoPoint(38215452,-85758372));
-		
-		return z;
+		return mParser.parseAllZonesResponse("[{\"id\":1,\"points\":[{\"lat\":38.213761075989,\"long\":-85.762285415524},{\"lat\":38.213419670942,\"long\":-85.757426252598},{\"lat\":38.215868479454,\"long\":-85.75697564162},{\"lat\":38.21611925634,\"long\":-85.757946601268},{\"lat\":38.216077109014,\"long\":-85.758633246657},{\"lat\":38.216443789913,\"long\":-85.761857261588}]},{\"id\":2,\"points\":[{\"lat\":2.1,\"long\":2.1},{\"lat\":2.2,\"long\":2.2},{\"lat\":2.3,\"long\":2.3},{\"lat\":2.4,\"long\":2.4}]}]");
 	}
 	
 	public Zone getZone(int id)
 	{
-		if(id == 0)
+		if(id == 1)
 		{
 			// TODO: create an actual new zone from JSON data
 			// because this has weird behavior when mTrees isn't inited
@@ -135,10 +132,12 @@ public class DataStore
 		return bs;
 	}
 	
+	/*
 	public Building getBuilding(int id)
 	{
 		return null;
 	}
+	*/
 	
 	/*
 	 * Public helper functions
@@ -168,10 +167,16 @@ public class DataStore
 	
 	private int mNextRequestID = 1;
 	private Map<Integer, DSTask<?>> mTasks;
+	private DataParser mParser;
+	private AbstractStorage mStorage;
 	
 	private DataStore()
 	{
 		mTasks = new HashMap<Integer, DSTask<?>>();
+		mParser = new DataParser();
+		
+		// chained fallback storage in case each layer doesn't have it yet
+		mStorage = new MemStorage(new DiskStorage(new NetStorage(null)));
 	}
 	
 }

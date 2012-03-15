@@ -6,7 +6,6 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.graphics.Point;
-import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
@@ -36,21 +35,6 @@ public class ZoneItem extends Overlay
 	}
 	
 	public Zone getZone() { return mZone; }
-	
-	@Override
-	public boolean onTap(GeoPoint p, MapView mapView)
-	{
-		
-		boolean zoneHit = pointInZone(p, mapView);
-		
-		if(zoneHit)
-		{
-			// TODO: actual processing of zone hit
-			Toast.makeText(mapView.getContext(), "Zone Hit", Toast.LENGTH_SHORT).show();
-		}
-		
-		return false;
-	}
 	
 	@Override
 	public void draw(Canvas canvas, MapView mapView, boolean shadow)

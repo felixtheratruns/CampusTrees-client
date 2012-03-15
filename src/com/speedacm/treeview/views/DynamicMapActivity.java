@@ -80,8 +80,6 @@ public class DynamicMapActivity extends MapActivity
 	public void invalidateMap()
 	{
 		mMap.invalidate();
-		// FIXME: this is a total hack and should be a jailable offense
-		//mMap.getController().animateTo(mMap.getMapCenter());
 	}
 	
 	public void setBusyIndicator(boolean enabled)
@@ -168,7 +166,6 @@ public class DynamicMapActivity extends MapActivity
 
 	@Override
 	protected boolean isRouteDisplayed() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

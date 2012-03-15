@@ -43,7 +43,6 @@ public class TreeMode extends MapMode
 			
 			@Override
 			public void onDSResultReceived(int requestID, Zone[] payload) {
-				// TODO: actually process the loading of zones
 				Toast.makeText(mParent, "Zones Loaded", Toast.LENGTH_SHORT).show();
 				mParent.setBusyIndicator(false);
 				mCurrentFetchID = DataStore.NO_REQUEST;
@@ -52,6 +51,8 @@ public class TreeMode extends MapMode
 				{
 					mZoneItems.add(new ZoneItem(z));
 				}
+				
+				mParent.invalidateMap();
 			}
 		};
 	
@@ -188,14 +189,14 @@ public class TreeMode extends MapMode
 		TextView htmlText = (TextView)d.findViewById(R.id.treeHtmlText);
 		
 		htmlText.setText(Html.fromHtml(hb.begin()
-			.addH5("Species").addString("Birch")
-			.addH5("DBH").addString("unknown")
-			.addH5("Age").addString("39")
-			.addH5("O2 Production").addString("unknown")
-			.addH5("CO2 Sequestered/yr").addString("unknown")
-			.addH5("CO2 Seq. total").addString("unknown")
-			.addH5("Weight").addString("unknown")
-			.addH5("Carbon amount").addString("something")
+			.addH5("Species").addString("todo")
+			.addH5("DBH").addString("todo")
+			.addH5("Age").addString("todo")
+			.addH5("O2 Production").addString("todo")
+			.addH5("CO2 Sequestered/yr").addString("todo")
+			.addH5("CO2 Seq. total").addString("todo")
+			.addH5("Weight").addString("todo")
+			.addH5("Carbon amount").addString("todo")
 			.end()));
 		
 		

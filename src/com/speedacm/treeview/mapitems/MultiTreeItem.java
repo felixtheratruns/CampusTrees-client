@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 
-import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.speedacm.treeview.models.Tree;
@@ -41,13 +40,6 @@ public class MultiTreeItem extends Overlay implements Iterable<Tree>
 	public void addTree(Tree t)
 	{
 		mTrees.add(t);
-	}
-	
-	@Override
-	public boolean onTap(GeoPoint p, MapView mapView)
-	{
-		// TODO: check to see if the tap hits one of our trees
-		return false;
 	}
 	
 	@Override
