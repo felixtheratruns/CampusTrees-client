@@ -11,7 +11,7 @@ import com.speedacm.treeview.data.storage.DiskStorage;
 import com.speedacm.treeview.data.storage.MemStorage;
 import com.speedacm.treeview.data.storage.NetStorage;
 import com.speedacm.treeview.models.Building;
-import com.speedacm.treeview.models.Tree;
+import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Zone;
 
 public class DataStore
@@ -54,27 +54,22 @@ public class DataStore
 			}
 		};
 		
-		mTasks.put(newRequestID, task);
-		task.execute();
-		
-		return newRequestID;
+		return putTask(newRequestID, task);
 	}
 	
-	public int beginGetZone(final int id, final DSResultListener<Zone> listener)
+	public int beginGetZoneDetails(final Zone z, final DSResultListener<Zone> listener)
 	{
 		final int newRequestID = mNextRequestID++;
 		
 		DSTask<Zone> task = new DSTask<Zone>(listener, newRequestID) {
 			@Override
 			protected Zone doInBackground(Void... params) {
-				return getZone(id);
+				getZoneDetails(z);
+				return z;
 			}
 		};
 		
-		mTasks.put(newRequestID, task);
-		task.execute();
-		
-		return newRequestID;
+		return putTask(newRequestID, task);
 	}
 	
 	public int beginGetAllBuildings(final DSResultListener<Building[]> listener)
@@ -88,10 +83,21 @@ public class DataStore
 			}
 		};
 		
-		mTasks.put(newRequestID, task);
-		task.execute();
+		return putTask(newRequestID, task);
+	}
+	
+	public int beginGetAllSpecies(final DSResultListener<Species[]> listener)
+	{
+		final int newRequestID = mNextRequestID++;
 		
-		return newRequestID;
+		DSTask<Species[]> task = new DSTask<Species[]>(listener, newRequestID) {
+			@Override
+			protected Species[] doInBackground(Void... params) {
+				return getAllSpecies();
+			}
+		};
+		
+		return putTask(newRequestID, task);
 	}
 	
 	/*
@@ -99,29 +105,13 @@ public class DataStore
 	 */
 	
 	public Zone[] getAllZones()
-	{
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-		}
-		
-		return mParser.parseAllZonesResponse("[{\"id\":1,\"points\":[{\"lat\":38.213761075989,\"long\":-85.762285415524},{\"lat\":38.213419670942,\"long\":-85.757426252598},{\"lat\":38.215868479454,\"long\":-85.75697564162},{\"lat\":38.21611925634,\"long\":-85.757946601268},{\"lat\":38.216077109014,\"long\":-85.758633246657},{\"lat\":38.216443789913,\"long\":-85.761857261588}]},{\"id\":2,\"points\":[{\"lat\":2.1,\"long\":2.1},{\"lat\":2.2,\"long\":2.2},{\"lat\":2.3,\"long\":2.3},{\"lat\":2.4,\"long\":2.4}]}]");
+	{	
+		return mStorage.getAllZones();
 	}
 	
-	public Zone getZone(int id)
+	public void getZoneDetails(Zone z)
 	{
-		if(id == 1)
-		{
-			// TODO: create an actual new zone from JSON data
-			// because this has weird behavior when mTrees isn't inited
-			Zone z = new Zone();
-			Tree t = new Tree();
-			t.setLocation(new GeoPoint(38215652,-85758172));
-			z.addTree(t);
-			
-			return z;
-		}
-		return null;
+		mStorage.getZoneDetails(z);
 	}
 	
 	public Building[] getAllBuildings()
@@ -132,12 +122,10 @@ public class DataStore
 		return bs;
 	}
 	
-	/*
-	public Building getBuilding(int id)
+	public Species[] getAllSpecies()
 	{
-		return null;
+		return mStorage.getAllSpecies();
 	}
-	*/
 	
 	/*
 	 * Public helper functions
@@ -167,16 +155,22 @@ public class DataStore
 	
 	private int mNextRequestID = 1;
 	private Map<Integer, DSTask<?>> mTasks;
-	private DataParser mParser;
 	private AbstractStorage mStorage;
 	
 	private DataStore()
 	{
 		mTasks = new HashMap<Integer, DSTask<?>>();
-		mParser = new DataParser();
+		
 		
 		// chained fallback storage in case each layer doesn't have it yet
 		mStorage = new MemStorage(new DiskStorage(new NetStorage(null)));
+	}
+	
+	private int putTask(int id, DSTask<?> task)
+	{
+		mTasks.put(id, task);
+		task.execute();
+		return id;
 	}
 	
 }

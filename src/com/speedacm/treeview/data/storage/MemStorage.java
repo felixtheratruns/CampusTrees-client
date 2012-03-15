@@ -11,6 +11,8 @@ public class MemStorage extends AbstractStorage
 {
 	
 	//private HashMap<Integer, Building> mBuildings;
+	private Zone[] mZoneArray;
+	private Species[] mSpeciesArray;
 	private HashMap<Integer, Zone> mZones;
 	private HashMap<Integer, Tree> mTrees;
 
@@ -21,30 +23,40 @@ public class MemStorage extends AbstractStorage
 		mZones = new HashMap<Integer, Zone>();
 		mTrees = new HashMap<Integer, Tree>();
 	}
+	
+	private void fetchAndBuildZones()
+	{
+		// fetch the zone array
+		if(mZoneArray == null && mFallback != null)
+			mZoneArray = mFallback.getAllZones();
+		
+		// build a map of it
+		for(Zone z : mZoneArray)
+			mZones.put(z.getID(), z);
+	}
 
 	@Override
 	public Zone[] getAllZones()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		if(mZoneArray == null)
+			fetchAndBuildZones();
+		
+		return mZoneArray;
 	}
 
 	@Override
-	public Zone getZone(int id)
+	public void getZoneDetails(Zone target)
 	{
-		if(mZones.containsKey(id))
-		{
-			return mZones.get(id);
-		}
-		else if(mFallback != null)
-		{
-			Zone z = mFallback.getZone(id);
-			if(z != null)
-				mZones.put(id, z);
-			return z;
-		}
+		// if it isn't already fetched, there's no way to retrieve it
+		// from our cache, so defer to the fallback
 		
-		return null;
+		if(target.isFetched())
+			return;
+		
+		if(mFallback != null)
+			mFallback.getZoneDetails(target);
+		
+		// TODO: update tree mapping from resultant zone details
 	}
 
 	@Override
@@ -75,8 +87,10 @@ public class MemStorage extends AbstractStorage
 	@Override
 	public Species[] getAllSpecies()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		if(mSpeciesArray == null && mFallback != null)
+			mSpeciesArray = mFallback.getAllSpecies();
+		
+		return mSpeciesArray;
 	}
 
 }

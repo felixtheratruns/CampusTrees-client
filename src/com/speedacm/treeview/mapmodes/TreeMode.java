@@ -20,6 +20,7 @@ import com.speedacm.treeview.helpers.GeoMath;
 import com.speedacm.treeview.helpers.HTMLBuilder;
 import com.speedacm.treeview.mapitems.MultiTreeItem;
 import com.speedacm.treeview.mapitems.ZoneItem;
+import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Tree;
 import com.speedacm.treeview.models.Zone;
 import com.speedacm.treeview.views.DynamicMapActivity;
@@ -37,6 +38,17 @@ public class TreeMode extends MapMode
 	private DynamicMapActivity mParent;
 	private int mCurrentFetchID = DataStore.NO_REQUEST;
 	
+	// listener for loading the initial species
+	private DSResultListener<Species[]> mSpeciesLoadListener =
+		new DSResultListener<Species[]>() {
+			
+			@Override
+			public void onDSResultReceived(int requestID, Species[] payload) {
+				// chain the species loader into the zone loader (we need species before trees)
+				mCurrentFetchID = DataStore.getInstance().beginGetAllZones(mZoneLoadListener);
+			}
+		};
+	
 	// listener for when we load the original zones
 	private DSResultListener<Zone[]> mZoneLoadListener =
 		new DSResultListener<Zone[]>() {
@@ -48,9 +60,7 @@ public class TreeMode extends MapMode
 				mCurrentFetchID = DataStore.NO_REQUEST;
 				
 				for(Zone z : payload)
-				{
 					mZoneItems.add(new ZoneItem(z));
-				}
 				
 				mParent.invalidateMap();
 			}
@@ -67,7 +77,14 @@ public class TreeMode extends MapMode
 				
 				mParent.setBusyIndicator(false);
 				mCurrentFetchID = DataStore.NO_REQUEST;
-				mActiveTrees = getTreesFromZone(payload);
+				if(payload.isFetched())
+					mActiveTrees = getTreesFromZone(payload);
+				else
+				{
+					mActiveZone = null;
+					mActiveTrees = null;
+					Toast.makeText(mParent, "Error loading trees for zone.", Toast.LENGTH_SHORT).show();
+				}
 				mParent.invalidateMap();
 			}
 		};
@@ -164,10 +181,12 @@ public class TreeMode extends MapMode
 				}
 				else
 				{
+					
+					DataStore ds = DataStore.getInstance();
 					// if we're currently fetching something, stop and do another
 					if(mCurrentFetchID != DataStore.NO_REQUEST)
-						DataStore.getInstance().cancelRequest(mCurrentFetchID);
-					mCurrentFetchID = z.fetch(mZoneDetailsListener);
+						ds.cancelRequest(mCurrentFetchID);
+					mCurrentFetchID = ds.beginGetZoneDetails(z, mZoneDetailsListener);
 					mParent.setBusyIndicator(true);
 				}
 				mActiveZone = zi;
@@ -207,8 +226,9 @@ public class TreeMode extends MapMode
 	
 	public void onActivate()
 	{
+		// the event handler for fetching the species will then fire off the zone loader
 		mParent.setBusyIndicator(true);
-		mCurrentFetchID = DataStore.getInstance().beginGetAllZones(mZoneLoadListener);
+		mCurrentFetchID = DataStore.getInstance().beginGetAllSpecies(mSpeciesLoadListener);
 	}
 	
 	public void onDeactivate()

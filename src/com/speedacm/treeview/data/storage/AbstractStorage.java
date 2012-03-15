@@ -15,7 +15,7 @@ public abstract class AbstractStorage
 	}
 	
 	public abstract Zone[] getAllZones();
-	public abstract Zone getZone(int id);
+	public abstract void getZoneDetails(Zone target);
 	public abstract Tree getTree(int id);
 	public abstract Building[] getAllBuildings();
 	public abstract Species[] getAllSpecies();

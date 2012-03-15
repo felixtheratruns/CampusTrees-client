@@ -4,16 +4,28 @@ import com.google.android.maps.GeoPoint;
 
 public class Tree
 {
-	private int mID;
-	private Species mSpecies;
+	private int mID;  // tree ID
+	private int mSID; // species ID
+	
+	private float mDBH;
+	private float mHeight;
+	
+	//private Species mSpecies;
 	private GeoPoint mLatLong;
 	
-	public Tree()
+	public Tree(int id, int sid, GeoPoint point, float dbh, float height)
 	{
+		mID = id;
+		mSID = sid;
+		mLatLong = point;
+		mDBH = dbh;
+		mHeight = height;
 	}
 	
 	public int getID() { return mID; }
-	public Species getSpecies() { return mSpecies; }
+	public int getSpeciesID() { return mSID; }
 	public GeoPoint getLocation() { return mLatLong; }
+	public float getDBH() { return mDBH; }
+	public float getHeight() { return mHeight; }
 	public void setLocation(GeoPoint latLong) { mLatLong = latLong; }
 }

@@ -23,12 +23,11 @@ public class DiskStorage extends AbstractStorage
 	}
 
 	@Override
-	public Zone getZone(int id)
+	public void getZoneDetails(Zone target)
 	{
-		// TODO: implement this
+		// TODO: implement zone details
 		if(mFallback != null)
-			return mFallback.getZone(id);
-		return null;
+			mFallback.getZoneDetails(target);
 	}
 
 	@Override

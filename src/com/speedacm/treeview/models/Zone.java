@@ -6,8 +6,6 @@ import java.util.List;
 import android.graphics.Rect;
 
 import com.google.android.maps.GeoPoint;
-import com.speedacm.treeview.data.DSResultListener;
-import com.speedacm.treeview.data.DataStore;
 
 public class Zone
 {
@@ -41,22 +39,6 @@ public class Zone
 	public boolean isFetched()
 	{
 		return mFetched;
-	}
-	
-	// TODO: maybe abstract this interface out to just a ZoneFetchListener or something
-	public int fetch(final DSResultListener<Zone> listener)
-	{
-		final Zone retInstance = this; // need to pass this outside
-		
-		return DataStore.getInstance().beginGetZone(mID, new DSResultListener<Zone>() {
-			
-			@Override
-			public void onDSResultReceived(int requestID, Zone payload) {
-				mFetched = true;
-				mTrees = payload.getTrees();
-				listener.onDSResultReceived(-1, retInstance);
-			}
-		});
 	}
 	
 	public void addPoint(GeoPoint p)
@@ -111,5 +93,7 @@ public class Zone
 	public void setPoints(List<GeoPoint> points) { mPoints = points; recalcBounds(); }
 	
 	public List<Tree> getTrees() { return mTrees; }
-	public void setTrees(List<Tree> trees) { mTrees = trees; }
+	public void setTrees(List<Tree> trees) { mTrees = trees; mFetched = true; }
+
+	public int getID() { return mID; }
 }
