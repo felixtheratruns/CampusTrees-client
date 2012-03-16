@@ -61,7 +61,7 @@ public class MenuItemArrayAdapter extends ArrayAdapter<MenuEntry> {
 		//Set menuitem name
 		menuitemName.setText(menuitem.toString());
 		
-		// Set country icon using File path
+		// Set menuitem icon using File path
 		String imgFilePath =  menuitem.getResourceId();
 		
 		try {
