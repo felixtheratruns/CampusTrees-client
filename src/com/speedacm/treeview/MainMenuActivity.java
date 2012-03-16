@@ -60,33 +60,22 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
 
 	private void addMenuItems()
 	{
-		String ext = getString(R.string.mmenu_file_ext);
-		String assets_dir = getString(R.string.mmenu_assets_dir);
-		
-		menuEntries.add(	
-				new MenuEntry(getString(R.string.mmenu_news), new ActivityStarter(this, NewsActivity.class), assets_dir, ext)	
-			);
-		menuEntries.add(
-				new MenuEntry(getString(R.string.mmenu_treemap), new DynamicMapStarter(this, DynamicMapActivity.TREE_MODE), assets_dir, ext)
-			);
-		menuEntries.add(
-				new MenuEntry(getString(R.string.mmenu_sustmap), new DynamicMapStarter(this, DynamicMapActivity.SUSTAIN_MODE), assets_dir, ext)
-			);
-		menuEntries.add(
-				new MenuEntry(getString(R.string.mmenu_plantfacts), new ActivityStarter(this, PlantFactsActivity.class), assets_dir, ext)
-			);
-		menuEntries.add(
-				new MenuEntry(getString(R.string.mmenu_wildfacts), 	new ActivityStarter(this, WildLifeFactsActivity.class), assets_dir, ext)
-			);
-		menuEntries.add(
-				new MenuEntry(getString(R.string.mmenu_scavhunt), new ActivityStarter(this, ScavHuntActivity.class),assets_dir, ext)	
-			);
-		menuEntries.add(
-				new MenuEntry(getString(R.string.mmenu_about), new ActivityStarter(this, AboutActivity.class), assets_dir, ext)	
-			);
-		menuEntries.add(
-				new MenuEntry(getString(R.string.mmenu_creds), new ActivityStarter(this, CredsActivity.class), assets_dir, ext)	
-			);
+		menuEntries.add(new MenuEntry(getString(R.string.mmenu_news), R.drawable.m_news,
+				new ActivityStarter(this, NewsActivity.class)));
+		menuEntries.add(new MenuEntry(getString(R.string.mmenu_treemap), R.drawable.m_treemap,
+				new DynamicMapStarter(this, DynamicMapActivity.TREE_MODE)));
+		menuEntries.add(new MenuEntry(getString(R.string.mmenu_sustmap), R.drawable.m_sustmap,
+				new DynamicMapStarter(this, DynamicMapActivity.SUSTAIN_MODE)));
+		menuEntries.add(new MenuEntry(getString(R.string.mmenu_plantfacts), R.drawable.m_plantfacts,
+				new ActivityStarter(this, PlantFactsActivity.class)));
+		menuEntries.add(new MenuEntry(getString(R.string.mmenu_wildfacts), R.drawable.m_wildfacts,
+				new ActivityStarter(this, WildLifeFactsActivity.class)));
+		menuEntries.add(new MenuEntry(getString(R.string.mmenu_scavhunt), R.drawable.m_scavhunt,
+				new ActivityStarter(this, ScavHuntActivity.class)));
+		menuEntries.add(new MenuEntry(getString(R.string.mmenu_about), R.drawable.m_about,
+				new ActivityStarter(this, AboutActivity.class)));
+		menuEntries.add(new MenuEntry(getString(R.string.mmenu_creds), R.drawable.m_creds,
+				new ActivityStarter(this, CredsActivity.class)));
 	}
 
 }

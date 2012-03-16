@@ -1,8 +1,8 @@
 package com.speedacm.treeview;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.speedacm.treeview.menu.MenuEntry;
 
 
@@ -52,25 +53,16 @@ public class MenuItemArrayAdapter extends ArrayAdapter<MenuEntry> {
 		// Get item
 		MenuEntry menuitem = getItem(position);
 		
-		// Get reference to ImageView 
+		// get references to subviews
 		menuitemIcon = (ImageView) row.findViewById(R.id.menuitem_icon);
-		
-		// Get reference to TextView - country_name
 		menuitemName = (TextView) row.findViewById(R.id.menuitem_name);
-
-		//Set menuitem name
+		
+		Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), menuitem.getDrawable());
+		
+		// set up final values
 		menuitemName.setText(menuitem.toString());
-		
-		// Set menuitem icon using File path
-		String imgFilePath =  menuitem.getResourceId();
-		
-		try {
-			Bitmap bitmap = BitmapFactory.decodeStream(this.context.getResources().getAssets()
-					.open(imgFilePath));
-			menuitemIcon.setImageBitmap(bitmap);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		menuitemIcon.setImageBitmap(bitmap);
+
 		return row;
 	}
 }
