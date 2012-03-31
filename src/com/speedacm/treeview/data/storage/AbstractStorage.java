@@ -1,6 +1,7 @@
 package com.speedacm.treeview.data.storage;
 
 import com.speedacm.treeview.models.Building;
+import com.speedacm.treeview.models.PlantFact;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Tree;
 import com.speedacm.treeview.models.Zone;
@@ -14,6 +15,7 @@ public abstract class AbstractStorage
 		mFallback = fallback;
 	}
 	
+	public abstract PlantFact[] getAllPlantFacts();
 	public abstract Zone[] getAllZones();
 	public abstract void getZoneDetails(Zone target);
 	public abstract Tree getTree(int id);

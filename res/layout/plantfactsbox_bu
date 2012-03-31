@@ -3,21 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+    
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
+        android:text="@string/plant_facts_label"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <ListView
-        android:id="@+id/plantFactsList"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:headerDividersEnabled="true" >
-
-        <!-- Preview: listitem=@android:layout/simple_list_item_1 -->
-    </ListView>
-
+        android:text="@string/plant_facts_text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
 </LinearLayout>

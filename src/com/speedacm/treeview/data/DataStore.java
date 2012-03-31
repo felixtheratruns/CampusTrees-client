@@ -11,6 +11,7 @@ import com.speedacm.treeview.data.storage.DiskStorage;
 import com.speedacm.treeview.data.storage.MemStorage;
 import com.speedacm.treeview.data.storage.NetStorage;
 import com.speedacm.treeview.models.Building;
+import com.speedacm.treeview.models.PlantFact;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Zone;
 
@@ -42,6 +43,19 @@ public class DataStore
 	/*
 	 * Asynchronous Functions
 	 */
+	public int beginGetAllPlantFacts(final DSResultListener<PlantFact[]> listener)
+	{
+		final int newRequestID = mNextRequestID++;
+		
+		DSTask<PlantFact[]> task = new DSTask<PlantFact[]>(listener, newRequestID) {
+			@Override
+			protected PlantFact[] doInBackground(Void... params) {
+				return getAllPlantFacts();
+			}
+		};
+		
+		return putTask(newRequestID, task);
+	}
 	
 	public int beginGetAllZones(final DSResultListener<Zone[]> listener)
 	{
@@ -103,6 +117,10 @@ public class DataStore
 	/*
 	 * Synchronous Functions
 	 */
+	public PlantFact[] getAllPlantFacts()
+	{	
+		return mStorage.getAllPlantFacts();
+	}
 	
 	public Zone[] getAllZones()
 	{	
