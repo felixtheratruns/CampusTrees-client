@@ -7,7 +7,10 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import android.util.Log;
+
 import com.google.android.maps.GeoPoint;
+import com.speedacm.treeview.models.PlantFact;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Species.NativeType;
 import com.speedacm.treeview.models.Tree;
@@ -36,6 +39,7 @@ public class DataParser
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			Log.e("json parse exception?", "exception", e);
 			return null;
 		}
 	}
@@ -62,6 +66,38 @@ public class DataParser
 		
 		return points;
 	}
+	
+	public PlantFact[] parseAllPlantFactsResponse(String json)
+	{
+		
+		JsonNode rootNode = mapNode(json);
+		if(rootNode == null) return null;
+		
+		ArrayList<PlantFact> plantFacts = new ArrayList<PlantFact>(rootNode.size());
+		
+		Iterator<JsonNode> pFactIter = rootNode.getElements();
+		Iterator<String> pFactNames = rootNode.getFieldNames();
+		while(pFactIter.hasNext() && pFactNames.hasNext())
+		{			
+			JsonNode pFactNode = pFactIter.next();
+			String pFactName = pFactNames.next();
+			try
+			{	
+				//test
+				String title = pFactName;
+				String body = pFactNode.getTextValue();
+				plantFacts.add(new PlantFact(title, body));
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		return plantFacts.toArray(new PlantFact[plantFacts.size()]);
+	}
+	
 	
 	public Zone[] parseAllZonesResponse(String json)
 	{
