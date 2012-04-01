@@ -21,7 +21,7 @@ import com.speedacm.treeview.models.Zone;
 public class NetStorage extends AbstractStorage
 {
 	
-	private static final String baseURL = "http://trees.cecsresearch.org/joelapi/AppHandler.php";
+	private static final String baseURL = "http://trees.cecsresearch.org/AppHandler.php";
 	private HttpClient mClient;
 	private DataParser mParser;
 
