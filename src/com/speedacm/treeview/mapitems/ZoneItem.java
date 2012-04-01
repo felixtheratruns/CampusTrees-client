@@ -36,12 +36,8 @@ public class ZoneItem extends Overlay
 	
 	public Zone getZone() { return mZone; }
 	
-	@Override
-	public void draw(Canvas canvas, MapView mapView, boolean shadow)
+	public void drawOutline(Canvas canvas, MapView mapView, boolean drawInside)
 	{
-		
-		if(shadow) return;
-		
 		// TODO: don't draw this if everything is outside the view
 		//       this may require a bounding box on the Zone
 		Projection prj = mapView.getProjection();
@@ -77,12 +73,24 @@ public class ZoneItem extends Overlay
 		// draw the filled area
 		paint.setStyle(Style.FILL);
 		paint.setColor(Color.CYAN);
-		paint.setAlpha(127);
+		if(drawInside)
+			paint.setAlpha(127);
+		else
+			paint.setAlpha(40);
+		
 		canvas.drawPath(path, paint);
 		
 		// draw the stroke outline
 		paint.setStyle(Style.STROKE);
 		paint.setColor(Color.RED);
+		paint.setAlpha(255);
 		canvas.drawPath(path, paint);
+	}
+	
+	@Override
+	public void draw(Canvas canvas, MapView mapView, boolean shadow)
+	{
+		if(shadow) return;
+		drawOutline(canvas, mapView, true);
 	}
 }

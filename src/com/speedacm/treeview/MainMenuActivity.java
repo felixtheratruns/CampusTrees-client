@@ -1,11 +1,13 @@
 package com.speedacm.treeview;
 
 import java.util.ArrayList;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.speedacm.treeview.menu.ActivityStarter;
@@ -64,8 +66,8 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
 				new ActivityStarter(this, NewsActivity.class)));
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_treemap), R.drawable.m_treemap,
 				new DynamicMapStarter(this, DynamicMapActivity.TREE_MODE)));
-		menuEntries.add(new MenuEntry(getString(R.string.mmenu_sustmap), R.drawable.m_sustmap,
-				new DynamicMapStarter(this, DynamicMapActivity.SUSTAIN_MODE)));
+		//menuEntries.add(new MenuEntry(getString(R.string.mmenu_sustmap), R.drawable.m_sustmap,
+		//		new DynamicMapStarter(this, DynamicMapActivity.SUSTAIN_MODE)));
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_plantfacts), R.drawable.m_plantfacts,
 				new ActivityStarter(this, PlantFactsActivity.class)));
 		menuEntries.add(new MenuEntry(getString(R.string.mmenu_wildfacts), R.drawable.m_wildfacts,

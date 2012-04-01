@@ -103,31 +103,28 @@ public class DynamicMapActivity extends MapActivity
 	{
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.mapmenu, menu);
-		return true;
+		return mMapMode.onCreateOptionsMenu(menu);
 	}
 	
 	/** This function is called before the menu is opened every time */
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu)
 	{
-		// TODO: abstract this stuff out into each MapMode
 		MenuItem swmode = menu.findItem(R.id.mapm_switchmode);
+		swmode.setVisible(false);
 		
 		switch(mMapModeID)
 		{
 		case TREE_MODE:
-			menu.findItem(R.id.mapm_filtertrees).setVisible(true);
-			menu.findItem(R.id.mapm_treetypes).setVisible(true);
 			swmode.setTitle("Switch to Sustainability");
 			break;
 			
 		case SUSTAIN_MODE:
-			menu.findItem(R.id.mapm_filtertrees).setVisible(false);
-			menu.findItem(R.id.mapm_treetypes).setVisible(false);
 			swmode.setTitle("Switch to Tree Map");
 			break;
 		}
-		return true;
+		
+		return mMapMode.onPrepareOptionsMenu(menu);
 	}
 	
 	private void cycleMode()
@@ -150,18 +147,15 @@ public class DynamicMapActivity extends MapActivity
 		// TODO: tie this into the MapMode with dynamic menus
 		switch(item.getItemId())
 		{
-			case R.id.mapm_filtertrees:
-				break;
-			case R.id.mapm_treetypes:
-				break;
 			case R.id.mapm_resetview:
 				resetMap(true); // animate to reset point
-				break;
+				return true;
 			case R.id.mapm_switchmode:
 				cycleMode();
-				break;
+				return true;
+			default:
+				return mMapMode.onOptionsItemSelected(item);
 		}
-		return true;
 	}
 
 	@Override

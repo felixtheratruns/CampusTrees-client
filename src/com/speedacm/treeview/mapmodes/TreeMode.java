@@ -1,12 +1,16 @@
 package com.speedacm.treeview.mapmodes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.app.Dialog;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.SubMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +42,10 @@ public class TreeMode extends MapMode
 	private DynamicMapActivity mParent;
 	private int mCurrentFetchID = DataStore.NO_REQUEST;
 	
+	private SubMenu mSpeciesMenu;
+	private Species[] mSpeciesList;
+	private boolean mSpeciesInit = false;
+	
 	// listener for loading the initial species
 	private DSResultListener<Species[]> mSpeciesLoadListener =
 		new DSResultListener<Species[]>() {
@@ -46,6 +54,15 @@ public class TreeMode extends MapMode
 			public void onDSResultReceived(int requestID, Species[] payload) {
 				// chain the species loader into the zone loader (we need species before trees)
 				mCurrentFetchID = DataStore.getInstance().beginGetAllZones(mZoneLoadListener);
+				
+				if(mSpeciesMenu != null)
+				{
+					setupSpeciesMenu(payload);
+				}
+				else
+				{
+					mSpeciesList = payload; // save for later
+				}
 			}
 		};
 	
@@ -103,6 +120,18 @@ public class TreeMode extends MapMode
 		return mti;
 	}
 	
+	private void setupSpeciesMenu(Species[] list)
+	{
+		if(mSpeciesInit) return;
+		
+		for(Species s : list)
+		{
+			mSpeciesMenu.add(Menu.NONE, s.getID(), Menu.NONE, s.getName());
+		}
+		
+		mSpeciesInit = true;
+	}
+	
 	@Override
 	public void draw(Canvas canvas, MapView mapView, boolean shadow)
 	{
@@ -113,7 +142,10 @@ public class TreeMode extends MapMode
 			// don't bother displaying the zone we're currently
 			// displaying trees from
 			if(z == mActiveZone)
+			{
+				z.drawOutline(canvas, mapView, false);
 				continue;
+			}
 			
 			z.draw(canvas, mapView, shadow);
 		}
@@ -235,5 +267,32 @@ public class TreeMode extends MapMode
 	{
 		if(mCurrentFetchID != DataStore.NO_REQUEST)
 			DataStore.getInstance().cancelRequest(mCurrentFetchID);
+	}
+	
+	public boolean onPrepareOptionsMenu(Menu menu)
+	{
+		menu.findItem(R.id.mapm_filtertrees).setVisible(true);
+		menu.findItem(R.id.mapm_treetypes).setVisible(true);
+		return true;
+	}
+	
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		MenuItem filterTrees = menu.findItem(R.id.mapm_treetypes);
+		mSpeciesMenu = filterTrees.getSubMenu();
+		
+		// set up the species list if we haven't already done so
+		if(mSpeciesList != null)
+		{
+			setupSpeciesMenu(mSpeciesList);
+			mSpeciesList = null; // free up for garbage collection
+		}
+		
+		return true;
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		return true;
 	}
 }

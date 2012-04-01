@@ -5,6 +5,8 @@ import java.util.List;
 
 import android.app.Dialog;
 import android.graphics.Canvas;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
@@ -90,5 +92,21 @@ public class SustainMode extends MapMode
 			DataStore.getInstance().cancelRequest(mCurrentRequestID);
 	}
 	
+	public boolean onPrepareOptionsMenu(Menu menu)
+	{
+		menu.findItem(R.id.mapm_filtertrees).setVisible(false);
+		menu.findItem(R.id.mapm_treetypes).setVisible(false);
+		return true;
+	}
+	
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		return true;
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		return true;
+	}
 	
 }
