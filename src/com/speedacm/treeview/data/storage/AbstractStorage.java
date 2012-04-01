@@ -1,6 +1,7 @@
 package com.speedacm.treeview.data.storage;
 
 import com.speedacm.treeview.models.Building;
+import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.PlantFact;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Tree;
@@ -21,4 +22,6 @@ public abstract class AbstractStorage
 	public abstract Tree getTree(int id);
 	public abstract Building[] getAllBuildings();
 	public abstract Species[] getAllSpecies();
+	public abstract News[] getAllNews();
+
 }

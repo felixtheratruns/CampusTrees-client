@@ -10,6 +10,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import android.util.Log;
 
 import com.google.android.maps.GeoPoint;
+import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.PlantFact;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Species.NativeType;
@@ -83,11 +84,9 @@ public class DataParser
 			String pFactName = pFactNames.next();
 			try
 			{	
-				
-//				String title = rootNode.
-//				String a = pFactNode.get(title).asText();
-//				String b = pFactNode.getFields().toString();
-//				plantFacts.add(new PlantFact(title, body));
+				String title = pFactName;
+				String body = pFactNode.toString();
+				plantFacts.add(new PlantFact(title, body));
 			}
 			catch(Exception e)
 			{
@@ -97,6 +96,36 @@ public class DataParser
 		}
 		
 		return plantFacts.toArray(new PlantFact[plantFacts.size()]);
+	}
+	
+	public News[] parseAllNewsResponse(String json)
+	{
+		
+		JsonNode rootNode = mapNode(json);
+		if(rootNode == null) return null;
+		
+		ArrayList<News> News = new ArrayList<News>(rootNode.size());
+		
+		Iterator<JsonNode> pFactIter = rootNode.getElements();
+		Iterator<String> pFactNames = rootNode.getFieldNames();
+		while(pFactIter.hasNext() && pFactNames.hasNext())
+		{			
+			JsonNode pFactNode = pFactIter.next();
+			String pFactName = pFactNames.next();
+			try
+			{	
+				String title = pFactName;
+				String body = pFactNode.toString();
+				News.add(new News(title, body));
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		return News.toArray(new News[News.size()]);
 	}
 	
 	

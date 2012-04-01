@@ -1,6 +1,7 @@
 package com.speedacm.treeview.data.storage;
 
 import com.speedacm.treeview.models.Building;
+import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.PlantFact;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Tree;
@@ -63,6 +64,14 @@ public class DiskStorage extends AbstractStorage
 		//TODO: implement this
 		if(mFallback !=null)
 			return mFallback.getAllPlantFacts();
+		return null;
+	}
+
+	@Override
+	public News[] getAllNews() {
+		// TODO Auto-generated method stub
+		if(mFallback !=null)
+			return mFallback.getAllNews();
 		return null;
 	}
 

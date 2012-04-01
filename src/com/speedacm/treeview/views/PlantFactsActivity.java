@@ -19,7 +19,7 @@ public class PlantFactsActivity extends Activity implements DSResultListener<Pla
 
 	private static final String tag = "PlantFactsActivity";
 	private int mCurrentFetchID = DataStore.NO_REQUEST;
-	private List<PlantFact> plantFactsItems = new ArrayList<PlantFact>();
+
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -34,13 +34,10 @@ public class PlantFactsActivity extends Activity implements DSResultListener<Pla
     // bind to our menu items
 
 
-
-
 	@Override
 	public void onDSResultReceived(int requestID, PlantFact[] payload) {
 		
 		for(PlantFact p : payload){
-			System.out.println(p);
 			menuEntries.add(p);
 		}
 	    ListView mmenu = (ListView)findViewById(R.id.plantFactsList);

@@ -23,7 +23,7 @@ public class PlantFact {
 	
 	public String toString()
 	{
-		return title;
+		return title + ":\n"  + body;
 	}
 	
 	public GeoPoint getLocation() { return latLong; }
