@@ -15,12 +15,13 @@ import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.PlantFact;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Tree;
+import com.speedacm.treeview.models.WildLifeFact;
 import com.speedacm.treeview.models.Zone;
 
 public class NetStorage extends AbstractStorage
 {
 	
-	private static final String baseURL = "http://trees.cecsresearch.org/AppHandler.php";
+	private static final String baseURL = "http://trees.cecsresearch.org/joelapi/AppHandler.php";
 	private HttpClient mClient;
 	private DataParser mParser;
 
@@ -99,16 +100,20 @@ public class NetStorage extends AbstractStorage
 	@Override
 	public PlantFact[] getAllPlantFacts() {
 		String json = getHTTPResponse(baseURL + "?pFacts=1");
-		
 		return mParser.parseAllPlantFactsResponse(json);
 	}
 	
 	@Override
 	public News[] getAllNews() {
 		String json = getHTTPResponse(baseURL + "?news=1");
-		
 		return mParser.parseAllNewsResponse(json);
 	}
-
-
+	
+	@Override
+	public WildLifeFact[] getAllWildLifeFacts() {
+		String json = getHTTPResponse(baseURL + "?wildlifefacts=1");
+		return mParser.parseAllWildLifeFactsResponse(json);
+	}
+	
+	
 }

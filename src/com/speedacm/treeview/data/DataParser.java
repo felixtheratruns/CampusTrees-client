@@ -15,6 +15,7 @@ import com.speedacm.treeview.models.PlantFact;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Species.NativeType;
 import com.speedacm.treeview.models.Tree;
+import com.speedacm.treeview.models.WildLifeFact;
 import com.speedacm.treeview.models.Zone;
 
 public class DataParser
@@ -128,6 +129,35 @@ public class DataParser
 		return News.toArray(new News[News.size()]);
 	}
 	
+	public WildLifeFact[] parseAllWildLifeFactsResponse(String json)
+	{
+		
+		JsonNode rootNode = mapNode(json);
+		if(rootNode == null) return null;
+		
+		ArrayList<WildLifeFact> WildLifeFacts = new ArrayList<WildLifeFact>(rootNode.size());
+		
+		Iterator<JsonNode> pFactIter = rootNode.getElements();
+		Iterator<String> pFactNames = rootNode.getFieldNames();
+		while(pFactIter.hasNext() && pFactNames.hasNext())
+		{			
+			JsonNode pFactNode = pFactIter.next();
+			String pFactName = pFactNames.next();
+			try
+			{	
+				String title = pFactName;
+				String body = pFactNode.toString();
+				WildLifeFacts.add(new WildLifeFact(title, body));
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		return WildLifeFacts.toArray(new WildLifeFact[WildLifeFacts.size()]);
+	}
 	
 	public Zone[] parseAllZonesResponse(String json)
 	{

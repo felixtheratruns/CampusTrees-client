@@ -7,12 +7,14 @@ import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.PlantFact;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Tree;
+import com.speedacm.treeview.models.WildLifeFact;
 import com.speedacm.treeview.models.Zone;
 
 public class MemStorage extends AbstractStorage
 {
 	
 	//private HashMap<Integer, Building> mBuildings;	
+	private WildLifeFact[] wildLifeFactsArray;
 	private News[] newsArray;
 	private PlantFact[] plantFactsArray;
 	private Zone[] mZoneArray;
@@ -111,6 +113,14 @@ public class MemStorage extends AbstractStorage
 		if(newsArray == null && mFallback != null)
 			newsArray = mFallback.getAllNews();
 		return newsArray;
+	}
+	
+	@Override
+	public WildLifeFact[] getAllWildLifeFacts() {
+		// TODO Auto-generated method stub
+		if(wildLifeFactsArray == null && mFallback != null)
+			wildLifeFactsArray = mFallback.getAllWildLifeFacts();
+		return wildLifeFactsArray;
 	}
 
 }
