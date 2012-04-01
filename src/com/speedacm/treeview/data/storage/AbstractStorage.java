@@ -19,4 +19,5 @@ public abstract class AbstractStorage
 	public abstract Tree getTree(int id);
 	public abstract Building[] getAllBuildings();
 	public abstract Species[] getAllSpecies();
+	public abstract Species getSpecies(int id);
 }

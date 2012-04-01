@@ -65,6 +65,13 @@ public class NetStorage extends AbstractStorage
 		return mParser.parseSpeciesResponse(json);
 	}
 	
+	@Override
+	public Species getSpecies(int id)
+	{
+		// TODO maybe implement specific retrieval of species
+		return null;
+	}
+	
 	private String getHTTPResponse(String url)
 	{
 		try

@@ -1,7 +1,6 @@
 package com.speedacm.treeview.mapmodes;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import android.app.Dialog;
@@ -20,6 +19,7 @@ import com.google.android.maps.Projection;
 import com.speedacm.treeview.R;
 import com.speedacm.treeview.data.DSResultListener;
 import com.speedacm.treeview.data.DataStore;
+import com.speedacm.treeview.filters.Filter;
 import com.speedacm.treeview.helpers.GeoMath;
 import com.speedacm.treeview.helpers.HTMLBuilder;
 import com.speedacm.treeview.mapitems.MultiTreeItem;
@@ -45,6 +45,9 @@ public class TreeMode extends MapMode
 	private SubMenu mSpeciesMenu;
 	private Species[] mSpeciesList;
 	private boolean mSpeciesInit = false;
+	
+	private Filter mFilter;
+	private boolean mSelectingSpeciesFilter = false;
 	
 	// listener for loading the initial species
 	private DSResultListener<Species[]> mSpeciesLoadListener =
@@ -291,8 +294,45 @@ public class TreeMode extends MapMode
 		return true;
 	}
 	
+	private void showText(String text)
+	{
+		Toast.makeText(mParent, text, Toast.LENGTH_SHORT).show();
+	}
+	
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
+		int id = item.getItemId();
+		switch(id)
+		{
+		case R.id.mapm_filtertrees:
+			break;
+			
+		case R.id.mapm_treetypes:
+			// next button press will be a species unless
+			// canceled, then the " = false" assignment
+			// will be caught by anything that doesn't
+			// explicitly return from the function
+			mSelectingSpeciesFilter = true;
+			return true;
+			
+		default:
+			if(mSelectingSpeciesFilter)
+			{
+				showText("Selecting tree species: " + Integer.toString(id));
+			}
+			else
+			{
+				showText("Unknown item ID: " + Integer.toString(id));
+			}
+			break;
+		}
+		
+		mSelectingSpeciesFilter = false;
 		return true;
+	}
+	
+	private void updateFilter()
+	{
+		
 	}
 }

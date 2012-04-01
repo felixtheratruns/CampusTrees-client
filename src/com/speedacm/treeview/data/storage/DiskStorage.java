@@ -56,5 +56,13 @@ public class DiskStorage extends AbstractStorage
 			return mFallback.getAllSpecies();
 		return null;
 	}
+	
+	@Override
+	public Species getSpecies(int id)
+	{
+		if(mFallback != null)
+			return mFallback.getSpecies(id);
+		return null;
+	}
 
 }

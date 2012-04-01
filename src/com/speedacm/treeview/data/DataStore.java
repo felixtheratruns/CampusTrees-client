@@ -100,6 +100,20 @@ public class DataStore
 		return putTask(newRequestID, task);
 	}
 	
+	public int beginGetSpecies(final int id, final DSResultListener<Species> listener)
+	{
+		final int newRequestID = mNextRequestID++;
+		
+		DSTask<Species> task = new DSTask<Species>(listener, newRequestID) {
+			@Override
+			protected Species doInBackground(Void... params) {
+				return getSpecies(id);
+			}
+		};
+		
+		return putTask(newRequestID, task);
+	}
+	
 	/*
 	 * Synchronous Functions
 	 */
@@ -125,6 +139,11 @@ public class DataStore
 	public Species[] getAllSpecies()
 	{
 		return mStorage.getAllSpecies();
+	}
+	
+	public Species getSpecies(int id)
+	{
+		return mStorage.getSpecies(id);
 	}
 	
 	/*

@@ -1,6 +1,7 @@
 package com.speedacm.treeview.models;
 
 import com.google.android.maps.GeoPoint;
+import com.speedacm.treeview.data.DataStore;
 
 public class Tree
 {
@@ -10,7 +11,6 @@ public class Tree
 	private float mDBH;
 	private float mHeight;
 	
-	//private Species mSpecies;
 	private GeoPoint mLatLong;
 	
 	public Tree(int id, int sid, GeoPoint point, float dbh, float height)
@@ -28,4 +28,10 @@ public class Tree
 	public float getDBH() { return mDBH; }
 	public float getHeight() { return mHeight; }
 	public void setLocation(GeoPoint latLong) { mLatLong = latLong; }
+	
+	public Species getSpecies()
+	{
+		// call the synchronous function
+		return DataStore.getInstance().getSpecies(mSID);
+	}
 }

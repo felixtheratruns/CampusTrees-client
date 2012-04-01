@@ -15,6 +15,7 @@ public class MemStorage extends AbstractStorage
 	private Species[] mSpeciesArray;
 	private HashMap<Integer, Zone> mZones;
 	private HashMap<Integer, Tree> mTrees;
+	private HashMap<Integer, Species> mSpecies;
 
 	public MemStorage(AbstractStorage fallback)
 	{
@@ -88,9 +89,24 @@ public class MemStorage extends AbstractStorage
 	public Species[] getAllSpecies()
 	{
 		if(mSpeciesArray == null && mFallback != null)
+		{
 			mSpeciesArray = mFallback.getAllSpecies();
+			mSpecies = new HashMap<Integer, Species>();
+			
+			for(Species s : mSpeciesArray)
+				mSpecies.put(s.getID(), s);
+		}
 		
 		return mSpeciesArray;
+	}
+	
+	@Override
+	public Species getSpecies(int id)
+	{
+		if(mSpecies == null)
+			getAllSpecies();
+		
+		return mSpecies.get(id);
 	}
 
 }
