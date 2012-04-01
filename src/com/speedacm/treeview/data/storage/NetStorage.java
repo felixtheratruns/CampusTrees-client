@@ -25,6 +25,7 @@ public class NetStorage extends AbstractStorage
 	private HttpClient mClient;
 	private DataParser mParser;
 
+
 	public NetStorage(AbstractStorage fallback)
 	{
 		super(fallback);
