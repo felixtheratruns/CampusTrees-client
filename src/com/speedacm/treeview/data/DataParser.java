@@ -107,16 +107,16 @@ public class DataParser
 		
 		ArrayList<News> News = new ArrayList<News>(rootNode.size());
 		
-		Iterator<JsonNode> pFactIter = rootNode.getElements();
-		Iterator<String> pFactNames = rootNode.getFieldNames();
-		while(pFactIter.hasNext() && pFactNames.hasNext())
+		Iterator<JsonNode> newsIter = rootNode.getElements();
+		Iterator<String> newsNames = rootNode.getFieldNames();
+		while(newsIter.hasNext() && newsNames.hasNext())
 		{			
-			JsonNode pFactNode = pFactIter.next();
-			String pFactName = pFactNames.next();
+			JsonNode newsNode = newsIter.next();
+			String newsName = newsNames.next();
 			try
 			{	
-				String title = pFactName;
-				String body = pFactNode.toString();
+				String title = newsName;
+				String body = newsNode.toString();
 				News.add(new News(title, body));
 			}
 			catch(Exception e)

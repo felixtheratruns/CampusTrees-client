@@ -32,8 +32,6 @@ public class PlantFactsActivity extends Activity implements DSResultListener<Pla
 	}
 	
     // bind to our menu items
-
-
 	@Override
 	public void onDSResultReceived(int requestID, PlantFact[] payload) {
 		

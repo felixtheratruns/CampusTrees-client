@@ -106,13 +106,13 @@ public class NetStorage extends AbstractStorage
 	
 	@Override
 	public News[] getAllNews() {
-		String json = getHTTPResponse(baseURL + "?news=1");
+		String json = getHTTPResponse(baseURL + "?pFacts=1");
 		return mParser.parseAllNewsResponse(json);
 	}
 	
 	@Override
 	public WildLifeFact[] getAllWildLifeFacts() {
-		String json = getHTTPResponse(baseURL + "?wildlifefacts=1");
+		String json = getHTTPResponse(baseURL + "?pFacts=1");
 		return mParser.parseAllWildLifeFactsResponse(json);
 	}
 	
