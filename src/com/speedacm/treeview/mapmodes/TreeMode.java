@@ -20,11 +20,17 @@ import com.speedacm.treeview.R;
 import com.speedacm.treeview.data.DSResultListener;
 import com.speedacm.treeview.data.DataStore;
 import com.speedacm.treeview.filters.Filter;
+import com.speedacm.treeview.filters.HistoricalFilter;
+import com.speedacm.treeview.filters.NativeFilter;
+import com.speedacm.treeview.filters.SeasonalFilter;
+import com.speedacm.treeview.filters.SeasonalFilter.SeasonalType;
+import com.speedacm.treeview.filters.SpeciesFilter;
 import com.speedacm.treeview.helpers.GeoMath;
 import com.speedacm.treeview.helpers.HTMLBuilder;
 import com.speedacm.treeview.mapitems.MultiTreeItem;
 import com.speedacm.treeview.mapitems.ZoneItem;
 import com.speedacm.treeview.models.Species;
+import com.speedacm.treeview.models.Species.NativeType;
 import com.speedacm.treeview.models.Tree;
 import com.speedacm.treeview.models.Zone;
 import com.speedacm.treeview.views.DynamicMapActivity;
@@ -98,7 +104,10 @@ public class TreeMode extends MapMode
 				mParent.setBusyIndicator(false);
 				mCurrentFetchID = DataStore.NO_REQUEST;
 				if(payload.isFetched())
+				{
 					mActiveTrees = getTreesFromZone(payload);
+					mActiveTrees.updateFilter(mFilter);
+				}
 				else
 				{
 					mActiveZone = null;
@@ -213,6 +222,7 @@ public class TreeMode extends MapMode
 				if(z.isFetched())
 				{
 					mActiveTrees = getTreesFromZone(z);
+					mActiveTrees.updateFilter(mFilter);
 				}
 				else
 				{
@@ -315,10 +325,47 @@ public class TreeMode extends MapMode
 			mSelectingSpeciesFilter = true;
 			return true;
 			
+		case R.id.mapmf_none:
+			updateFilter(null);
+			break;
+			
+		case R.id.mapmf_flowering:
+			updateFilter(new SeasonalFilter(SeasonalType.Flowering));
+			break;
+			
+		case R.id.mapmf_fruiting:
+			updateFilter(new SeasonalFilter(SeasonalType.Fruiting));
+			break;
+			
+		case R.id.mapmf_nativeky:
+			updateFilter(new NativeFilter(NativeType.KY));
+			break;
+			
+		case R.id.mapmf_nativeus:
+			updateFilter(new NativeFilter(NativeType.US));
+			break;
+			
+		case R.id.mapmf_nonnative:
+			updateFilter(new NativeFilter(NativeType.None));
+			break;
+			
+		case R.id.mapmf_historical:
+			updateFilter(new HistoricalFilter());
+			break;
+			
 		default:
 			if(mSelectingSpeciesFilter)
 			{
-				showText("Selecting tree species: " + Integer.toString(id));
+				// switch tree species
+				Species targetSpecies = DataStore.getInstance().getSpecies(id);
+				if(targetSpecies == null)
+				{
+					showText("Error filtering by species.");
+				}
+				else
+				{
+					updateFilter(new SpeciesFilter(targetSpecies));
+				}
 			}
 			else
 			{
@@ -331,8 +378,10 @@ public class TreeMode extends MapMode
 		return true;
 	}
 	
-	private void updateFilter()
+	private void updateFilter(Filter f)
 	{
-		
+		mFilter = f;
+		mActiveTrees.updateFilter(mFilter);
+		mParent.invalidateMap();
 	}
 }

@@ -10,7 +10,7 @@ public class NativeFilter extends Filter
 	
 	public NativeFilter(NativeType type)
 	{
-		type = mNative;
+		mNative = type;
 	}
 	
 	@Override
@@ -21,9 +21,9 @@ public class NativeFilter extends Filter
 		case None:
 			return (mNative == NativeType.None);
 		case KY:
-			return (mNative == NativeType.KY);
-		case US:
 			return (mNative == NativeType.KY || mNative == NativeType.US);
+		case US:
+			return (mNative == NativeType.US);
 		default:
 			return false;
 		}
