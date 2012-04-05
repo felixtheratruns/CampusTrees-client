@@ -81,9 +81,15 @@ public class TreeMode extends MapMode
 			
 			@Override
 			public void onDSResultReceived(int requestID, Zone[] payload) {
-				Toast.makeText(mParent, "Zones Loaded", Toast.LENGTH_SHORT).show();
 				mParent.setBusyIndicator(false);
 				mCurrentFetchID = DataStore.NO_REQUEST;
+				
+				if(payload == null)
+				{
+					// something went wrong loading the zones
+					showText("Error loading zones, check connection.");
+					return;
+				}
 				
 				for(Zone z : payload)
 					mZoneItems.add(new ZoneItem(z));
@@ -322,8 +328,16 @@ public class TreeMode extends MapMode
 			// canceled, then the " = false" assignment
 			// will be caught by anything that doesn't
 			// explicitly return from the function
-			mSelectingSpeciesFilter = true;
-			return true;
+			if(!mSpeciesInit)
+			{
+				showText("Error loading species list. Check connection.");
+				return false;
+			}
+			else
+			{
+				mSelectingSpeciesFilter = true;
+				return true;
+			}
 			
 		case R.id.mapmf_none:
 			updateFilter(null);
@@ -381,7 +395,8 @@ public class TreeMode extends MapMode
 	private void updateFilter(Filter f)
 	{
 		mFilter = f;
-		mActiveTrees.updateFilter(mFilter);
+		if(mActiveTrees != null)
+			mActiveTrees.updateFilter(mFilter);
 		mParent.invalidateMap();
 	}
 }

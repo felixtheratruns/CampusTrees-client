@@ -31,6 +31,9 @@ public class MemStorage extends AbstractStorage
 		if(mZoneArray == null && mFallback != null)
 			mZoneArray = mFallback.getAllZones();
 		
+		if(mZoneArray == null)
+			return;
+		
 		// build a map of it
 		for(Zone z : mZoneArray)
 			mZones.put(z.getID(), z);
@@ -92,6 +95,9 @@ public class MemStorage extends AbstractStorage
 		{
 			mSpeciesArray = mFallback.getAllSpecies();
 			mSpecies = new HashMap<Integer, Species>();
+			
+			if(mSpeciesArray == null)
+				return null;
 			
 			for(Species s : mSpeciesArray)
 				mSpecies.put(s.getID(), s);
