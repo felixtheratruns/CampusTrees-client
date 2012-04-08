@@ -144,7 +144,6 @@ public class DynamicMapActivity extends MapActivity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
-		// TODO: tie this into the MapMode with dynamic menus
 		switch(item.getItemId())
 		{
 			case R.id.mapm_resetview:

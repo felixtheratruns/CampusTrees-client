@@ -357,6 +357,7 @@ public class TreeMode extends MapMode
 			break;
 			
 		case R.id.mapmf_historical:
+			showText("Historical filter not yet implemented.");
 			updateFilter(new HistoricalFilter());
 			break;
 			

@@ -1,6 +1,8 @@
 package com.speedacm.treeview.data.storage;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.speedacm.treeview.models.Building;
 import com.speedacm.treeview.models.Species;
@@ -16,6 +18,9 @@ public class MemStorage extends AbstractStorage
 	private HashMap<Integer, Zone> mZones;
 	private HashMap<Integer, Tree> mTrees;
 	private HashMap<Integer, Species> mSpecies;
+	
+	private Map<Integer, List<Integer>> mFruitMonths;
+	private Map<Integer, List<Integer>> mFlowerMonths;
 
 	public MemStorage(AbstractStorage fallback)
 	{
@@ -23,6 +28,8 @@ public class MemStorage extends AbstractStorage
 		//mBuildings = new HashMap<Integer, Building>();
 		mZones = new HashMap<Integer, Zone>();
 		mTrees = new HashMap<Integer, Tree>();
+		mFruitMonths = new HashMap<Integer, List<Integer>>();
+		mFlowerMonths = new HashMap<Integer, List<Integer>>();
 	}
 	
 	private void fetchAndBuildZones()
@@ -117,6 +124,22 @@ public class MemStorage extends AbstractStorage
 			getAllSpecies();
 		
 		return mSpecies.get(id);
+	}
+
+	@Override
+	public List<Integer> getFloweringSpecies(int month) {
+		if(!mFlowerMonths.containsKey(month) && mFallback != null)
+			mFlowerMonths.put(month, mFallback.getFloweringSpecies(month));
+		
+		return mFlowerMonths.get(month);
+	}
+
+	@Override
+	public List<Integer> getFruitingSpecies(int month) {
+		if(!mFruitMonths.containsKey(month) && mFallback != null)
+			mFruitMonths.put(month, mFallback.getFruitingSpecies(month));
+		
+		return mFruitMonths.get(month);
 	}
 
 }

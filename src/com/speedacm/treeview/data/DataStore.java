@@ -1,6 +1,7 @@
 package com.speedacm.treeview.data;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import android.os.AsyncTask;
@@ -129,6 +130,34 @@ public class DataStore
 		return putTask(newRequestID, task);
 	}
 	
+	public int beginGetFloweringSpecies(final int month, final DSResultListener<List<Integer>> listener)
+	{
+		final int newRequestID = mNextRequestID++;
+		
+		DSTask<List<Integer>> task = new DSTask<List<Integer>>(listener, newRequestID) {
+			@Override
+			protected List<Integer> doInBackground(Void... params) {
+				return getFloweringSpecies(month);
+			}
+		};
+		
+		return putTask(newRequestID, task);
+	}
+	
+	public int beginGetFruitingSpecies(final int month, final DSResultListener<List<Integer>> listener)
+	{
+		final int newRequestID = mNextRequestID++;
+		
+		DSTask<List<Integer>> task = new DSTask<List<Integer>>(listener, newRequestID) {
+			@Override
+			protected List<Integer> doInBackground(Void... params) {
+				return getFruitingSpecies(month);
+			}
+		};
+		
+		return putTask(newRequestID, task);
+	}
+	
 	/*
 	 * Synchronous Functions
 	 */
@@ -164,6 +193,16 @@ public class DataStore
 	public Tree getTree(int id)
 	{
 		return mStorage.getTree(id);
+	}
+
+	public List<Integer> getFloweringSpecies(int month)
+	{
+		return mStorage.getFloweringSpecies(month);
+	}
+	
+	public List<Integer> getFruitingSpecies(int month)
+	{
+		return mStorage.getFruitingSpecies(month);
 	}
 	
 	/*

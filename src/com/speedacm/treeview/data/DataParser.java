@@ -2,6 +2,7 @@ package com.speedacm.treeview.data;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParser;
@@ -186,10 +187,29 @@ public class DataParser
 			else
 				nat = NativeType.None;
 			
-			// TODO: extra fields from JSON data
 			specs.add(new Species(sid, cname, fruittype, edible, nat, count));
 		}
 		
 		return specs.toArray(new Species[specs.size()]);
+	}
+
+	public List<Integer> parseSeasonListResponse(String json)
+	{
+		JsonNode rootNode = mapNode(json);
+		if(rootNode == null) return null;
+		
+		ArrayList<Integer> ret = new ArrayList<Integer>(rootNode.size());
+		
+		Iterator<JsonNode> specIter = rootNode.getElements();
+		while(specIter.hasNext())
+		{
+			JsonNode specNode = specIter.next();
+			
+			int sID = specNode.path("sid").asInt(-1);
+			if(sID != -1)
+				ret.add(sID);
+		}
+		
+		return ret;
 	}
 }

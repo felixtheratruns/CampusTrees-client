@@ -3,6 +3,7 @@ package com.speedacm.treeview.data.storage;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -27,7 +28,6 @@ public class NetStorage extends AbstractStorage
 		super(fallback);
 		mClient = new DefaultHttpClient();
 		mParser = new DataParser();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -72,6 +72,20 @@ public class NetStorage extends AbstractStorage
 		return null;
 	}
 	
+	@Override
+	public List<Integer> getFloweringSpecies(int month)
+	{
+		String json = getHTTPResponse(baseURL + "?flowerMonth=" + Integer.toString(month));
+		return mParser.parseSeasonListResponse(json);
+	}
+
+	@Override
+	public List<Integer> getFruitingSpecies(int month)
+	{
+		String json = getHTTPResponse(baseURL + "?fruitMonth=" + Integer.toString(month));
+		return mParser.parseSeasonListResponse(json);
+	}
+	
 	private String getHTTPResponse(String url)
 	{
 		try
@@ -99,5 +113,4 @@ public class NetStorage extends AbstractStorage
 			return null;
 		}
 	}
-
 }
