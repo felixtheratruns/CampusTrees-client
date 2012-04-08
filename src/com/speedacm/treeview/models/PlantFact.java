@@ -26,6 +26,14 @@ public class PlantFact {
 		return title + ":\n"  + body;
 	}
 	
+	public String getBody(){
+		return body;
+	}
+	
+	public String getTitle(){
+		return title;
+	}
+	
 	public GeoPoint getLocation() { return latLong; }
 	
 	

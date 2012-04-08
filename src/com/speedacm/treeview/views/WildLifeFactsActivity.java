@@ -33,8 +33,12 @@ public class WildLifeFactsActivity extends Activity implements DSResultListener<
 		for(WildLifeFact p : payload){
 			menuEntries.add(p);
 		}
-	    ListView mmenu = (ListView)findViewById(R.id.wildLifeFactsList);
-	    mmenu.setAdapter(new ArrayAdapter<WildLifeFact>(this, android.R.layout.simple_list_item_1, menuEntries));
-
+	    WildLifeFactsArrayAdapter adapter = new WildLifeFactsArrayAdapter(
+				getApplicationContext(), R.layout.wildlifefacts_row, menuEntries);
+	    
+		ListView lv = (ListView) this.findViewById(R.id.wildLifeFactsList);
+		
+		// Set the ListView adapter
+		lv.setAdapter(adapter);
 	}
 }

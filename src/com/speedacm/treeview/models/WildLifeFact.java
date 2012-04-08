@@ -14,6 +14,14 @@ public class WildLifeFact {
 		body = pBody;
 	}
 	
+	public String getBody(){
+		return body;
+	}
+	
+	public String getTitle(){
+		return title;
+	}
+	
 	public String toString()
 	{
 		return title + ":\n"  + body;

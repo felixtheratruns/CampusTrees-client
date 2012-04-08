@@ -49,7 +49,7 @@ public class NewsArrayAdapter extends ArrayAdapter<News>{
 		}
 
 		// Get item
-		News News = getItem(position);
+		News news = getItem(position);
 		
 		// get references to subviews
 		newsTitle= (TextView) row.findViewById(R.id.toptext);
@@ -57,8 +57,8 @@ public class NewsArrayAdapter extends ArrayAdapter<News>{
 		//Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), News.getDrawable());
 		
 		// set up final values
-		newsTitle.setText(News.getTitle());
-		newsBody.setText(News.getBody());
+		newsTitle.setText(news.getTitle());
+		newsBody.setText(news.getBody());
 
 		return row;
 	}

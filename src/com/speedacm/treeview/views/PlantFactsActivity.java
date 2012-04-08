@@ -38,9 +38,13 @@ public class PlantFactsActivity extends Activity implements DSResultListener<Pla
 		for(PlantFact p : payload){
 			menuEntries.add(p);
 		}
-	    ListView mmenu = (ListView)findViewById(R.id.plantFactsList);
-	    mmenu.setAdapter(new ArrayAdapter<PlantFact>(this, android.R.layout.simple_list_item_1, menuEntries));
-
+	    PlantFactsArrayAdapter adapter = new PlantFactsArrayAdapter(
+				getApplicationContext(), R.layout.plantfacts_row, menuEntries);
+	    
+		ListView lv = (ListView) this.findViewById(R.id.plantFactsList);
+		
+		// Set the ListView adapter
+		lv.setAdapter(adapter);
 	}
 
 }
