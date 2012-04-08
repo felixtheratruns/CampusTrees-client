@@ -5,6 +5,7 @@
             <item android:id="@+id/mapmf_none" android:title="No Filter" />
             <item android:id="@+id/mapmf_flowering" android:title="Flowering Trees"/>
             <item android:id="@+id/mapmf_fruiting" android:title="Fruiting Trees"/>
+            <item android:id="@+id/mapmf_edible" android:title="Edible Fruit"/>
             <item android:id="@+id/mapmf_nativeky" android:title="Native Trees (KY)" />
             <item android:id="@+id/mapmf_nativeus" android:title="Native Trees (US)"/>
             <item android:id="@+id/mapmf_nonnative" android:title="Non-native Trees"/>
