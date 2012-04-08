@@ -14,18 +14,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.speedacm.treeview.menu.MenuEntry;
+import com.speedacm.treeview.menu.MenuItem;
 
 
-public class MenuItemArrayAdapter extends ArrayAdapter<MenuEntry> {
+public class MenuItemArrayAdapter extends ArrayAdapter<MenuItem> {
 	private static final String tag = "MenuItemArrayAdapter";
 	private Context context;
 	private ImageView menuitemIcon;
 	private TextView menuitemName;
-	private List<MenuEntry> menuitems = new ArrayList<MenuEntry>();
+	private List<MenuItem> menuitems = new ArrayList<MenuItem>();
 
 	public MenuItemArrayAdapter(Context context, int textViewResourceId,
-			List<MenuEntry> objects) {
+			List<MenuItem> objects) {
 		super(context, textViewResourceId, objects);
 		this.context = context;
 		this.menuitems = objects;
@@ -35,7 +35,7 @@ public class MenuItemArrayAdapter extends ArrayAdapter<MenuEntry> {
 		return this.menuitems.size();
 	}
 
-	public MenuEntry getItem(int index) {
+	public MenuItem getItem(int index) {
 		return this.menuitems.get(index);
 	}
 
@@ -51,7 +51,7 @@ public class MenuItemArrayAdapter extends ArrayAdapter<MenuEntry> {
 		}
 
 		// Get item
-		MenuEntry menuitem = getItem(position);
+		MenuItem menuitem = getItem(position);
 		
 		// get references to subviews
 		menuitemIcon = (ImageView) row.findViewById(R.id.menuitem_icon);

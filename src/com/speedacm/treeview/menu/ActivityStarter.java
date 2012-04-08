@@ -21,7 +21,7 @@ public class ActivityStarter implements MenuActionListener
 	}
 	
 	@Override
-	public void onMenuAction(MenuEntry item)
+	public void onMenuAction(MenuItem item)
 	{
 		Intent switchAct = new Intent(mOldActivity, mClass);
 		mOldActivity.startActivity(switchAct);

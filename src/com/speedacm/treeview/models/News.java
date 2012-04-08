@@ -17,6 +17,15 @@ public class News {
 		return title + ":\n"  + body;
 	}
 
+	public String getTitle()
+	{
+		return title;
+	}
+	
+	public String getBody()
+	{
+		return body;
+	}
 	
 	
 }

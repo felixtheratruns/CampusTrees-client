@@ -2,6 +2,7 @@ package com.speedacm.treeview.views;
 
 import java.util.ArrayList;
 
+import com.speedacm.treeview.MenuItemArrayAdapter;
 import com.speedacm.treeview.R;
 import com.speedacm.treeview.data.DSResultListener;
 import com.speedacm.treeview.data.DataStore;
@@ -36,9 +37,22 @@ public class NewsActivity extends Activity implements DSResultListener<News[]>{
 		for(News p : payload){
 			menuEntries.add(p);
 		}
-	    ListView mmenu = (ListView)findViewById(R.id.newsList);
-	    mmenu.setAdapter(new ArrayAdapter<News>(this, android.R.layout.simple_list_item_1, menuEntries));
+		
+		
+	    NewsArrayAdapter adapter = new NewsArrayAdapter(
+				getApplicationContext(), R.layout.news_row, menuEntries);
+	//    ListView mmenu = (ListView)findViewById(R.id.newsbox);
+	    
+		ListView lv = (ListView) this.findViewById(R.id.newsList);
+		
+		// Set the ListView adapter
+		lv.setAdapter(adapter);
+	    
+//	    mmenu.setAdapter(new ArrayAdapter<News>(this, android.R.layout.simple_list_item_1, menuEntries));
 
+
+	    
+	    
 	}
 
 	
