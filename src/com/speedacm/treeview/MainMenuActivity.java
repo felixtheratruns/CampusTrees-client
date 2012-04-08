@@ -29,7 +29,7 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.listview);
+        setContentView(R.layout.mainmenu);
         
  		//I think this function adds menuItems... not completely sure though
         addMenuItems();
