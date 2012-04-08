@@ -11,7 +11,10 @@ import com.speedacm.treeview.data.storage.DiskStorage;
 import com.speedacm.treeview.data.storage.MemStorage;
 import com.speedacm.treeview.data.storage.NetStorage;
 import com.speedacm.treeview.models.Building;
+import com.speedacm.treeview.models.News;
+import com.speedacm.treeview.models.PlantFact;
 import com.speedacm.treeview.models.Species;
+import com.speedacm.treeview.models.WildLifeFact;
 import com.speedacm.treeview.models.Zone;
 
 public class DataStore
@@ -42,6 +45,47 @@ public class DataStore
 	/*
 	 * Asynchronous Functions
 	 */
+	public int beginGetAllPlantFacts(final DSResultListener<PlantFact[]> listener)
+	{
+		final int newRequestID = mNextRequestID++;
+		
+		DSTask<PlantFact[]> task = new DSTask<PlantFact[]>(listener, newRequestID) {
+			@Override
+			protected PlantFact[] doInBackground(Void... params) {
+				return getAllPlantFacts();
+			}
+		};
+		
+		return putTask(newRequestID, task);
+	}
+	
+	public int beginGetAllNews(final DSResultListener<News[]> listener)
+	{
+		final int newRequestID = mNextRequestID++;
+		
+		DSTask<News[]> task = new DSTask<News[]>(listener, newRequestID) {
+			@Override
+			protected News[] doInBackground(Void... params) {
+				return getAllNews();
+			}
+		};
+		
+		return putTask(newRequestID, task);
+	}
+	
+	public int beginGetAllWildLifeFacts(final DSResultListener<WildLifeFact[]> listener)
+	{
+		final int newRequestID = mNextRequestID++;
+		
+		DSTask<WildLifeFact[]> task = new DSTask<WildLifeFact[]>(listener, newRequestID) {
+			@Override
+			protected WildLifeFact[] doInBackground(Void... params) {
+				return getAllWildLifeFacts();
+			}
+		};
+		
+		return putTask(newRequestID, task);
+	}
 	
 	public int beginGetAllZones(final DSResultListener<Zone[]> listener)
 	{
@@ -103,6 +147,20 @@ public class DataStore
 	/*
 	 * Synchronous Functions
 	 */
+	public PlantFact[] getAllPlantFacts()
+	{	
+		return mStorage.getAllPlantFacts();
+	}
+	
+	public WildLifeFact[] getAllWildLifeFacts()
+	{	
+		return mStorage.getAllWildLifeFacts();
+	}
+	
+	public News[] getAllNews()
+	{	
+		return mStorage.getAllNews();
+	}
 	
 	public Zone[] getAllZones()
 	{	

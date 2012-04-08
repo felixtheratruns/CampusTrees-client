@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="mmenu_assets_dir">images/</string>
-	<string name="mmenu_file_ext">.png</string>
     <string name="app_name">UofL Trees</string>
     <string name="mmenu_news">News</string>
     <string name="mmenu_treemap">Browse Tree Map</string>
@@ -24,5 +22,6 @@
     <string name="mapmenu_filtertrees">Filter Trees</string>
     <string name="treemap_label">Tree Map</string>
     <string name="sustmap_label">Sustainability Map</string>
+    <string name="no_items">Sorry, nothing here.</string>
 
 </resources>

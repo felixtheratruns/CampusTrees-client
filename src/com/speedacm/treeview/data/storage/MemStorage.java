@@ -3,14 +3,20 @@ package com.speedacm.treeview.data.storage;
 import java.util.HashMap;
 
 import com.speedacm.treeview.models.Building;
+import com.speedacm.treeview.models.News;
+import com.speedacm.treeview.models.PlantFact;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Tree;
+import com.speedacm.treeview.models.WildLifeFact;
 import com.speedacm.treeview.models.Zone;
 
 public class MemStorage extends AbstractStorage
 {
 	
-	//private HashMap<Integer, Building> mBuildings;
+	//private HashMap<Integer, Building> mBuildings;	
+	private WildLifeFact[] wildLifeFactsArray;
+	private News[] newsArray;
+	private PlantFact[] plantFactsArray;
 	private Zone[] mZoneArray;
 	private Species[] mSpeciesArray;
 	private HashMap<Integer, Zone> mZones;
@@ -91,6 +97,30 @@ public class MemStorage extends AbstractStorage
 			mSpeciesArray = mFallback.getAllSpecies();
 		
 		return mSpeciesArray;
+	}
+
+	@Override
+	public PlantFact[] getAllPlantFacts() {
+		// TODO Auto-generated method stub
+		if(plantFactsArray == null && mFallback != null)
+			plantFactsArray = mFallback.getAllPlantFacts();
+		return plantFactsArray;
+	}
+
+	@Override
+	public News[] getAllNews() {
+		// TODO Auto-generated method stub
+		if(newsArray == null && mFallback != null)
+			newsArray = mFallback.getAllNews();
+		return newsArray;
+	}
+	
+	@Override
+	public WildLifeFact[] getAllWildLifeFacts() {
+		// TODO Auto-generated method stub
+		if(wildLifeFactsArray == null && mFallback != null)
+			wildLifeFactsArray = mFallback.getAllWildLifeFacts();
+		return wildLifeFactsArray;
 	}
 
 }
