@@ -18,6 +18,7 @@ import com.google.android.maps.Projection;
 import com.speedacm.treeview.R;
 import com.speedacm.treeview.data.DSResultListener;
 import com.speedacm.treeview.data.DataStore;
+import com.speedacm.treeview.filters.EdibleFilter;
 import com.speedacm.treeview.filters.Filter;
 import com.speedacm.treeview.filters.HistoricalFilter;
 import com.speedacm.treeview.filters.NativeFilter;
@@ -185,6 +186,10 @@ public class TreeMode extends MapMode
 				Tree closestTree = null;
 				float closestDistance = Float.MAX_VALUE;
 				
+				// are we still loading a zone?
+				if(mActiveTrees == null)
+					return false;
+				
 				// process the trees, see if one is hit
 				for(Tree t : mActiveTrees)
 				{
@@ -333,6 +338,10 @@ public class TreeMode extends MapMode
 			
 		case R.id.mapmf_fruiting:
 			updateFilter(new SeasonalFilter(SeasonalType.Fruiting));
+			break;
+			
+		case R.id.mapmf_edible:
+			updateFilter(new EdibleFilter());
 			break;
 			
 		case R.id.mapmf_nativeky:

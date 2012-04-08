@@ -7,6 +7,8 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import android.widget.SimpleAdapter;
+
 import com.google.android.maps.GeoPoint;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Species.NativeType;
@@ -56,10 +58,13 @@ public class DataParser
 		int sid = treeNode.path("sid").asInt(-1);
 		double dbh = treeNode.path("dbh").asDouble(Double.NaN);
 		double height = treeNode.path("height").asDouble(Double.NaN);
+		double greenwt = treeNode.path("greenwt").asDouble(Double.NaN);
+		double drywt = treeNode.path("drywt").asDouble(Double.NaN);
+		double co2seq = treeNode.path("co2seqwt").asDouble(Double.NaN);
+		int age = treeNode.path("age").asInt();
 		
 		
-		if(id == -1 || lat == Double.NaN || lng == Double.NaN || sid == -1 ||
-		   dbh == Double.NaN || height == Double.NaN)
+		if(id == -1 || lat == Double.NaN || lng == Double.NaN || sid == -1)
 		{
 			return null;
 		}
@@ -67,7 +72,7 @@ public class DataParser
 		int latE6 = (int)(lat * 1E6);
 		int lngE6 = (int)(lng * 1E6);
 		
-		return new Tree(id, sid, new GeoPoint(latE6, lngE6), (float)dbh, (float)height);
+		return new Tree(id, sid, new GeoPoint(latE6, lngE6), (float)dbh, (float)height, (float)greenwt, (float)drywt, age, (float)co2seq);
 	}
 	
 	private ArrayList<GeoPoint> getPointsFromNode(JsonNode arrayNode)
@@ -161,8 +166,14 @@ public class DataParser
 			String cname = specNode.path("commonname").asText();
 			boolean nativeUS = specNode.path("american").asBoolean();
 			boolean nativeKY = specNode.path("ky").asBoolean();
-			//boolean nativeNo = specNode.path("nonnative").asBoolean(); // we don't need this
-			//String comments = specNode.path("comments").asText();
+			boolean edible = specNode.path("edible").asBoolean();
+			String fruittype = specNode.path("fruittype").asText();
+			int count = specNode.path("count").asInt(0);
+			
+			// capitalize first letter of fruit type
+			char[] ft = fruittype.toCharArray();
+			ft[0] = Character.toUpperCase(ft[0]);
+			fruittype = new String(ft);
 			
 			if(sid == -1) continue;
 			
@@ -175,7 +186,7 @@ public class DataParser
 				nat = NativeType.None;
 			
 			// TODO: extra fields from JSON data
-			specs.add(new Species(sid, cname, false, false, nat));
+			specs.add(new Species(sid, cname, fruittype, edible, nat, count));
 		}
 		
 		return specs.toArray(new Species[specs.size()]);
