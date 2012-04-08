@@ -1,0 +1,16 @@
+#######################################################################
+## This document details what needs to be put in the "About" dialog  ##
+#######################################################################
+
+The Uofl Trees application was originally developed for Android as
+a Computer Engineering Capstone Design project in Spring 2012, for
+the University of Louisville's Urban Wildlife Research Lab.
+
+The idea for the app was provided by Dr. Tommy Parker, who heads up
+the UWRL.
+
+This app uses the following third-party components:
+
+	cwac-sacklist ( http://github.com/commonsguy/cwac-sacklist )
+	cwac-merge    ( http://github.com/commonsguy/cwac-merge )
+	Jackson JSON  ( http://jackson.codehaus.org )
