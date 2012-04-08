@@ -7,8 +7,6 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.ObjectMapper;
 
-import android.widget.SimpleAdapter;
-
 import com.google.android.maps.GeoPoint;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Species.NativeType;
@@ -60,7 +58,8 @@ public class DataParser
 		double height = treeNode.path("height").asDouble(Double.NaN);
 		double greenwt = treeNode.path("greenwt").asDouble(Double.NaN);
 		double drywt = treeNode.path("drywt").asDouble(Double.NaN);
-		double co2seq = treeNode.path("co2seqwt").asDouble(Double.NaN);
+		double co2seqtot = treeNode.path("co2seqwt").asDouble(Double.NaN);
+		double co2seqyr = treeNode.path("co2pyear").asDouble(Double.NaN);
 		int age = treeNode.path("age").asInt();
 		
 		
@@ -72,7 +71,9 @@ public class DataParser
 		int latE6 = (int)(lat * 1E6);
 		int lngE6 = (int)(lng * 1E6);
 		
-		return new Tree(id, sid, new GeoPoint(latE6, lngE6), (float)dbh, (float)height, (float)greenwt, (float)drywt, age, (float)co2seq);
+		return new Tree(
+				id, sid, new GeoPoint(latE6, lngE6), (float)dbh, (float)height,
+				(float)greenwt, (float)drywt, age, (float)co2seqtot, (float)co2seqyr);
 	}
 	
 	private ArrayList<GeoPoint> getPointsFromNode(JsonNode arrayNode)

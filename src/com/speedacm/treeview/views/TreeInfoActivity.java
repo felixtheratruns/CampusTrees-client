@@ -1,13 +1,11 @@
 package com.speedacm.treeview.views;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -103,10 +101,10 @@ public class TreeInfoActivity extends Activity
 		
 		stats.add(buildFactoid("Latitude", mTree.getLocation().getLatitudeE6() / 1E6f));
 		stats.add(buildFactoid("Longitude", mTree.getLocation().getLongitudeE6() / 1E6f));
-		stats.add(buildFactoid("Height (ft)", mTree.getHeight()));
-		stats.add(buildFactoid("Diam. at Breast Height (ft)", mTree.getDBH()));
-		stats.add(buildFactoid("Green Weight (tons)", mTree.getGreenWeight()));
-		stats.add(buildFactoid("Dry Weight (tons)", mTree.getDryWeight()));
+		stats.add(buildFactoid("Height (??)", mTree.getHeight()));
+		stats.add(buildFactoid("Diam. at Breast Height (??)", mTree.getDBH()));
+		stats.add(buildFactoid("Green Weight (??)", mTree.getGreenWeight()));
+		stats.add(buildFactoid("Dry Weight (??)", mTree.getDryWeight()));
 		stats.add(buildFactoid("Age (yrs)", mTree.getAge()));
 		
 		return makeFactAdapter(stats);
@@ -116,7 +114,8 @@ public class TreeInfoActivity extends Activity
 	{
 		ArrayList<HashMap<String,String>> stats = new ArrayList<HashMap<String,String>>();
 		
-		stats.add(buildFactoid("CO2 Sequestered", mTree.getCO2Seq()));
+		stats.add(buildFactoid("CO2 Sequestered Total (??)", mTree.getCO2SeqTotal()));
+		stats.add(buildFactoid("CO2 Sequestered /yr (??)", mTree.getCO2SeqPerYr()));
 		
 		return makeFactAdapter(stats);
 	}
