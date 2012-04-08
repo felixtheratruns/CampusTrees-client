@@ -12,6 +12,7 @@ import com.speedacm.treeview.data.storage.MemStorage;
 import com.speedacm.treeview.data.storage.NetStorage;
 import com.speedacm.treeview.models.Building;
 import com.speedacm.treeview.models.Species;
+import com.speedacm.treeview.models.Tree;
 import com.speedacm.treeview.models.Zone;
 
 public class DataStore
@@ -114,6 +115,20 @@ public class DataStore
 		return putTask(newRequestID, task);
 	}
 	
+	public int beginGetTree(final int id, final DSResultListener<Tree> listener)
+	{
+		final int newRequestID = mNextRequestID++;
+		
+		DSTask<Tree> task = new DSTask<Tree>(listener, newRequestID) {
+			@Override
+			protected Tree doInBackground(Void... params) {
+				return getTree(id);
+			}
+		};
+		
+		return putTask(newRequestID, task);
+	}
+	
 	/*
 	 * Synchronous Functions
 	 */
@@ -144,6 +159,11 @@ public class DataStore
 	public Species getSpecies(int id)
 	{
 		return mStorage.getSpecies(id);
+	}
+	
+	public Tree getTree(int id)
+	{
+		return mStorage.getTree(id);
 	}
 	
 	/*

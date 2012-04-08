@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Point;
-import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
@@ -26,7 +25,6 @@ import com.speedacm.treeview.filters.SeasonalFilter;
 import com.speedacm.treeview.filters.SeasonalFilter.SeasonalType;
 import com.speedacm.treeview.filters.SpeciesFilter;
 import com.speedacm.treeview.helpers.GeoMath;
-import com.speedacm.treeview.helpers.HTMLBuilder;
 import com.speedacm.treeview.mapitems.MultiTreeItem;
 import com.speedacm.treeview.mapitems.ZoneItem;
 import com.speedacm.treeview.models.Species;
@@ -34,6 +32,7 @@ import com.speedacm.treeview.models.Species.NativeType;
 import com.speedacm.treeview.models.Tree;
 import com.speedacm.treeview.models.Zone;
 import com.speedacm.treeview.views.DynamicMapActivity;
+import com.speedacm.treeview.views.TreeInfoActivity;
 
 
 public class TreeMode extends MapMode
@@ -255,24 +254,9 @@ public class TreeMode extends MapMode
 		d.setContentView(R.layout.treeinfo);
 		d.setTitle("Tree Information");
 		
-		HTMLBuilder hb = new HTMLBuilder();
-		TextView htmlText = (TextView)d.findViewById(R.id.treeHtmlText);
-		
-		htmlText.setText(Html.fromHtml(hb.begin()
-			.addH5("Species").addString("todo")
-			.addH5("DBH").addString("todo")
-			.addH5("Age").addString("todo")
-			.addH5("O2 Production").addString("todo")
-			.addH5("CO2 Sequestered/yr").addString("todo")
-			.addH5("CO2 Seq. total").addString("todo")
-			.addH5("Weight").addString("todo")
-			.addH5("Carbon amount").addString("todo")
-			.end()));
-		
-		
-		// TODO: find each view within the dialog and set their values
-		
-		d.show();
+		Intent in = new Intent(mParent, TreeInfoActivity.class);
+		in.putExtra("tree", t.getID());
+		mParent.startActivity(in);
 	}
 	
 	public void onActivate()

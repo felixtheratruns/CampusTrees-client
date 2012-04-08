@@ -60,7 +60,11 @@ public class MemStorage extends AbstractStorage
 		if(mFallback != null)
 			mFallback.getZoneDetails(target);
 		
-		// TODO: update tree mapping from resultant zone details
+		// update tree mapping
+		if(target.isFetched())
+			for(Tree t : target.getTrees()) 
+				mTrees.put(t.getID(), t);
+		
 	}
 
 	@Override

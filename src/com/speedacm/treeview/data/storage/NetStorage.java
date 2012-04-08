@@ -47,8 +47,8 @@ public class NetStorage extends AbstractStorage
 	@Override
 	public Tree getTree(int id)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		String json = getHTTPResponse(baseURL + "?t=" + Integer.toString(id));
+		return mParser.parseTreeResponse(json);
 	}
 
 	@Override

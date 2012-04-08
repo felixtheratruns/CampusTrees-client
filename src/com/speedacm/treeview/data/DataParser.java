@@ -40,6 +40,36 @@ public class DataParser
 		}
 	}
 	
+	public Tree parseTreeResponse(String json)
+	{
+		JsonNode rootNode = mapNode(json);
+		if(rootNode == null) return null;
+		
+		return parseTreeData(rootNode);
+	}
+	
+	private Tree parseTreeData(JsonNode treeNode)
+	{	
+		int id = treeNode.path("id").asInt(-1);
+		double lat = treeNode.path("lat").asDouble(Double.NaN);
+		double lng = treeNode.path("long").asDouble(Double.NaN);
+		int sid = treeNode.path("sid").asInt(-1);
+		double dbh = treeNode.path("dbh").asDouble(Double.NaN);
+		double height = treeNode.path("height").asDouble(Double.NaN);
+		
+		
+		if(id == -1 || lat == Double.NaN || lng == Double.NaN || sid == -1 ||
+		   dbh == Double.NaN || height == Double.NaN)
+		{
+			return null;
+		}
+		
+		int latE6 = (int)(lat * 1E6);
+		int lngE6 = (int)(lng * 1E6);
+		
+		return new Tree(id, sid, new GeoPoint(latE6, lngE6), (float)dbh, (float)height);
+	}
+	
 	private ArrayList<GeoPoint> getPointsFromNode(JsonNode arrayNode)
 	{
 		if(arrayNode == null) return null;
@@ -106,25 +136,10 @@ public class DataParser
 		{
 			JsonNode treeNode = treeIter.next();
 			
-			int id = treeNode.path("id").asInt(-1);
-			double lat = treeNode.path("lat").asDouble(Double.NaN);
-			double lng = treeNode.path("long").asDouble(Double.NaN);
-			int sid = treeNode.path("sid").asInt(-1);
-			double dbh = treeNode.path("dbh").asDouble(Double.NaN);
-			double height = treeNode.path("height").asDouble(Double.NaN);
+			Tree t = parseTreeData(treeNode);
 			
-			
-			if(id == -1 || lat == Double.NaN || lng == Double.NaN || sid == -1 ||
-			   dbh == Double.NaN || height == Double.NaN)
-			{
-				continue;
-			}
-			
-			int latE6 = (int)(lat * 1E6);
-			int lngE6 = (int)(lng * 1E6);
-			
-			Tree t = new Tree(id, sid, new GeoPoint(latE6, lngE6), (float)dbh, (float)height);
-			trees.add(t);
+			if(t != null)
+				trees.add(parseTreeData(treeNode));
 		}
 		
 		target.setTrees(trees);

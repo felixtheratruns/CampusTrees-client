@@ -29,6 +29,7 @@
         <activity android:name=".views.ScavHuntActivity"></activity>
         <activity android:name=".views.CredsActivity"></activity>
         <activity android:name=".views.DynamicMapActivity" android:theme="@android:style/Theme" android:label="Tree Map"></activity>
+        <activity android:name=".views.TreeInfoActivity" android:theme="@android:style/Theme" android:label="Tree Info"></activity>
         
         <uses-library android:name="com.google.android.maps" />
     </application>
