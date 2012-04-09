@@ -78,16 +78,28 @@ public class DataParser
 		ArrayList<PlantFact> plantFacts = new ArrayList<PlantFact>(rootNode.size());
 		
 		Iterator<JsonNode> pFactIter = rootNode.getElements();
-		Iterator<String> pFactNames = rootNode.getFieldNames();
-		while(pFactIter.hasNext() && pFactNames.hasNext())
+		while(pFactIter.hasNext())
 		{			
-			JsonNode pFactNode = pFactIter.next();
-			String pFactName = pFactNames.next();
+			JsonNode pFactNode = pFactIter.next();	
+
 			try
 			{	
-				String title = pFactName;
-				String body = pFactNode.toString();
-				plantFacts.add(new PlantFact(title, body));
+				int id = pFactNode.path("id").asInt();
+				int sid = pFactNode.path("sid").asInt();
+				double latitude = pFactNode.path("lat").asDouble();
+				double longitude = pFactNode.path("long").asDouble();
+				double dbh = pFactNode.path("dbh").asDouble();
+				double height = pFactNode.path("height").asDouble();
+				double vol = pFactNode.path("vol").asDouble();
+				double greenwt = pFactNode.path("greenwt").asDouble();
+				double drywt = pFactNode.path("drywt").asDouble();
+				double carbonwt = pFactNode.path("carbonwt").asDouble();
+				double age = pFactNode.path("age").asDouble();
+				double co2pyear = pFactNode.path("co2pyear").asDouble();
+				double crownarea = pFactNode.path("crownarea").asDouble();
+				String title = pFactNode.path("title").asText();
+				
+				plantFacts.add(new PlantFact(title, title));
 			}
 			catch(Exception e)
 			{
@@ -108,16 +120,18 @@ public class DataParser
 		ArrayList<News> News = new ArrayList<News>(rootNode.size());
 		
 		Iterator<JsonNode> newsIter = rootNode.getElements();
-		Iterator<String> newsNames = rootNode.getFieldNames();
-		while(newsIter.hasNext() && newsNames.hasNext())
+		//Iterator<String> newsNames = rootNode.getFieldNames();
+		while(newsIter.hasNext())
 		{			
 			JsonNode newsNode = newsIter.next();
-			String newsName = newsNames.next();
+			//String newsName = newsNames.next();
+
 			try
 			{	
-				String title = newsName;
-				String body = newsNode.toString();
-				News.add(new News(title, body));
+				String title = newsNode.path("title").asText();
+				String date = newsNode.path("date").asText();
+				String body = newsNode.path("body").asText();
+				News.add(new News(title, date, body));
 			}
 			catch(Exception e)
 			{

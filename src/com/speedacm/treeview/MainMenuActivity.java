@@ -60,21 +60,21 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
 
 	private void addMenuItems()
 	{
-		menuEntries.add(new MenuItem(getString(R.string.mmenu_news), R.drawable.m_news,
+		menuEntries.add(new MenuItem(getString(R.string.mmenu_news), R.drawable.news,
 				new ActivityStarter(this, NewsActivity.class)));
-		menuEntries.add(new MenuItem(getString(R.string.mmenu_treemap), R.drawable.m_treemap,
+		menuEntries.add(new MenuItem(getString(R.string.mmenu_treemap), R.drawable.browse_tree_map,
 				new DynamicMapStarter(this, DynamicMapActivity.TREE_MODE)));
-		menuEntries.add(new MenuItem(getString(R.string.mmenu_sustmap), R.drawable.m_sustmap,
+		menuEntries.add(new MenuItem(getString(R.string.mmenu_sustmap), R.drawable.browse_sustainability_map,
 				new DynamicMapStarter(this, DynamicMapActivity.SUSTAIN_MODE)));
-		menuEntries.add(new MenuItem(getString(R.string.mmenu_plantfacts), R.drawable.m_plantfacts,
+		menuEntries.add(new MenuItem(getString(R.string.mmenu_plantfacts), R.drawable.plant_facts,
 				new ActivityStarter(this, PlantFactsActivity.class)));
-		menuEntries.add(new MenuItem(getString(R.string.mmenu_wildfacts), R.drawable.m_wildfacts,
+		menuEntries.add(new MenuItem(getString(R.string.mmenu_wildfacts), R.drawable.wildlife_facts,
 				new ActivityStarter(this, WildLifeFactsActivity.class)));
-		menuEntries.add(new MenuItem(getString(R.string.mmenu_scavhunt), R.drawable.m_scavhunt,
+		menuEntries.add(new MenuItem(getString(R.string.mmenu_scavhunt), R.drawable.scavenger_hunt,
 				new ActivityStarter(this, ScavHuntActivity.class)));
-		menuEntries.add(new MenuItem(getString(R.string.mmenu_about), R.drawable.m_about,
+		menuEntries.add(new MenuItem(getString(R.string.mmenu_about), R.drawable.about,
 				new ActivityStarter(this, AboutActivity.class)));
-		menuEntries.add(new MenuItem(getString(R.string.mmenu_creds), R.drawable.m_creds,
+		menuEntries.add(new MenuItem(getString(R.string.mmenu_creds), R.drawable.about,
 				new ActivityStarter(this, CredsActivity.class)));
 	}
 

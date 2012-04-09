@@ -8,15 +8,19 @@
 	android:paddingBottom="20dip">
 
         <TextView
-            android:id="@+id/toptext"
+            android:id="@+id/title"
     		android:layout_width="wrap_content"
     		android:layout_height="wrap_content"
-    		android:textAppearance="?android:attr/textAppearanceLarge"
-        />
+    		android:textAppearance="?android:attr/textAppearanceLarge"/>
         <TextView
-		android:layout_gravity="center"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-	    android:id="@+id/bottomtext" />
+            android:id="@+id/date"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+	    	 />
+         <TextView
+            android:id="@+id/body"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+	    	 />
  
 </LinearLayout>

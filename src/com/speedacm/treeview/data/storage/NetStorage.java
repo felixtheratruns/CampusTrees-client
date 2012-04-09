@@ -100,19 +100,19 @@ public class NetStorage extends AbstractStorage
 	//menu item functions other than map
 	@Override
 	public PlantFact[] getAllPlantFacts() {
-		String json = getHTTPResponse(baseURL + "?pFacts=1");
+		String json = getHTTPResponse("http://trees.cecsresearch.org/joelapi/AppHandler?pFacts=1");
 		return mParser.parseAllPlantFactsResponse(json);
 	}
 	
 	@Override
 	public News[] getAllNews() {
-		String json = getHTTPResponse(baseURL + "?pFacts=1");
+		String json = getHTTPResponse("http://trees.cecsresearch.org/joelapi/AppHandler?news=1");
 		return mParser.parseAllNewsResponse(json);
 	}
 	
 	@Override
 	public WildLifeFact[] getAllWildLifeFacts() {
-		String json = getHTTPResponse(baseURL + "?pFacts=1");
+		String json = getHTTPResponse("http://trees.cecsresearch.org/joelapi/AppHandler?wildLifeFacts=1");
 		return mParser.parseAllWildLifeFactsResponse(json);
 	}
 	
