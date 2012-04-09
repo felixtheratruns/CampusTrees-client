@@ -54,14 +54,62 @@ public class PlantFactsArrayAdapter extends ArrayAdapter<PlantFact>{
 		PlantFact plant_fact = getItem(position);
 		
 		// get references to subviews
-		plantFactTitle= (TextView) row.findViewById(R.id.toptext);
-		plantFactBody = (TextView) row.findViewById(R.id.bottomtext);
+		plantFactTitle= (TextView) row.findViewById(R.id.title);
+		plantFactBody = (TextView) row.findViewById(R.id.body);
 		//Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), PlantFact.getDrawable());
 		
 		// set up final values
-		plantFactTitle.setText(plant_fact.getTitle());
-		plantFactBody.setText(plant_fact.getBody());
-
+		StringBuffer s = new StringBuffer();
+		
+/*		s.append(plant_fact.getId());
+		s.append("\n");
+		s.append(plant_fact.getSid());
+		s.append("\n");		
+		s.append(plant_fact.getLatitude());
+		s.append("\n");
+		s.append(plant_fact.getLongitude());
+		s.append("\n");
+*/		String stitle = "";
+		String etitle = " tree on campus has these facts:";
+		String sdbh =  "Diameter at breast height: ";
+		String sheight = "Height: ";
+		String svol = "Volume: ";
+		String sGreenwt = "Weight with leaves: ";
+		String sDrywt = "Weight without leaves: ";
+		String sCarbonwt = "Weight of Carbon: ";
+		String sAge = "Age in years: ";
+		String sCo2pyear = "Co2 asborbed in a year: ";
+		String sCrownarea = "Crown area: ";
+		
+		s.append(sdbh);
+		s.append(plant_fact.getDbh());
+		s.append("\n");
+		s.append(sheight);
+		s.append(plant_fact.getHeight());
+		s.append("\n");
+		s.append(svol);
+		s.append(plant_fact.getVol());
+		s.append("\n");
+		s.append(sGreenwt);
+		s.append(plant_fact.getGreenwt());
+		s.append("\n");
+		s.append(sDrywt);
+		s.append(plant_fact.getDrywt());
+		s.append("\n");
+		s.append(sCarbonwt);
+		s.append(plant_fact.getCarbonwt());
+		s.append("\n");
+		s.append(sAge);
+		s.append(plant_fact.getAge());
+		s.append("\n");
+		s.append(sCo2pyear);
+		s.append(plant_fact.getCo2pyear());
+		s.append("\n");
+		s.append(sCrownarea);
+		s.append(plant_fact.getCrownarea());
+		
+		plantFactTitle.setText(stitle + plant_fact.getTitle() + etitle);
+		plantFactBody.setText(s.toString());
 		return row;
 	}
 }

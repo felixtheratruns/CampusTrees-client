@@ -84,6 +84,7 @@ public class DataParser
 
 			try
 			{	
+				String title = pFactNode.path("title").asText();
 				int id = pFactNode.path("id").asInt();
 				int sid = pFactNode.path("sid").asInt();
 				double latitude = pFactNode.path("lat").asDouble();
@@ -97,9 +98,7 @@ public class DataParser
 				double age = pFactNode.path("age").asDouble();
 				double co2pyear = pFactNode.path("co2pyear").asDouble();
 				double crownarea = pFactNode.path("crownarea").asDouble();
-				String title = pFactNode.path("title").asText();
-				
-				plantFacts.add(new PlantFact(title, title));
+				plantFacts.add(new PlantFact(new GeoPoint((int)(latitude * 1E6),(int)(longitude * 1E6)),title, id, sid, latitude, longitude, dbh, height, vol, greenwt, drywt, carbonwt, age, co2pyear, crownarea));
 			}
 			catch(Exception e)
 			{
