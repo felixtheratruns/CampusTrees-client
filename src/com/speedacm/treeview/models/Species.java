@@ -33,4 +33,9 @@ public class Species
 	public boolean isEdible() { return mFruitEdible; }
 	public NativeType getNativity() { return mNativity; }
 	public int getCount() { return mCount; }
+	
+	@Override
+	public String toString() {
+		return mName;
+	}
 }

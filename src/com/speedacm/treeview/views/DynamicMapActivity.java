@@ -1,5 +1,6 @@
 package com.speedacm.treeview.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -160,5 +161,11 @@ public class DynamicMapActivity extends MapActivity
 	@Override
 	protected boolean isRouteDisplayed() {
 		return false;
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		mMapMode.onActivityResult(requestCode, resultCode, data);
 	}
 }

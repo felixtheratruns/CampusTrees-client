@@ -18,22 +18,15 @@
         android:ems="10"
         android:inputType="text" >
 
-        <requestFocus />
     </EditText>
 
     <ListView
         android:id="@+id/ssearch_list"
         android:layout_width="match_parent"
-        android:layout_height="246dp"
-        android:layout_weight="1.00" >
+        android:layout_height="0dp"
+        android:layout_weight="1.00"
+        android:choiceMode="singleChoice" >
 
     </ListView>
-
-    <Button
-        android:id="@+id/ssearch_button"
-        android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:layout_weight="0.25"
-        android:text="@string/ssearch_button" />
 
 </LinearLayout>
