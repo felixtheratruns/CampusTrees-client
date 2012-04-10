@@ -22,6 +22,8 @@
     <string name="mapmenu_filtertrees">Filter Trees</string>
     <string name="treemap_label">Tree Map</string>
     <string name="sustmap_label">Sustainability Map</string>
+    <string name="ssearch_label">Species Name</string>
+    <string name="ssearch_button">Go</string>
     <string name="no_items">Sorry, nothing here.</string>
 
 </resources>

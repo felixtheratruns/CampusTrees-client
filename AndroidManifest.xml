@@ -4,7 +4,7 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk android:minSdkVersion="8" />
+    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="8" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -13,7 +13,7 @@
 
     <application
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" android:debuggable="true" android:theme="@android:style/Theme.NoTitleBar">
+        android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar">
         <activity
             android:name=".MainMenuActivity">
             <intent-filter>
@@ -29,6 +29,8 @@
         <activity android:name=".views.ScavHuntActivity"></activity>
         <activity android:name=".views.CredsActivity"></activity>
         <activity android:name=".views.DynamicMapActivity" android:theme="@android:style/Theme" android:label="Tree Map"></activity>
+        <activity android:name=".views.TreeInfoActivity" android:theme="@android:style/Theme" android:label="Tree Info"></activity>
+        <activity android:name=".views.SpeciesSearchActivity" android:theme="@android:style/Theme" android:label="Species Search"></activity>
         
         <uses-library android:name="com.google.android.maps" />
     </application>

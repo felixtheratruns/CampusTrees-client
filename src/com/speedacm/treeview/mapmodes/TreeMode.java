@@ -3,11 +3,13 @@ package com.speedacm.treeview.mapmodes;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Point;
-import android.text.Html;
-import android.widget.TextView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
@@ -16,14 +18,23 @@ import com.google.android.maps.Projection;
 import com.speedacm.treeview.R;
 import com.speedacm.treeview.data.DSResultListener;
 import com.speedacm.treeview.data.DataStore;
+import com.speedacm.treeview.filters.EdibleFilter;
+import com.speedacm.treeview.filters.Filter;
+import com.speedacm.treeview.filters.HistoricalFilter;
+import com.speedacm.treeview.filters.NativeFilter;
+import com.speedacm.treeview.filters.SeasonalFilter;
+import com.speedacm.treeview.filters.SeasonalFilter.SeasonalType;
+import com.speedacm.treeview.filters.SpeciesFilter;
 import com.speedacm.treeview.helpers.GeoMath;
-import com.speedacm.treeview.helpers.HTMLBuilder;
 import com.speedacm.treeview.mapitems.MultiTreeItem;
 import com.speedacm.treeview.mapitems.ZoneItem;
 import com.speedacm.treeview.models.Species;
+import com.speedacm.treeview.models.Species.NativeType;
 import com.speedacm.treeview.models.Tree;
 import com.speedacm.treeview.models.Zone;
 import com.speedacm.treeview.views.DynamicMapActivity;
+import com.speedacm.treeview.views.SpeciesSearchActivity;
+import com.speedacm.treeview.views.TreeInfoActivity;
 
 
 public class TreeMode extends MapMode
@@ -32,11 +43,16 @@ public class TreeMode extends MapMode
 	// tree hit threshold, in pixels (squared)
 	private final float treeHitThresh = 20f*20f;
 	
+	// request IDs
+	private final int SPECIES_SEARCH_REQID = 1;
+	
 	private List<ZoneItem> mZoneItems;
 	private MultiTreeItem mActiveTrees;
 	private ZoneItem mActiveZone;
 	private DynamicMapActivity mParent;
 	private int mCurrentFetchID = DataStore.NO_REQUEST;
+
+	private Filter mFilter;
 	
 	// listener for loading the initial species
 	private DSResultListener<Species[]> mSpeciesLoadListener =
@@ -55,9 +71,15 @@ public class TreeMode extends MapMode
 			
 			@Override
 			public void onDSResultReceived(int requestID, Zone[] payload) {
-				Toast.makeText(mParent, "Zones Loaded", Toast.LENGTH_SHORT).show();
 				mParent.setBusyIndicator(false);
 				mCurrentFetchID = DataStore.NO_REQUEST;
+				
+				if(payload == null)
+				{
+					// something went wrong loading the zones
+					showText("Error loading zones, check connection.");
+					return;
+				}
 				
 				for(Zone z : payload)
 					mZoneItems.add(new ZoneItem(z));
@@ -78,7 +100,10 @@ public class TreeMode extends MapMode
 				mParent.setBusyIndicator(false);
 				mCurrentFetchID = DataStore.NO_REQUEST;
 				if(payload.isFetched())
+				{
 					mActiveTrees = getTreesFromZone(payload);
+					mActiveTrees.updateFilter(mFilter);
+				}
 				else
 				{
 					mActiveZone = null;
@@ -113,7 +138,10 @@ public class TreeMode extends MapMode
 			// don't bother displaying the zone we're currently
 			// displaying trees from
 			if(z == mActiveZone)
+			{
+				z.drawOutline(canvas, mapView, false);
 				continue;
+			}
 			
 			z.draw(canvas, mapView, shadow);
 		}
@@ -135,6 +163,10 @@ public class TreeMode extends MapMode
 			{
 				Tree closestTree = null;
 				float closestDistance = Float.MAX_VALUE;
+				
+				// are we still loading a zone?
+				if(mActiveTrees == null)
+					return false;
 				
 				// process the trees, see if one is hit
 				for(Tree t : mActiveTrees)
@@ -178,6 +210,7 @@ public class TreeMode extends MapMode
 				if(z.isFetched())
 				{
 					mActiveTrees = getTreesFromZone(z);
+					mActiveTrees.updateFilter(mFilter);
 				}
 				else
 				{
@@ -204,24 +237,9 @@ public class TreeMode extends MapMode
 		d.setContentView(R.layout.treeinfo);
 		d.setTitle("Tree Information");
 		
-		HTMLBuilder hb = new HTMLBuilder();
-		TextView htmlText = (TextView)d.findViewById(R.id.treeHtmlText);
-		
-		htmlText.setText(Html.fromHtml(hb.begin()
-			.addH5("Species").addString("todo")
-			.addH5("DBH").addString("todo")
-			.addH5("Age").addString("todo")
-			.addH5("O2 Production").addString("todo")
-			.addH5("CO2 Sequestered/yr").addString("todo")
-			.addH5("CO2 Seq. total").addString("todo")
-			.addH5("Weight").addString("todo")
-			.addH5("Carbon amount").addString("todo")
-			.end()));
-		
-		
-		// TODO: find each view within the dialog and set their values
-		
-		d.show();
+		Intent in = new Intent(mParent, TreeInfoActivity.class);
+		in.putExtra("tree", t.getID());
+		mParent.startActivity(in);
 	}
 	
 	public void onActivate()
@@ -235,5 +253,104 @@ public class TreeMode extends MapMode
 	{
 		if(mCurrentFetchID != DataStore.NO_REQUEST)
 			DataStore.getInstance().cancelRequest(mCurrentFetchID);
+	}
+	
+	public boolean onPrepareOptionsMenu(Menu menu)
+	{
+		menu.findItem(R.id.mapm_filtertrees).setVisible(true);
+		menu.findItem(R.id.mapm_treetypes).setVisible(true);
+		return true;
+	}
+	
+	private void showText(String text)
+	{
+		Toast.makeText(mParent, text, Toast.LENGTH_SHORT).show();
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		int id = item.getItemId();
+		switch(id)
+		{
+		case R.id.mapm_filtertrees:	
+			break;
+			
+		case R.id.mapm_treetypes:
+			
+			Intent in = new Intent(mParent, SpeciesSearchActivity.class);
+			mParent.startActivityForResult(in, SPECIES_SEARCH_REQID);
+			
+			return false;
+			
+		case R.id.mapmf_none:
+			updateFilter(null);
+			break;
+			
+		case R.id.mapmf_flowering:
+			updateFilter(new SeasonalFilter(SeasonalType.Flowering));
+			break;
+			
+		case R.id.mapmf_fruiting:
+			updateFilter(new SeasonalFilter(SeasonalType.Fruiting));
+			break;
+			
+		case R.id.mapmf_edible:
+			updateFilter(new EdibleFilter());
+			break;
+			
+		case R.id.mapmf_nativeky:
+			updateFilter(new NativeFilter(NativeType.KY));
+			break;
+			
+		case R.id.mapmf_nativeus:
+			updateFilter(new NativeFilter(NativeType.US));
+			break;
+			
+		case R.id.mapmf_nonnative:
+			updateFilter(new NativeFilter(NativeType.None));
+			break;
+			
+		case R.id.mapmf_historical:
+			showText("Historical filter not yet implemented.");
+			updateFilter(new HistoricalFilter());
+			break;
+			
+		default:
+			showText("Unknown item ID: " + Integer.toString(id));
+			break;
+		}
+		
+		return true;
+	}
+	
+	private void updateFilter(Filter f)
+	{
+		mFilter = f;
+		if(mActiveTrees != null)
+			mActiveTrees.updateFilter(mFilter);
+		mParent.invalidateMap();
+	}
+	
+	public void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		if(requestCode != SPECIES_SEARCH_REQID)
+		{
+			showText("Unknown Activity Result");
+			return;
+		}
+		
+		if(resultCode == Activity.RESULT_OK)
+		{
+			int sID = data.getIntExtra("sid", -1);
+			if(sID != -1)
+			{
+				Species s = DataStore.getInstance().getSpecies(sID);
+				updateFilter(new SpeciesFilter(s));
+			}
+		}
+		else
+			showText(Integer.toString(resultCode));
+		
+		mParent.invalidateMap();
 	}
 }

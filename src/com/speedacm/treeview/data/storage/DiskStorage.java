@@ -1,5 +1,7 @@
 package com.speedacm.treeview.data.storage;
 
+import java.util.List;
+
 import com.speedacm.treeview.models.Building;
 import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.PlantFact;
@@ -28,7 +30,7 @@ public class DiskStorage extends AbstractStorage
 	@Override
 	public void getZoneDetails(Zone target)
 	{
-		// TODO: implement zone details
+		// TODO: implement this
 		if(mFallback != null)
 			mFallback.getZoneDetails(target);
 	}
@@ -57,6 +59,33 @@ public class DiskStorage extends AbstractStorage
 		// TODO: implement this
 		if(mFallback != null)
 			return mFallback.getAllSpecies();
+		return null;
+	}
+	
+	@Override
+	public Species getSpecies(int id)
+	{
+		// TODO: implement this
+		if(mFallback != null)
+			return mFallback.getSpecies(id);
+		return null;
+	}
+
+	@Override
+	public List<Integer> getFloweringSpecies(int month)
+	{
+		// TODO: implement this
+		if(mFallback != null)
+			return mFallback.getFloweringSpecies(month);
+		return null;
+	}
+
+	@Override
+	public List<Integer> getFruitingSpecies(int month)
+	{
+		// TODO: implement this
+		if(mFallback != null)
+			return mFallback.getFloweringSpecies(month);
 		return null;
 	}
 

@@ -12,22 +12,30 @@ public class Species
 	
 	private int mID;
 	private String mName;
-	private boolean mFlowering;
-	private boolean mFruiting;
+	private String mFruitType;
+	private boolean mFruitEdible;
 	private NativeType mNativity;
+	private int mCount;
 	
-	public Species(int id, String name, boolean flowers, boolean fruits, NativeType nat)
+	public Species(int id, String name, String fruitType, boolean edible, NativeType nat, int count)
 	{
 		mID = id;
 		mName = name;
-		mFlowering = flowers;
-		mFruiting = fruits;
 		mNativity = nat;
+		mFruitType = fruitType;
+		mFruitEdible = edible;
+		mCount = count;
 	}
 	
 	public int getID() { return mID; }
 	public String getName() { return mName; }
-	public boolean isFlowering() { return mFlowering; }
-	public boolean isFruiting() { return mFruiting; }
+	public String getFruitType() { return mFruitType; }
+	public boolean isEdible() { return mFruitEdible; }
 	public NativeType getNativity() { return mNativity; }
+	public int getCount() { return mCount; }
+	
+	@Override
+	public String toString() {
+		return mName;
+	}
 }

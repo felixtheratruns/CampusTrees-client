@@ -1,6 +1,7 @@
 package com.speedacm.treeview.data;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import android.os.AsyncTask;
@@ -14,6 +15,7 @@ import com.speedacm.treeview.models.Building;
 import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.PlantFact;
 import com.speedacm.treeview.models.Species;
+import com.speedacm.treeview.models.Tree;
 import com.speedacm.treeview.models.WildLifeFact;
 import com.speedacm.treeview.models.Zone;
 
@@ -144,6 +146,62 @@ public class DataStore
 		return putTask(newRequestID, task);
 	}
 	
+	public int beginGetSpecies(final int id, final DSResultListener<Species> listener)
+	{
+		final int newRequestID = mNextRequestID++;
+		
+		DSTask<Species> task = new DSTask<Species>(listener, newRequestID) {
+			@Override
+			protected Species doInBackground(Void... params) {
+				return getSpecies(id);
+			}
+		};
+		
+		return putTask(newRequestID, task);
+	}
+	
+	public int beginGetTree(final int id, final DSResultListener<Tree> listener)
+	{
+		final int newRequestID = mNextRequestID++;
+		
+		DSTask<Tree> task = new DSTask<Tree>(listener, newRequestID) {
+			@Override
+			protected Tree doInBackground(Void... params) {
+				return getTree(id);
+			}
+		};
+		
+		return putTask(newRequestID, task);
+	}
+	
+	public int beginGetFloweringSpecies(final int month, final DSResultListener<List<Integer>> listener)
+	{
+		final int newRequestID = mNextRequestID++;
+		
+		DSTask<List<Integer>> task = new DSTask<List<Integer>>(listener, newRequestID) {
+			@Override
+			protected List<Integer> doInBackground(Void... params) {
+				return getFloweringSpecies(month);
+			}
+		};
+		
+		return putTask(newRequestID, task);
+	}
+	
+	public int beginGetFruitingSpecies(final int month, final DSResultListener<List<Integer>> listener)
+	{
+		final int newRequestID = mNextRequestID++;
+		
+		DSTask<List<Integer>> task = new DSTask<List<Integer>>(listener, newRequestID) {
+			@Override
+			protected List<Integer> doInBackground(Void... params) {
+				return getFruitingSpecies(month);
+			}
+		};
+		
+		return putTask(newRequestID, task);
+	}
+	
 	/*
 	 * Synchronous Functions
 	 */
@@ -183,6 +241,26 @@ public class DataStore
 	public Species[] getAllSpecies()
 	{
 		return mStorage.getAllSpecies();
+	}
+	
+	public Species getSpecies(int id)
+	{
+		return mStorage.getSpecies(id);
+	}
+	
+	public Tree getTree(int id)
+	{
+		return mStorage.getTree(id);
+	}
+
+	public List<Integer> getFloweringSpecies(int month)
+	{
+		return mStorage.getFloweringSpecies(month);
+	}
+	
+	public List<Integer> getFruitingSpecies(int month)
+	{
+		return mStorage.getFruitingSpecies(month);
 	}
 	
 	/*

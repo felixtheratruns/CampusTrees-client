@@ -1,5 +1,7 @@
 package com.speedacm.treeview.data.storage;
 
+import java.util.List;
+
 import com.speedacm.treeview.models.Building;
 import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.PlantFact;
@@ -23,8 +25,9 @@ public abstract class AbstractStorage
 	public abstract Tree getTree(int id);
 	public abstract Building[] getAllBuildings();
 	public abstract Species[] getAllSpecies();
+	public abstract Species getSpecies(int id);
+	public abstract List<Integer> getFloweringSpecies(int month);
+	public abstract List<Integer> getFruitingSpecies(int month);
 	public abstract News[] getAllNews();
 	public abstract WildLifeFact[] getAllWildLifeFacts();
-
-
 }

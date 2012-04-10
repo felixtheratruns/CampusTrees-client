@@ -2,6 +2,7 @@ package com.speedacm.treeview.data;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParser;
@@ -44,6 +45,42 @@ public class DataParser
 			Log.e("json parse exception?", "exception", e);
 			return null;
 		}
+	}
+	
+	public Tree parseTreeResponse(String json)
+	{
+		JsonNode rootNode = mapNode(json);
+		if(rootNode == null) return null;
+		
+		return parseTreeData(rootNode);
+	}
+	
+	private Tree parseTreeData(JsonNode treeNode)
+	{	
+		int id = treeNode.path("id").asInt(-1);
+		double lat = treeNode.path("lat").asDouble(Double.NaN);
+		double lng = treeNode.path("long").asDouble(Double.NaN);
+		int sid = treeNode.path("sid").asInt(-1);
+		double dbh = treeNode.path("dbh").asDouble(Double.NaN);
+		double height = treeNode.path("height").asDouble(Double.NaN);
+		double greenwt = treeNode.path("greenwt").asDouble(Double.NaN);
+		double drywt = treeNode.path("drywt").asDouble(Double.NaN);
+		double co2seqtot = treeNode.path("co2seqwt").asDouble(Double.NaN);
+		double co2seqyr = treeNode.path("co2pyear").asDouble(Double.NaN);
+		int age = treeNode.path("age").asInt();
+		
+		
+		if(id == -1 || lat == Double.NaN || lng == Double.NaN || sid == -1)
+		{
+			return null;
+		}
+		
+		int latE6 = (int)(lat * 1E6);
+		int lngE6 = (int)(lng * 1E6);
+		
+		return new Tree(
+				id, sid, new GeoPoint(latE6, lngE6), (float)dbh, (float)height,
+				(float)greenwt, (float)drywt, age, (float)co2seqtot, (float)co2seqyr);
 	}
 	
 	private ArrayList<GeoPoint> getPointsFromNode(JsonNode arrayNode)
@@ -215,25 +252,10 @@ public class DataParser
 		{
 			JsonNode treeNode = treeIter.next();
 			
-			int id = treeNode.path("id").asInt(-1);
-			double lat = treeNode.path("lat").asDouble(Double.NaN);
-			double lng = treeNode.path("long").asDouble(Double.NaN);
-			int sid = treeNode.path("sid").asInt(-1);
-			double dbh = treeNode.path("dbh").asDouble(Double.NaN);
-			double height = treeNode.path("height").asDouble(Double.NaN);
+			Tree t = parseTreeData(treeNode);
 			
-			
-			if(id == -1 || lat == Double.NaN || lng == Double.NaN || sid == -1 ||
-			   dbh == Double.NaN || height == Double.NaN)
-			{
-				continue;
-			}
-			
-			int latE6 = (int)(lat * 1E6);
-			int lngE6 = (int)(lng * 1E6);
-			
-			Tree t = new Tree(id, sid, new GeoPoint(latE6, lngE6), (float)dbh, (float)height);
-			trees.add(t);
+			if(t != null)
+				trees.add(parseTreeData(treeNode));
 		}
 		
 		target.setTrees(trees);
@@ -255,8 +277,14 @@ public class DataParser
 			String cname = specNode.path("commonname").asText();
 			boolean nativeUS = specNode.path("american").asBoolean();
 			boolean nativeKY = specNode.path("ky").asBoolean();
-			//boolean nativeNo = specNode.path("nonnative").asBoolean(); // we don't need this
-			//String comments = specNode.path("comments").asText();
+			boolean edible = specNode.path("edible").asBoolean();
+			String fruittype = specNode.path("fruittype").asText();
+			int count = specNode.path("count").asInt(0);
+			
+			// capitalize first letter of fruit type
+			char[] ft = fruittype.toCharArray();
+			ft[0] = Character.toUpperCase(ft[0]);
+			fruittype = new String(ft);
 			
 			if(sid == -1) continue;
 			
@@ -268,10 +296,29 @@ public class DataParser
 			else
 				nat = NativeType.None;
 			
-			// TODO: extra fields from JSON data
-			specs.add(new Species(sid, cname, false, false, nat));
+			specs.add(new Species(sid, cname, fruittype, edible, nat, count));
 		}
 		
 		return specs.toArray(new Species[specs.size()]);
+	}
+
+	public List<Integer> parseSeasonListResponse(String json)
+	{
+		JsonNode rootNode = mapNode(json);
+		if(rootNode == null) return null;
+		
+		ArrayList<Integer> ret = new ArrayList<Integer>(rootNode.size());
+		
+		Iterator<JsonNode> specIter = rootNode.getElements();
+		while(specIter.hasNext())
+		{
+			JsonNode specNode = specIter.next();
+			
+			int sID = specNode.path("sid").asInt(-1);
+			if(sID != -1)
+				ret.add(sID);
+		}
+		
+		return ret;
 	}
 }

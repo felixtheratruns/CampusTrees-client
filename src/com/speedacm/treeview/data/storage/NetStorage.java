@@ -3,6 +3,7 @@ package com.speedacm.treeview.data.storage;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -31,7 +32,6 @@ public class NetStorage extends AbstractStorage
 		super(fallback);
 		mClient = new DefaultHttpClient();
 		mParser = new DataParser();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -51,8 +51,8 @@ public class NetStorage extends AbstractStorage
 	@Override
 	public Tree getTree(int id)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		String json = getHTTPResponse(baseURL + "?t=" + Integer.toString(id));
+		return mParser.parseTreeResponse(json);
 	}
 
 	@Override
@@ -67,6 +67,27 @@ public class NetStorage extends AbstractStorage
 	{
 		String json = getHTTPResponse(baseURL + "?speciesRequest=1");
 		return mParser.parseSpeciesResponse(json);
+	}
+	
+	@Override
+	public Species getSpecies(int id)
+	{
+		// TODO maybe implement specific retrieval of species
+		return null;
+	}
+	
+	@Override
+	public List<Integer> getFloweringSpecies(int month)
+	{
+		String json = getHTTPResponse(baseURL + "?flowerMonth=" + Integer.toString(month));
+		return mParser.parseSeasonListResponse(json);
+	}
+
+	@Override
+	public List<Integer> getFruitingSpecies(int month)
+	{
+		String json = getHTTPResponse(baseURL + "?fruitMonth=" + Integer.toString(month));
+		return mParser.parseSeasonListResponse(json);
 	}
 	
 	private String getHTTPResponse(String url)
@@ -115,6 +136,5 @@ public class NetStorage extends AbstractStorage
 		String json = getHTTPResponse("http://trees.cecsresearch.org/joelapi/AppHandler?wildLifeFacts=1");
 		return mParser.parseAllWildLifeFactsResponse(json);
 	}
-	
 	
 }
