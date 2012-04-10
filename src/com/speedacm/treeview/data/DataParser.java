@@ -8,10 +8,15 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import android.util.Log;
+
 import com.google.android.maps.GeoPoint;
+import com.speedacm.treeview.models.News;
+import com.speedacm.treeview.models.PlantFact;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Species.NativeType;
 import com.speedacm.treeview.models.Tree;
+import com.speedacm.treeview.models.WildLifeFact;
 import com.speedacm.treeview.models.Zone;
 
 public class DataParser
@@ -37,6 +42,7 @@ public class DataParser
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			Log.e("json parse exception?", "exception", e);
 			return null;
 		}
 	}
@@ -98,6 +104,96 @@ public class DataParser
 		}
 		
 		return points;
+	}
+	
+	public PlantFact[] parseAllPlantFactsResponse(String json)
+	{
+		
+		JsonNode rootNode = mapNode(json);
+		if(rootNode == null) return null;
+		
+		ArrayList<PlantFact> plantFacts = new ArrayList<PlantFact>(rootNode.size());
+		
+		Iterator<JsonNode> pFactIter = rootNode.getElements();
+		Iterator<String> pFactNames = rootNode.getFieldNames();
+		while(pFactIter.hasNext() && pFactNames.hasNext())
+		{			
+			JsonNode pFactNode = pFactIter.next();
+			String pFactName = pFactNames.next();
+			try
+			{	
+				String title = pFactName;
+				String body = pFactNode.toString();
+				plantFacts.add(new PlantFact(title, body));
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		return plantFacts.toArray(new PlantFact[plantFacts.size()]);
+	}
+	
+	public News[] parseAllNewsResponse(String json)
+	{
+		
+		JsonNode rootNode = mapNode(json);
+		if(rootNode == null) return null;
+		
+		ArrayList<News> News = new ArrayList<News>(rootNode.size());
+		
+		Iterator<JsonNode> newsIter = rootNode.getElements();
+		Iterator<String> newsNames = rootNode.getFieldNames();
+		while(newsIter.hasNext() && newsNames.hasNext())
+		{			
+			JsonNode newsNode = newsIter.next();
+			String newsName = newsNames.next();
+			try
+			{	
+				String title = newsName;
+				String body = newsNode.toString();
+				News.add(new News(title, body));
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		return News.toArray(new News[News.size()]);
+	}
+	
+	public WildLifeFact[] parseAllWildLifeFactsResponse(String json)
+	{
+		
+		JsonNode rootNode = mapNode(json);
+		if(rootNode == null) return null;
+		
+		ArrayList<WildLifeFact> WildLifeFacts = new ArrayList<WildLifeFact>(rootNode.size());
+		
+		Iterator<JsonNode> pFactIter = rootNode.getElements();
+		Iterator<String> pFactNames = rootNode.getFieldNames();
+		while(pFactIter.hasNext() && pFactNames.hasNext())
+		{			
+			JsonNode pFactNode = pFactIter.next();
+			String pFactName = pFactNames.next();
+			try
+			{	
+				String title = pFactName;
+				String body = pFactNode.toString();
+				WildLifeFacts.add(new WildLifeFact(title, body));
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		return WildLifeFacts.toArray(new WildLifeFact[WildLifeFacts.size()]);
 	}
 	
 	public Zone[] parseAllZonesResponse(String json)

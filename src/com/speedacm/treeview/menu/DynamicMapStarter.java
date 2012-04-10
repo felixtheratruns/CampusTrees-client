@@ -18,7 +18,7 @@ public class DynamicMapStarter implements MenuActionListener
 	}
 	
 	@Override
-	public void onMenuAction(MenuEntry item)
+	public void onMenuAction(MenuItem item)
 	{
 		Intent mapIntent = new Intent(mOldActivity, DynamicMapActivity.class);
 		mapIntent.putExtra("mapmode", mType);
