@@ -16,10 +16,13 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 public class WildLifeFactsArrayAdapter extends ArrayAdapter<WildLifeFact>{
+	private static final String titleFieldStart = "";
+	private static final String bodyFieldStart = "";	
+	
 	private static final String tag = "NewsArrayAdapter";
 	private Context context;
-	private TextView newsTitle;
-	private TextView newsBody;
+	private TextView wildLifeTitle;
+	private TextView wildLifeBody;
 	private List<WildLifeFact> wildLifeFactsArr = new ArrayList<WildLifeFact>();
 
 	public WildLifeFactsArrayAdapter(Context context, int textViewResourceId,
@@ -53,14 +56,12 @@ public class WildLifeFactsArrayAdapter extends ArrayAdapter<WildLifeFact>{
 		WildLifeFact wild_life_fact = getItem(position);
 		
 		// get references to subviews
-		newsTitle= (TextView) row.findViewById(R.id.toptext);
-		newsBody = (TextView) row.findViewById(R.id.bottomtext);
-		//Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), News.getDrawable());
+		wildLifeTitle= (TextView) row.findViewById(R.id.title);
+		wildLifeBody = (TextView) row.findViewById(R.id.body);
 		
 		// set up final values
-		newsTitle.setText(wild_life_fact.getTitle());
-		newsBody.setText(wild_life_fact.getBody());
-
+		wildLifeTitle.setText(titleFieldStart + wild_life_fact.getTitle());
+		wildLifeBody.setText(bodyFieldStart + wild_life_fact.getBody());
 		return row;
 	}
 }

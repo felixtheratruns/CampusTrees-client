@@ -187,16 +187,16 @@ public class DataParser
 		
 		ArrayList<WildLifeFact> WildLifeFacts = new ArrayList<WildLifeFact>(rootNode.size());
 		
-		Iterator<JsonNode> pFactIter = rootNode.getElements();
-		Iterator<String> pFactNames = rootNode.getFieldNames();
-		while(pFactIter.hasNext() && pFactNames.hasNext())
+		Iterator<JsonNode> wFactIter = rootNode.getElements();
+
+		while(wFactIter.hasNext())
 		{			
-			JsonNode pFactNode = pFactIter.next();
-			String pFactName = pFactNames.next();
+			JsonNode wFactNode = wFactIter.next();
+
 			try
 			{	
-				String title = pFactName;
-				String body = pFactNode.toString();
+				String title = wFactNode.path("title").asText();
+				String body = wFactNode.path("body").asText();
 				WildLifeFacts.add(new WildLifeFact(title, body));
 			}
 			catch(Exception e)
@@ -207,6 +207,7 @@ public class DataParser
 		}
 		
 		return WildLifeFacts.toArray(new WildLifeFact[WildLifeFacts.size()]);
+		
 	}
 	
 	public Zone[] parseAllZonesResponse(String json)
@@ -236,7 +237,6 @@ public class DataParser
 				return null;
 			}
 		}
-		
 		return zones.toArray(new Zone[zones.size()]);
 	}
 

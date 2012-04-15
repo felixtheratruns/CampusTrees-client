@@ -25,7 +25,6 @@ public class WildLifeFactsActivity extends Activity implements DSResultListener<
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.wildlifefactsbox);
 		mCurrentFetchID = DataStore.getInstance().beginGetAllWildLifeFacts(this);
-
 	}
 	
 	@Override
