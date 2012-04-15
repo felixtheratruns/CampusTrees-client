@@ -76,7 +76,7 @@ public class PlantFactsArrayAdapter extends ArrayAdapter<PlantFact>{
 		String sheight = "Height: ";
 		String eheight = " feet";
 		String svol = "Volume: ";
-		String evol = " square feet";
+		String evol = " board feet";
 		String sGreenwt = "Weight with leaves: ";
 		String eGreenwt = " pounds";
 		String sDrywt = "Weight without leaves: ";
@@ -86,7 +86,7 @@ public class PlantFactsArrayAdapter extends ArrayAdapter<PlantFact>{
 		String sAge = "Age : ";
 		String eAge = " years";
 		String sCo2pyear = "Co2 asborbed in a year: ";
-		String eCo2pyear = " cubic feet";
+		String eCo2pyear = " pounds";
 		String sCrownarea = "Crown area: ";
 		String eCrownarea = " square feet";
 		
