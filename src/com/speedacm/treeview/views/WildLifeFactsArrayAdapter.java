@@ -32,7 +32,6 @@ public class WildLifeFactsArrayAdapter extends ArrayAdapter<WildLifeFact>{
 		this.wildLifeFactsArr = menuEntries;
 	}
 	
-
 	public int getCount() {
 		return this.wildLifeFactsArr.size();
 	}
