@@ -65,8 +65,8 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
 				new ActivityStarter(this, NewsActivity.class)));
 		menuEntries.add(new MenuItem(getString(R.string.mmenu_treemap), R.drawable.browse_tree_map,
 				new DynamicMapStarter(this, DynamicMapActivity.TREE_MODE)));
-		menuEntries.add(new MenuItem(getString(R.string.mmenu_sustmap), R.drawable.browse_sustainability_map,
-				new DynamicMapStarter(this, DynamicMapActivity.SUSTAIN_MODE)));
+		//menuEntries.add(new MenuItem(getString(R.string.mmenu_sustmap), R.drawable.browse_sustainability_map,
+		//		new DynamicMapStarter(this, DynamicMapActivity.SUSTAIN_MODE)));
 		menuEntries.add(new MenuItem(getString(R.string.mmenu_plantfacts), R.drawable.plant_facts,
 				new ActivityStarter(this, PlantFactsActivity.class)));
 		menuEntries.add(new MenuItem(getString(R.string.mmenu_wildfacts), R.drawable.wildlife_facts,
