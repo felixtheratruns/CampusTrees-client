@@ -16,9 +16,15 @@ import android.widget.TextView;
 
 
 public class NewsArrayAdapter extends ArrayAdapter<News>{
+	private static final String titleFieldStart = "";
+	private static final String dateFieldStart = "Date: ";
+	private static final String bodyFieldStart = "";		
+	
+	
 	private static final String tag = "NewsArrayAdapter";
 	private Context context;
 	private TextView newsTitle;
+	private TextView newsDate;
 	private TextView newsBody;
 	private List<News> news_arr = new ArrayList<News>();
 
@@ -52,13 +58,14 @@ public class NewsArrayAdapter extends ArrayAdapter<News>{
 		News news = getItem(position);
 		
 		// get references to subviews
-		newsTitle= (TextView) row.findViewById(R.id.toptext);
-		newsBody = (TextView) row.findViewById(R.id.bottomtext);
-		//Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), News.getDrawable());
+		newsTitle= (TextView) row.findViewById(R.id.title);
+		newsDate = (TextView) row.findViewById(R.id.date);
+		newsBody = (TextView) row.findViewById(R.id.body);
 		
 		// set up final values
-		newsTitle.setText(news.getTitle());
-		newsBody.setText(news.getBody());
+		newsTitle.setText(titleFieldStart + news.getTitle());
+		newsDate.setText(dateFieldStart + news.getDate());
+		newsBody.setText(bodyFieldStart + news.getBody());
 
 		return row;
 	}

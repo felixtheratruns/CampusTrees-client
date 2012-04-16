@@ -6,26 +6,30 @@ public class WildLifeFact {
 
 	private String title;
 	private String body;
+	private String date;
+
 	
-	
+
 	public WildLifeFact(String pTitle, String pBody)
 	{
 		title = pTitle;
 		body = pBody;
+		
 	}
-	
-	public String getBody(){
-		return body;
+
+	public String toString()
+	{
+		return title + ":\n"  + date + ":\n" + body;
 	}
-	
-	public String getTitle(){
+
+	public String getTitle()
+	{
 		return title;
 	}
 	
-	public String toString()
+	public String getBody()
 	{
-		return title + ":\n"  + body;
+		return body;
 	}
-
 	
 }

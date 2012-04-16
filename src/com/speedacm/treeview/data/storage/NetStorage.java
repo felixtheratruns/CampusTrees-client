@@ -118,7 +118,7 @@ public class NetStorage extends AbstractStorage
 		}
 	}
 
-	//menu item functions other than map
+	//menu item functions other than map"http://trees.cecsresearch.org/joelapi/AppHandler?pFacts=1"
 	@Override
 	public PlantFact[] getAllPlantFacts() {
 		String json = getHTTPResponse(baseURL + "?pFacts=1");
@@ -127,13 +127,13 @@ public class NetStorage extends AbstractStorage
 	
 	@Override
 	public News[] getAllNews() {
-		String json = getHTTPResponse(baseURL + "?pFacts=1");
+		String json = getHTTPResponse(baseURL + "?news=1");
 		return mParser.parseAllNewsResponse(json);
 	}
 	
 	@Override
 	public WildLifeFact[] getAllWildLifeFacts() {
-		String json = getHTTPResponse(baseURL + "?pFacts=1");
+		String json = getHTTPResponse(baseURL + "?wFacts=1");
 		return mParser.parseAllWildLifeFactsResponse(json);
 	}
 	
