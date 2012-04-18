@@ -6,6 +6,7 @@ import java.util.List;
 import com.speedacm.treeview.R;
 import com.speedacm.treeview.models.News;
 import android.content.Context;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,9 +64,9 @@ public class NewsArrayAdapter extends ArrayAdapter<News>{
 		newsBody = (TextView) row.findViewById(R.id.body);
 		
 		// set up final values
-		newsTitle.setText(titleFieldStart + news.getTitle());
-		newsDate.setText(dateFieldStart + news.getDate());
-		newsBody.setText(bodyFieldStart + news.getBody());
+		newsTitle.setText(Html.fromHtml(titleFieldStart + news.getTitle()));
+		newsDate.setText(Html.fromHtml(dateFieldStart + news.getDate()));
+		newsBody.setText(Html.fromHtml(bodyFieldStart + news.getBody()));
 
 		return row;
 	}
