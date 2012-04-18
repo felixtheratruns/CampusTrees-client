@@ -16,6 +16,7 @@ public class PlantFact {
 	private double dbh;
 	private double height;
 	private double vol;
+	private double volcubft;
 	private double greenwt;
 	private double drywt;
 	private double carbonwt;
@@ -36,6 +37,7 @@ public class PlantFact {
 		dbh = pdbh;
 		height = pheight;
 		vol = pvol;
+		volcubft = pvol / 12.0;
 		greenwt = pgreenwt;
 		drywt = pdrywt;
 		carbonwt = pcarbonwt;
@@ -132,6 +134,10 @@ public class PlantFact {
 
 	public double getCrownarea() {
 		return crownarea;
+	}
+	
+	public double getCubFtVol() {
+		return volcubft;
 	}
 
 	

@@ -77,6 +77,8 @@ public class PlantFactsArrayAdapter extends ArrayAdapter<PlantFact>{
 		String eheight = " feet";
 		String svol = "Volume: ";
 		String evol = " board feet";
+		String evolext = " or ";
+		String evol2 = " cubic feet";
 		String sGreenwt = "Weight with leaves: ";
 		String eGreenwt = " pounds";
 		String sDrywt = "Weight without leaves: ";
@@ -103,6 +105,9 @@ public class PlantFactsArrayAdapter extends ArrayAdapter<PlantFact>{
 		s.append(svol);
 		s.append(plant_fact.getVol());		
 		s.append(evol);
+		s.append(evolext);
+		s.append(plant_fact.getCubFtVol());
+		s.append(evol2);
 		s.append("\n");
 		s.append("\n");
 		s.append(sGreenwt);
