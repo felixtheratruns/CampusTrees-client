@@ -79,9 +79,9 @@ public class PlantFactsArrayAdapter extends ArrayAdapter<PlantFact>{
 		String evol = " board feet";
 		String evolext = " or ";
 		String evol2 = " cubic feet";
-		String sGreenwt = "Weight with leaves: ";
+		String sGreenwt = "Total weight: ";
 		String eGreenwt = " pounds";
-		String sDrywt = "Weight without leaves: ";
+		String sDrywt = "Weight without moisture: ";
 		String eDrywt = " pounds";
 		String sCarbonwt = "Weight of Carbon: ";
 		String eCarbonwt = " pounds";
