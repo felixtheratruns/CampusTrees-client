@@ -28,8 +28,11 @@ public class NewsActivity extends Activity implements DSResultListener<News[]>{
 	@Override
 	public void onDSResultReceived(int requestID, News[] payload) {
 		// TODO Auto-generated method stub
-		for(News p : payload){
-			menuEntries.add(p);
+		
+		if(payload != null){
+			for(News p : payload){
+				menuEntries.add(p);
+			}
 		}
 		
 	    NewsArrayAdapter adapter = new NewsArrayAdapter(

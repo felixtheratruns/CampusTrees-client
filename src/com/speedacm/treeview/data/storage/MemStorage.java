@@ -7,6 +7,7 @@ import java.util.Map;
 import com.speedacm.treeview.models.Building;
 import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.PlantFact;
+import com.speedacm.treeview.models.ScavHunt;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Tree;
 import com.speedacm.treeview.models.WildLifeFact;
@@ -18,6 +19,8 @@ public class MemStorage extends AbstractStorage
 	//private HashMap<Integer, Building> mBuildings;	
 	private WildLifeFact[] wildLifeFactsArray;
 	private News[] newsArray;
+	private ScavHunt[] scavHuntArray;
+
 	private PlantFact[] plantFactsArray;
 	private Zone[] mZoneArray;
 	private Species[] mSpeciesArray;
@@ -162,6 +165,14 @@ public class MemStorage extends AbstractStorage
 		if(newsArray == null && mFallback != null)
 			newsArray = mFallback.getAllNews();
 		return newsArray;
+	}
+	
+	@Override
+	public ScavHunt[] getAllScavHunt() {
+		// TODO Auto-generated method stub
+		if(scavHuntArray == null && mFallback != null)
+			scavHuntArray = mFallback.getAllScavHunt();
+		return scavHuntArray;
 	}
 	
 	@Override

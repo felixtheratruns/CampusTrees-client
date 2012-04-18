@@ -29,8 +29,10 @@ public class WildLifeFactsActivity extends Activity implements DSResultListener<
 	
 	@Override
 	public void onDSResultReceived(int requestID, WildLifeFact[] payload) {
-		for(WildLifeFact p : payload){
-			menuEntries.add(p);
+		if(payload != null){
+			for(WildLifeFact p : payload){
+				menuEntries.add(p);
+			}
 		}
 	    WildLifeFactsArrayAdapter adapter = new WildLifeFactsArrayAdapter(
 				getApplicationContext(), R.layout.wildlifefacts_row, menuEntries);

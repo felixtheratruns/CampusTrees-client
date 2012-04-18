@@ -13,6 +13,7 @@ import android.util.Log;
 import com.google.android.maps.GeoPoint;
 import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.PlantFact;
+import com.speedacm.treeview.models.ScavHunt;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Species.NativeType;
 import com.speedacm.treeview.models.Tree;
@@ -145,6 +146,38 @@ public class DataParser
 		}
 		
 		return plantFacts.toArray(new PlantFact[plantFacts.size()]);
+	}
+	
+	public ScavHunt[] parseAllScavHuntResponse(String json)
+	{
+		
+		JsonNode rootNode = mapNode(json);
+		if(rootNode == null) return null;
+		
+		ArrayList<ScavHunt> ScavHunt = new ArrayList<ScavHunt>(rootNode.size());
+		
+		Iterator<JsonNode> scavhuntIter = rootNode.getElements();
+		//Iterator<String> newsNames = rootNode.getFieldNames();
+		while(scavhuntIter.hasNext())
+		{			
+			JsonNode newsNode = scavhuntIter.next();
+			//String newsName = newsNames.next();
+
+			try
+			{	
+				String title = newsNode.path("title").asText();
+				String date = newsNode.path("date").asText();
+				String body = newsNode.path("body").asText();
+				ScavHunt.add(new ScavHunt(title, date, body));
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		return ScavHunt.toArray(new ScavHunt[ScavHunt.size()]);
 	}
 	
 	public News[] parseAllNewsResponse(String json)
