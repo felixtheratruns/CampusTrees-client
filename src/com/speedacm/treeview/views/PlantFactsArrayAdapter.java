@@ -1,5 +1,6 @@
 package com.speedacm.treeview.views;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class PlantFactsArrayAdapter extends ArrayAdapter<PlantFact>{
 	private Context context;
 	private TextView plantFactTitle;
 	private TextView plantFactBody;
+	DecimalFormat f = new DecimalFormat("###,###.###");
 	private List<PlantFact> plantFactsArr = new ArrayList<PlantFact>();
 
 	public PlantFactsArrayAdapter(Context context, int textViewResourceId,
@@ -70,7 +72,7 @@ public class PlantFactsArrayAdapter extends ArrayAdapter<PlantFact>{
 		s.append(plant_fact.getLongitude());
 		s.append("\n");
 */		String stitle = "";
-		String etitle = " tree on campus has these facts:";
+		String etitle = ":";
 		String sdbh =  "Diameter at breast height: ";
 		String edbh = " inches";
 		String sheight = "Height: ";
@@ -87,56 +89,56 @@ public class PlantFactsArrayAdapter extends ArrayAdapter<PlantFact>{
 		String eCarbonwt = " pounds";
 		String sAge = "Age : ";
 		String eAge = " years";
-		String sCo2pyear = "Co2 asborbed in a year: ";
+		String sCo2pyear = "CO2 asborbed in a year: ";
 		String eCo2pyear = " pounds";
 		String sCrownarea = "Crown area: ";
 		String eCrownarea = " square feet";
 		
 		s.append(sdbh);
-		s.append(plant_fact.getDbh());
+		s.append(f.format(plant_fact.getDbh()));
 		s.append(edbh);
-		s.append("<br>\n");		
-		s.append("<br>\n");
+		s.append("<br>");		
+		s.append("<br>");
 		s.append(sheight);
-		s.append(plant_fact.getHeight());
+		s.append(f.format(plant_fact.getHeight()));
 		s.append(eheight);
-		s.append("<br>\n");		
-		s.append("<br>\n");
+		s.append("<br>");		
+		s.append("<br>");
 		s.append(svol);
-		s.append(plant_fact.getVol());		
+		s.append(f.format(plant_fact.getVol()));		
 		s.append(evol);
 		s.append(evolext);
-		s.append(plant_fact.getCubFtVol());
+		s.append(f.format(plant_fact.getCubFtVol()));
 		s.append(evol2);
-		s.append("<br>\n");
-		s.append("<br>\n");
+		s.append("<br>");
+		s.append("<br>");
 		s.append(sGreenwt);
-		s.append(plant_fact.getGreenwt());
+		s.append(f.format(plant_fact.getGreenwt()));
 		s.append(eGreenwt);
-		s.append("<br>\n");
-		s.append("<br>\n");
+		s.append("<br>");
+		s.append("<br>");
 		s.append(sDrywt);
-		s.append(plant_fact.getDrywt());
+		s.append(f.format(plant_fact.getDrywt()));
 		s.append(eDrywt);
-		s.append("<br>\n");
-		s.append("<br>\n");
+		s.append("<br>");
+		s.append("<br>");
 		s.append(sCarbonwt);
-		s.append(plant_fact.getCarbonwt());
+		s.append(f.format(plant_fact.getCarbonwt()));
 		s.append(eCarbonwt);
-		s.append("<br>\n");
-		s.append("<br>\n");
+		s.append("<br>");
+		s.append("<br>");
 		s.append(sAge);
-		s.append(plant_fact.getAge());
+		s.append(f.format(plant_fact.getAge()));
 		s.append(eAge);
-		s.append("<br>\n");
-		s.append("<br>\n");
+		s.append("<br>");
+		s.append("<br>");
 		s.append(sCo2pyear);
-		s.append(plant_fact.getCo2pyear());
+		s.append(f.format(plant_fact.getCo2pyear()));
 		s.append(eCo2pyear);
-		s.append("<br>\n");
-		s.append("<br>\n");
+		s.append("<br>");
+		s.append("<br>");
 		s.append(sCrownarea);
-		s.append(plant_fact.getCrownarea());
+		s.append(f.format(plant_fact.getCrownarea()));
 		s.append(eCrownarea);
 		
 		plantFactTitle.setText(Html.fromHtml(stitle + plant_fact.getTitle() + etitle));
