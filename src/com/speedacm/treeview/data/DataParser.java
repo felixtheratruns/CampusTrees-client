@@ -68,6 +68,8 @@ public class DataParser
 		double co2seqtot = treeNode.path("co2seqwt").asDouble(Double.NaN);
 		double co2seqyr = treeNode.path("co2pyear").asDouble(Double.NaN);
 		int age = treeNode.path("age").asInt();
+		double crownarea = treeNode.path("crownarea").asDouble(Double.NaN);
+		double vol = treeNode.path("vol").asDouble(Double.NaN);
 		
 		
 		if(id == -1 || lat == Double.NaN || lng == Double.NaN || sid == -1)
@@ -80,7 +82,8 @@ public class DataParser
 		
 		return new Tree(
 				id, sid, new GeoPoint(latE6, lngE6), (float)dbh, (float)height,
-				(float)greenwt, (float)drywt, age, (float)co2seqtot, (float)co2seqyr);
+				(float)greenwt, (float)drywt, age, (float)co2seqtot, (float)co2seqyr,
+				(float)crownarea, (float)vol);
 	}
 	
 	private ArrayList<GeoPoint> getPointsFromNode(JsonNode arrayNode)

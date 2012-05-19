@@ -101,11 +101,13 @@ public class TreeInfoActivity extends Activity
 		
 		stats.add(buildFactoid("Latitude", mTree.getLocation().getLatitudeE6() / 1E6f));
 		stats.add(buildFactoid("Longitude", mTree.getLocation().getLongitudeE6() / 1E6f));
-		stats.add(buildFactoid("Height (??)", mTree.getHeight()));
-		stats.add(buildFactoid("Diam. at Breast Height (??)", mTree.getDBH()));
-		stats.add(buildFactoid("Green Weight (??)", mTree.getGreenWeight()));
-		stats.add(buildFactoid("Dry Weight (??)", mTree.getDryWeight()));
+		stats.add(buildFactoid("Height (ft)", mTree.getHeight()));
+		stats.add(buildFactoid("Volume (board ft)", mTree.getVolume()));
+		stats.add(buildFactoid("Diam. at Breast Height (ft)", mTree.getDBH()));
+		stats.add(buildFactoid("Green Weight (ft)", mTree.getGreenWeight()));
+		stats.add(buildFactoid("Dry Weight (ft)", mTree.getDryWeight()));
 		stats.add(buildFactoid("Age (yrs)", mTree.getAge()));
+		stats.add(buildFactoid("Crown Area (ft^2)", mTree.getCrownArea()));
 		
 		return makeFactAdapter(stats);
 	}
@@ -114,8 +116,8 @@ public class TreeInfoActivity extends Activity
 	{
 		ArrayList<HashMap<String,String>> stats = new ArrayList<HashMap<String,String>>();
 		
-		stats.add(buildFactoid("CO2 Sequestered Total (??)", mTree.getCO2SeqTotal()));
-		stats.add(buildFactoid("CO2 Sequestered /yr (??)", mTree.getCO2SeqPerYr()));
+		stats.add(buildFactoid("CO2 Sequestered Total (lbs)", mTree.getCO2SeqTotal()));
+		stats.add(buildFactoid("CO2 Sequestered /yr (lbs)", mTree.getCO2SeqPerYr()));
 		
 		return makeFactAdapter(stats);
 	}
