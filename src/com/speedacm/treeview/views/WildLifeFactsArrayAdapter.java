@@ -8,6 +8,7 @@ import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.WildLifeFact;
 
 import android.content.Context;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,8 +60,8 @@ public class WildLifeFactsArrayAdapter extends ArrayAdapter<WildLifeFact>{
 		wildLifeBody = (TextView) row.findViewById(R.id.body);
 		
 		// set up final values
-		wildLifeTitle.setText(titleFieldStart + wild_life_fact.getTitle());
-		wildLifeBody.setText(bodyFieldStart + wild_life_fact.getBody());
+		wildLifeTitle.setText(Html.fromHtml(titleFieldStart + wild_life_fact.getTitle()));
+		wildLifeBody.setText(Html.fromHtml(bodyFieldStart + wild_life_fact.getBody()));
 		return row;
 	}
 }

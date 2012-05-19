@@ -14,6 +14,7 @@ import com.speedacm.treeview.data.storage.NetStorage;
 import com.speedacm.treeview.models.Building;
 import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.PlantFact;
+import com.speedacm.treeview.models.ScavHunt;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Tree;
 import com.speedacm.treeview.models.WildLifeFact;
@@ -55,6 +56,20 @@ public class DataStore
 			@Override
 			protected PlantFact[] doInBackground(Void... params) {
 				return getAllPlantFacts();
+			}
+		};
+		
+		return putTask(newRequestID, task);
+	}
+	
+	public int beginGetAllScavHunt(final DSResultListener<ScavHunt[]> listener)
+	{
+		final int newRequestID = mNextRequestID++;
+		
+		DSTask<ScavHunt[]> task = new DSTask<ScavHunt[]>(listener, newRequestID) {
+			@Override
+			protected ScavHunt[] doInBackground(Void... params) {
+				return getAllScavHunt();
 			}
 		};
 		
@@ -218,6 +233,11 @@ public class DataStore
 	public News[] getAllNews()
 	{	
 		return mStorage.getAllNews();
+	}
+	
+	public ScavHunt[] getAllScavHunt()
+	{	
+		return mStorage.getAllScavHunt();
 	}
 	
 	public Zone[] getAllZones()

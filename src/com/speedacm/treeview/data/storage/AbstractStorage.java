@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.speedacm.treeview.models.Building;
 import com.speedacm.treeview.models.News;
+import com.speedacm.treeview.models.ScavHunt;
 import com.speedacm.treeview.models.PlantFact;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Tree;
@@ -29,5 +30,6 @@ public abstract class AbstractStorage
 	public abstract List<Integer> getFloweringSpecies(int month);
 	public abstract List<Integer> getFruitingSpecies(int month);
 	public abstract News[] getAllNews();
+	public abstract ScavHunt[] getAllScavHunt();
 	public abstract WildLifeFact[] getAllWildLifeFacts();
 }

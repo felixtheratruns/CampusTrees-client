@@ -5,6 +5,7 @@ import java.util.List;
 import com.speedacm.treeview.models.Building;
 import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.PlantFact;
+import com.speedacm.treeview.models.ScavHunt;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Tree;
 import com.speedacm.treeview.models.WildLifeFact;
@@ -102,6 +103,14 @@ public class DiskStorage extends AbstractStorage
 		// TODO Auto-generated method stub
 		if(mFallback !=null)
 			return mFallback.getAllNews();
+		return null;
+	}
+	
+	@Override
+	public ScavHunt[] getAllScavHunt() {
+		// TODO Auto-generated method stub
+		if(mFallback !=null)
+			return mFallback.getAllScavHunt();
 		return null;
 	}
 	

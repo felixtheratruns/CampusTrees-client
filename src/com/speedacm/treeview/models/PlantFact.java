@@ -1,10 +1,17 @@
 package com.speedacm.treeview.models;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
 import com.google.android.maps.GeoPoint;
 
 public class PlantFact {
 	
 
+
+	//DecimalFormat df = new DecimalFormat();
+	//DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
 
 
 	private GeoPoint latLong;
@@ -16,6 +23,7 @@ public class PlantFact {
 	private double dbh;
 	private double height;
 	private double vol;
+	private double volcubft;
 	private double greenwt;
 	private double drywt;
 	private double carbonwt;
@@ -36,14 +44,13 @@ public class PlantFact {
 		dbh = pdbh;
 		height = pheight;
 		vol = pvol;
+		volcubft = pvol / 12.0;
 		greenwt = pgreenwt;
 		drywt = pdrywt;
 		carbonwt = pcarbonwt;
 		age = page;
 		co2pyear = pco2pyear;
-		crownarea = pcrownarea;
-		
-		
+		crownarea = pcrownarea;	
 	}
 	
 	public GeoPoint getLatLong() {
@@ -132,6 +139,10 @@ public class PlantFact {
 
 	public double getCrownarea() {
 		return crownarea;
+	}
+	
+	public double getCubFtVol() {
+		return volcubft;
 	}
 
 	

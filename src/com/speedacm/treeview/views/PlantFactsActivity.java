@@ -35,8 +35,10 @@ public class PlantFactsActivity extends Activity implements DSResultListener<Pla
 	@Override
 	public void onDSResultReceived(int requestID, PlantFact[] payload) {
 		
-		for(PlantFact p : payload){
-			menuEntries.add(p);
+		if(payload != null){
+			for(PlantFact p : payload){
+				menuEntries.add(p);
+			}
 		}
 	    PlantFactsArrayAdapter adapter = new PlantFactsArrayAdapter(
 				getApplicationContext(), R.layout.plantfacts_row, menuEntries);

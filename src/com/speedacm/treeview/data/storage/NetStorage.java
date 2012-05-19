@@ -13,6 +13,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import com.speedacm.treeview.data.DataParser;
 import com.speedacm.treeview.models.Building;
 import com.speedacm.treeview.models.News;
+import com.speedacm.treeview.models.ScavHunt;
 import com.speedacm.treeview.models.PlantFact;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Tree;
@@ -129,6 +130,12 @@ public class NetStorage extends AbstractStorage
 	public News[] getAllNews() {
 		String json = getHTTPResponse(baseURL + "?news=1");
 		return mParser.parseAllNewsResponse(json);
+	}
+	
+	@Override
+	public ScavHunt[] getAllScavHunt() {
+		String json = getHTTPResponse(baseURL + "?scavHunt=1");
+		return mParser.parseAllScavHuntResponse(json);
 	}
 	
 	@Override
