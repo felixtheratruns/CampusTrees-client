@@ -17,10 +17,11 @@ public class Tree
 	private float mCO2SeqPerYr;
 	private float mVol;
 	private float mCrownArea;
+	private float mCarbonWt;
 	
 	private GeoPoint mLatLong;
 	
-	public Tree(int id, int sid, GeoPoint point, float dbh, float height, float greenwt, float drywt, int age, float co2seqtot, float co2seqyr, float vol, float crownarea)
+	public Tree(int id, int sid, GeoPoint point, float dbh, float height, float greenwt, float drywt, int age, float co2seqtot, float co2seqyr, float vol, float crownarea, float carbonwt)
 	{
 		mID = id;
 		mSID = sid;
@@ -34,6 +35,7 @@ public class Tree
 		mCO2SeqPerYr = co2seqyr;
 		mVol = vol;
 		mCrownArea = crownarea;
+		mCarbonWt = carbonwt;
 	}
 	
 	public int getID() { return mID; }
@@ -46,6 +48,7 @@ public class Tree
 	public float getCO2SeqPerYr() { return mCO2SeqPerYr; }
 	public float getDryWeight() { return mDryWt; }
 	public float getGreenWeight() { return mGreenWt; }
+	public float getCarbonWeight() { return mCarbonWt; }
 	public float getCrownArea() { return mCrownArea; }
 	public float getVolume() { return mVol; }
 	public void setLocation(GeoPoint latLong) { mLatLong = latLong; }

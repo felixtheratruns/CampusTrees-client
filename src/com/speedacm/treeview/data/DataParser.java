@@ -71,7 +71,7 @@ public class DataParser
 		int age = treeNode.path("age").asInt();
 		double crownarea = treeNode.path("crownarea").asDouble(Double.NaN);
 		double vol = treeNode.path("vol").asDouble(Double.NaN);
-		
+		double carbonwt = treeNode.path("carbonwt").asDouble(Double.NaN);
 		
 		if(id == -1 || lat == Double.NaN || lng == Double.NaN || sid == -1)
 		{
@@ -84,7 +84,7 @@ public class DataParser
 		return new Tree(
 				id, sid, new GeoPoint(latE6, lngE6), (float)dbh, (float)height,
 				(float)greenwt, (float)drywt, age, (float)co2seqtot, (float)co2seqyr,
-				(float)crownarea, (float)vol);
+				(float)crownarea, (float)vol, (float)carbonwt);
 	}
 	
 	private ArrayList<GeoPoint> getPointsFromNode(JsonNode arrayNode)
@@ -126,20 +126,8 @@ public class DataParser
 			try
 			{	
 				String title = pFactNode.path("title").asText();
-				int id = pFactNode.path("id").asInt();
-				int sid = pFactNode.path("sid").asInt();
-				double latitude = pFactNode.path("lat").asDouble();
-				double longitude = pFactNode.path("long").asDouble();
-				double dbh = pFactNode.path("dbh").asDouble();
-				double height = pFactNode.path("height").asDouble();
-				double vol = pFactNode.path("vol").asDouble();
-				double greenwt = pFactNode.path("greenwt").asDouble();
-				double drywt = pFactNode.path("drywt").asDouble();
-				double carbonwt = pFactNode.path("carbonwt").asDouble();
-				double age = pFactNode.path("age").asDouble();
-				double co2pyear = pFactNode.path("co2pyear").asDouble();
-				double crownarea = pFactNode.path("crownarea").asDouble();
-				plantFacts.add(new PlantFact(new GeoPoint((int)(latitude * 1E6),(int)(longitude * 1E6)),title, id, sid, latitude, longitude, dbh, height, vol, greenwt, drywt, carbonwt, age, co2pyear, crownarea));
+				Tree tree = parseTreeData(pFactNode);
+				plantFacts.add(new PlantFact(title, tree));
 			}
 			catch(Exception e)
 			{

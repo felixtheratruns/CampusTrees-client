@@ -32,7 +32,6 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainmenu);
         
- 		//I think this function adds menuItems... not completely sure though
         addMenuItems();
         
         // bind to our menu items
@@ -43,10 +42,7 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
 		MenuItemArrayAdapter adapter = new MenuItemArrayAdapter(
 				getApplicationContext(), R.layout.menuitem_listitem, menuEntries);
 		
-		// Get reference to ListView holder
 		ListView lv = (ListView) this.findViewById(R.id.mainMenuList);
-		
-		// Set the ListView adapter
 		lv.setAdapter(adapter);
     }
     

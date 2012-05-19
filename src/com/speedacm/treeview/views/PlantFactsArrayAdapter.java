@@ -4,17 +4,18 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.speedacm.treeview.R;
-import com.speedacm.treeview.models.PlantFact;
-import android.text.Html;
-
 import android.content.Context;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.speedacm.treeview.R;
+import com.speedacm.treeview.models.PlantFact;
+import com.speedacm.treeview.models.Tree;
 
 
 
@@ -89,56 +90,59 @@ public class PlantFactsArrayAdapter extends ArrayAdapter<PlantFact>{
 		String eCarbonwt = " pounds";
 		String sAge = "Age : ";
 		String eAge = " years";
-		String sCo2pyear = "CO2 asborbed in a year: ";
+		String sCo2pyear = "CO2 absorbed in a year: ";
 		String eCo2pyear = " pounds";
 		String sCrownarea = "Crown area: ";
 		String eCrownarea = " square feet";
 		
+		Tree t = plant_fact.getTree();
+		
 		s.append(sdbh);
-		s.append(f.format(plant_fact.getDbh()));
+		s.append(f.format(t.getDBH()));
 		s.append(edbh);
 		s.append("<br>");		
 		s.append("<br>");
 		s.append(sheight);
-		s.append(f.format(plant_fact.getHeight()));
+		s.append(f.format(t.getHeight()));
 		s.append(eheight);
 		s.append("<br>");		
 		s.append("<br>");
 		s.append(svol);
-		s.append(f.format(plant_fact.getVol()));		
+		s.append(f.format(t.getVolume()));		
 		s.append(evol);
-		s.append(evolext);
-		s.append(f.format(plant_fact.getCubFtVol()));
-		s.append(evol2);
+		// Commenting this out until we can get this merged with the tree fetching code
+		//s.append(evolext);
+		//s.append(f.format(t.getCubFtVol()));
+		//s.append(evol2);
 		s.append("<br>");
 		s.append("<br>");
 		s.append(sGreenwt);
-		s.append(f.format(plant_fact.getGreenwt()));
+		s.append(f.format(t.getGreenWeight()));
 		s.append(eGreenwt);
 		s.append("<br>");
 		s.append("<br>");
 		s.append(sDrywt);
-		s.append(f.format(plant_fact.getDrywt()));
+		s.append(f.format(t.getDryWeight()));
 		s.append(eDrywt);
 		s.append("<br>");
 		s.append("<br>");
 		s.append(sCarbonwt);
-		s.append(f.format(plant_fact.getCarbonwt()));
+		s.append(f.format(t.getCarbonWeight()));
 		s.append(eCarbonwt);
 		s.append("<br>");
 		s.append("<br>");
 		s.append(sAge);
-		s.append(f.format(plant_fact.getAge()));
+		s.append(f.format(t.getAge()));
 		s.append(eAge);
 		s.append("<br>");
 		s.append("<br>");
 		s.append(sCo2pyear);
-		s.append(f.format(plant_fact.getCo2pyear()));
+		s.append(f.format(t.getCO2SeqPerYr()));
 		s.append(eCo2pyear);
 		s.append("<br>");
 		s.append("<br>");
 		s.append(sCrownarea);
-		s.append(f.format(plant_fact.getCrownarea()));
+		s.append(f.format(t.getCrownArea()));
 		s.append(eCrownarea);
 		
 		plantFactTitle.setText(Html.fromHtml(stitle + plant_fact.getTitle() + etitle));
