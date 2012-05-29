@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import com.speedacm.treeview.menu.ActivityStarter;
 import com.speedacm.treeview.menu.DynamicMapStarter;
+import com.speedacm.treeview.menu.MenuActionListener;
 import com.speedacm.treeview.menu.MenuItem;
 import com.speedacm.treeview.views.AboutActivity;
 import com.speedacm.treeview.views.CredsActivity;
@@ -24,6 +25,14 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
 {	
 	
 	private ArrayList<MenuItem> menuEntries = new ArrayList<MenuItem>();
+	
+	private MenuActionListener mScanListener = new MenuActionListener() {
+		
+		@Override
+		public void onMenuAction(MenuItem item) {
+			
+		}
+	};
 	
     /** Called when the activity is first created. */
     @Override
@@ -63,6 +72,7 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
 				new DynamicMapStarter(this, DynamicMapActivity.TREE_MODE)));
 		//menuEntries.add(new MenuItem(getString(R.string.mmenu_sustmap), R.drawable.browse_sustainability_map,
 		//		new DynamicMapStarter(this, DynamicMapActivity.SUSTAIN_MODE)));
+		menuEntries.add(new MenuItem(getString(R.string.mmenu_scanbarcode), R.drawable.about, mScanListener));
 		menuEntries.add(new MenuItem(getString(R.string.mmenu_plantfacts), R.drawable.plant_facts,
 				new ActivityStarter(this, PlantFactsActivity.class)));
 		menuEntries.add(new MenuItem(getString(R.string.mmenu_wildfacts), R.drawable.wildlife_facts,
