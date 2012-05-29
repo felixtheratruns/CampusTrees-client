@@ -231,12 +231,7 @@ public class TreeMode extends MapMode
 	}
 	
 	private void popUpTreeInfo(Tree t)
-	{
-		// instantiate dialog and load layout
-		Dialog d = new Dialog(mParent);
-		d.setContentView(R.layout.treeinfo);
-		d.setTitle("Tree Information");
-		
+	{		
 		Intent in = new Intent(mParent, TreeInfoActivity.class);
 		in.putExtra("tree", t.getID());
 		mParent.startActivity(in);
