@@ -32,7 +32,7 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
 	private ArrayList<MenuItem> menuEntries = new ArrayList<MenuItem>();
 	
 	// in order for "this" to be accessible to the inner class, define
-	// it here so mScanListener can get a proper pointer to the outer activityy
+	// it here so mScanListener can get a proper pointer to the outer activity
 	private Activity mThisPtr = this;
 	private Pattern mURLPattern = Pattern.compile("^http://treetest/tree/\\d+$");
 	private MenuActionListener mScanListener = new MenuActionListener() {
