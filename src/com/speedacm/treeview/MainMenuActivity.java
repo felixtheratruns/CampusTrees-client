@@ -1,6 +1,7 @@
 package com.speedacm.treeview;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.app.Activity;
@@ -8,22 +9,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.speedacm.treeview.data.DataStore;
 import com.speedacm.treeview.menu.ActivityStarter;
 import com.speedacm.treeview.menu.DynamicMapStarter;
 import com.speedacm.treeview.menu.MenuActionListener;
 import com.speedacm.treeview.menu.MenuItem;
+import com.speedacm.treeview.models.Tree;
 import com.speedacm.treeview.views.AboutActivity;
 import com.speedacm.treeview.views.CredsActivity;
 import com.speedacm.treeview.views.DynamicMapActivity;
 import com.speedacm.treeview.views.NewsActivity;
 import com.speedacm.treeview.views.PlantFactsActivity;
 import com.speedacm.treeview.views.ScavHuntActivity;
+import com.speedacm.treeview.views.TreeInfoActivity;
 import com.speedacm.treeview.views.WildLifeFactsActivity;
 
 public class MainMenuActivity extends Activity implements OnItemClickListener
@@ -34,7 +38,7 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
 	// in order for "this" to be accessible to the inner class, define
 	// it here so mScanListener can get a proper pointer to the outer activity
 	private Activity mThisPtr = this;
-	private Pattern mURLPattern = Pattern.compile("^http://treetest/tree/\\d+$");
+	private Pattern mURLPattern = Pattern.compile("^http://treetest/tree/(\\d+)/?$");
 	private MenuActionListener mScanListener = new MenuActionListener() {
 		
 		@Override
@@ -49,16 +53,41 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
 		IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
 		if (scanResult != null) {
 			String url = scanResult.getContents();
-			if(!mURLPattern.matcher(url).matches())
+			Matcher m = mURLPattern.matcher(url);
+			if(!m.matches())
 			{
-				Toast.makeText(this, "Invalid URL: ".concat(url), Toast.LENGTH_LONG).show();
-			}
-			else
-			{
-				Toast.makeText(this, url, Toast.LENGTH_LONG).show();
+				// display error to user
+				showText("Invalid URL: ".concat(url));
+				return;
 			}
 			
+			// load tree ID and launch info
+			try
+			{
+				// there should be only one group in the regex
+				int id = Integer.parseInt(m.group(1));
+				Tree t = DataStore.getInstance().getTree(id);
+				
+				if(t == null)
+				{
+					showText("Could not load tree.");
+					return;
+				}
+				
+				Intent i = new Intent(this, TreeInfoActivity.class);
+				i.putExtra("tree", t.getID());
+				startActivity(i);
+			}
+			catch(Exception e)
+			{
+				showText("Could not find tree ID.");	
+			}	
 		}
+	}
+	
+	private void showText(String text)
+	{
+		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
 	}
 	
     /** Called when the activity is first created. */
