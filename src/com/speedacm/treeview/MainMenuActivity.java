@@ -1,14 +1,19 @@
 package com.speedacm.treeview;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.speedacm.treeview.menu.ActivityStarter;
 import com.speedacm.treeview.menu.DynamicMapStarter;
 import com.speedacm.treeview.menu.MenuActionListener;
@@ -26,13 +31,35 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
 	
 	private ArrayList<MenuItem> menuEntries = new ArrayList<MenuItem>();
 	
+	// in order for "this" to be accessible to the inner class, define
+	// it here so mScanListener can get a proper pointer to the outer activityy
+	private Activity mThisPtr = this;
+	private Pattern mURLPattern = Pattern.compile("^http://treetest/tree/\\d+$");
 	private MenuActionListener mScanListener = new MenuActionListener() {
 		
 		@Override
 		public void onMenuAction(MenuItem item) {
-			
+			IntentIntegrator ii = new IntentIntegrator(mThisPtr);
+			ii.initiateScan();
 		}
 	};
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+		if (scanResult != null) {
+			String url = scanResult.getContents();
+			if(!mURLPattern.matcher(url).matches())
+			{
+				Toast.makeText(this, "Invalid URL: ".concat(url), Toast.LENGTH_LONG).show();
+			}
+			else
+			{
+				Toast.makeText(this, url, Toast.LENGTH_LONG).show();
+			}
+			
+		}
+	}
 	
     /** Called when the activity is first created. */
     @Override
