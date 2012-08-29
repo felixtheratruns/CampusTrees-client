@@ -18,7 +18,6 @@ import com.speedacm.treeview.views.DynamicMapActivity;
 import com.speedacm.treeview.views.NewsActivity;
 import com.speedacm.treeview.views.PlantFactsActivity;
 import com.speedacm.treeview.views.ScavHuntMainActivity;
-import com.speedacm.treeview.views.Start;
 import com.speedacm.treeview.views.WildLifeFactsActivity;
 
 public class MainMenuActivity extends Activity implements OnItemClickListener

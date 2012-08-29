@@ -179,7 +179,7 @@ public class ScavHuntListActivity extends ListActivity {
 		return savedItems;
 	}
 	
-	
+/*	
 	private ArrayList<String> PrepareListFromXML() {
 		ArrayList<String> todoItems = new ArrayList<String>();
 		XmlResourceParser todolistXml = getResources().getXml(R.xml.todolist);
@@ -206,7 +206,7 @@ public class ScavHuntListActivity extends ListActivity {
 		}
 		return todoItems;
 	}
-
+*/
 	private ArrayList<String> PrepareListFromSelected(ScavHunt s_hunt) {
 		ArrayList<String> todoItems = new ArrayList<String>();
 		//XmlResourceParser todolistXml = getResources().getXml(R.xml.todolist);
