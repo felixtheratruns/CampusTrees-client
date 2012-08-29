@@ -16,7 +16,6 @@ public class PlantFactsActivity extends Activity implements DSResultListener<Pla
 {
 	
 	private ArrayList<PlantFact> menuEntries = new ArrayList<PlantFact>();
-
 	private static final String tag = "PlantFactsActivity";
 	private int mCurrentFetchID = DataStore.NO_REQUEST;
 
@@ -27,8 +26,6 @@ public class PlantFactsActivity extends Activity implements DSResultListener<Pla
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.plantfactsbox);
 		mCurrentFetchID = DataStore.getInstance().beginGetAllPlantFacts(this);
-
-		
 	}
 	
     // bind to our menu items

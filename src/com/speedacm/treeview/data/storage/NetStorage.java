@@ -24,6 +24,7 @@ public class NetStorage extends AbstractStorage
 {
 	
 	private static final String baseURL = "http://trees.cecsresearch.org/AppHandler.php";
+	private static final String joelBaseURL = "http://trees.cecsresearch.org/joelapi/AppHandler";
 	private HttpClient mClient;
 	private DataParser mParser;
 
@@ -119,7 +120,7 @@ public class NetStorage extends AbstractStorage
 		}
 	}
 
-	//menu item functions other than map"http://trees.cecsresearch.org/joelapi/AppHandler?pFacts=1"
+	//menu item functions other than map
 	@Override
 	public PlantFact[] getAllPlantFacts() {
 		String json = getHTTPResponse(baseURL + "?pFacts=1");
@@ -134,7 +135,7 @@ public class NetStorage extends AbstractStorage
 	
 	@Override
 	public ScavHunt[] getAllScavHunt() {
-		String json = getHTTPResponse(baseURL + "?scavHunt=1");
+		String json = getHTTPResponse(joelBaseURL + "?scavHunt=1");
 		return mParser.parseAllScavHuntResponse(json);
 	}
 	

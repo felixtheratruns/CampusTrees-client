@@ -25,5 +25,7 @@
     <string name="ssearch_label">Species Name</string>
     <string name="ssearch_button">Go</string>
     <string name="no_items">Sorry, nothing here.</string>
+    <string name="scav_hunt_list_header">List Header Text</string>
+    <string name="list_header">List Header</string>
 
 </resources>

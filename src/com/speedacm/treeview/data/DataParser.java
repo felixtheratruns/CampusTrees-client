@@ -22,6 +22,7 @@ import com.speedacm.treeview.models.Zone;
 
 public class DataParser
 {
+	private String tag = "DataParser";
 	private ObjectMapper mMapper;
 	
 	public DataParser()
@@ -141,7 +142,6 @@ public class DataParser
 	
 	public ScavHunt[] parseAllScavHuntResponse(String json)
 	{
-		
 		JsonNode rootNode = mapNode(json);
 		if(rootNode == null) return null;
 		
@@ -151,15 +151,33 @@ public class DataParser
 		//Iterator<String> newsNames = rootNode.getFieldNames();
 		while(scavhuntIter.hasNext())
 		{			
-			JsonNode newsNode = scavhuntIter.next();
+			JsonNode scavHuntNode = scavhuntIter.next();
 			//String newsName = newsNames.next();
-
 			try
 			{	
-				String title = newsNode.path("title").asText();
-				String date = newsNode.path("date").asText();
-				String body = newsNode.path("body").asText();
-				ScavHunt.add(new ScavHunt(title, date, body));
+				String title = scavHuntNode.path("title").asText();
+				JsonNode items = scavHuntNode.findValue("items");
+				
+				Iterator<JsonNode> item_bodies = items.getElements();
+				JsonNode cur;
+				String item_title;
+				String item;
+				ArrayList<String> bodies = new ArrayList<String>();
+				ArrayList<String> titles = new ArrayList<String>();
+				
+				while(item_bodies.hasNext()){
+					cur = item_bodies.next();
+					item_title = cur.path("item_title").asText();
+					item = cur.path("item").asText();
+					titles.add(item_title);
+					bodies.add(item);
+				}
+				
+				if(titles.size() != bodies.size()){
+					System.out.println("Scavenger Hunt titles and bodies are not equal!");
+				}
+				
+				ScavHunt.add(new ScavHunt(title, titles, bodies));
 			}
 			catch(Exception e)
 			{
