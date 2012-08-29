@@ -1,33 +1,21 @@
 package com.speedacm.treeview.views;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
-
-import org.codehaus.jackson.JsonNode;
-import org.xmlpull.v1.XmlPullParserException;
 
 import com.speedacm.treeview.R;
-import com.speedacm.treeview.data.DSResultListener;
-import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.ScavHunt;
-import com.speedacm.treeview.submenus.ScavHuntMenuItem;
+import com.speedacm.treeview.models.ScavHuntSubItem;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.content.*;
-import android.content.res.XmlResourceParser;
 
 public class ScavHuntListActivity extends ListActivity {
 
@@ -54,9 +42,6 @@ public class ScavHuntListActivity extends ListActivity {
 		//System.out.println("body string: "+ s_hunt.getBody().toString());
 		
 		scavHuntTitle = s_hunt.getTitle();
-		
-		
-
 		
 		// Prepare an ArrayList of todo items
 		ArrayList<String> listTODO = PrepareListFromSelected(s_hunt);
@@ -93,32 +78,6 @@ public class ScavHuntListActivity extends ListActivity {
 				ClearSelections();
 			}
 		});
-
-
-		
-		/*
-		 * 
-		 * 		this.mainListView = getListView();
-
-		mainListView.setCacheColorHint(0);
-
-		// Bind the data with the list
-		this.customTODOAdapter = new CustomToDoListAdapter(CustomListView.this,
-				R.layout.single_item, listTODO);
-		mainListView.setAdapter(this.customTODOAdapter);
-
-		mainListView.setItemsCanFocus(false);
-		mainListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 */
-		
-		
-		
-
 	}
 
 	@Override
@@ -183,70 +142,15 @@ public class ScavHuntListActivity extends ListActivity {
 		return savedItems;
 	}
 	
-/*	
-	private ArrayList<String> PrepareListFromXML() {
-		ArrayList<String> todoItems = new ArrayList<String>();
-		XmlResourceParser todolistXml = getResources().getXml(R.xml.todolist);
-	
-		int eventType = -1;
-		while (eventType != XmlResourceParser.END_DOCUMENT) {
-			if (eventType == XmlResourceParser.START_TAG) {
-
-				String strNode = todolistXml.getName();
-				if (strNode.equals("item")) {
-					todoItems.add(todolistXml.getAttributeValue(null, "title"));
-				}
-			}
-
-			try {
-				eventType = todolistXml.next();
-			} catch (XmlPullParserException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return todoItems;
-	}
-*/
 	private ArrayList<String> PrepareListFromSelected(ScavHunt s_hunt) {
 		ArrayList<String> todoItems = new ArrayList<String>();
-		//XmlResourceParser todolistXml = getResources().getXml(R.xml.todolist);
-		ArrayList<String> titles = s_hunt.getTitles();
-		//s_hunt.getBodies();
+		ArrayList<ScavHuntSubItem> items = s_hunt.getSubItems();
 
-		
-		for(Iterator<String> t =titles.iterator();  t.hasNext();){
-			todoItems.add(t.next());
+		for(Iterator<ScavHuntSubItem> t =items.iterator();  t.hasNext();){
+			ScavHuntSubItem test = t.next();
+			todoItems.add(test.getTitle() + ": "+ test.getBody());
 		}
 		
-		
-		
-	//	todolistXml = 
-	/*	
-		int eventType = -1;
-		while (eventType != XmlResourceParser.END_DOCUMENT) {
-			if (eventType == XmlResourceParser.START_TAG) {
-
-				String strNode = todolistXml.getName();
-				if (strNode.equals("item")) {
-					todoItems.add(todolistXml.getAttributeValue(null, "title"));
-				}
-			}
-
-			try {
-				eventType = todolistXml.next();
-			} catch (XmlPullParserException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-*/
 		return todoItems;
 	}
 

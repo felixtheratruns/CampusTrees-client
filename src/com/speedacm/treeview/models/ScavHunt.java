@@ -15,47 +15,36 @@ import android.util.Log;
 public class ScavHunt implements Parcelable {
 
 	private String title;
-	private ArrayList<String> item_titles;
-	private ArrayList<String> item_bodies;
+	private ArrayList<ScavHuntSubItem> sub_items;
 	
-	public ScavHunt(String pTitle, ArrayList<String> p_titles, ArrayList<String> p_bodies)
-	{
+	
+	public ScavHunt(String pTitle, ArrayList<ScavHuntSubItem> p_sub_items){
 		title = pTitle;
-		item_titles = p_titles;
-		item_bodies = p_bodies;
+		sub_items = p_sub_items;
+	}
+	
+	public ArrayList<ScavHuntSubItem> getSubItems(){
+		return sub_items;
 	}
 
 	public String getTitle(){
 		return title;
 	}
 	
-	public ArrayList<String> getBodies(){
-		return item_bodies;
-	}
-	
-	public ArrayList<String> getTitles(){
-		return item_titles;
-	}
 	
     public int describeContents() {
         return 0;
     }
 
     public void writeToParcel(Parcel out, int flags) {
-       
-    	out.writeInt(item_titles.size());
-    	
-    	for(Iterator<String> i = item_titles.iterator(); i.hasNext();){
-    		out.writeString(i.next());
-    	}
-    	
-    	out.writeInt(item_bodies.size());
-    	
-    	for(Iterator<String> i = item_bodies.iterator(); i.hasNext();){
-    		out.writeString(i.next());
-    	}
-    	  	
     	out.writeString(title);
+    	out.writeInt(sub_items.size());
+    	
+    	for(Iterator<ScavHuntSubItem> i = sub_items.iterator(); i.hasNext();){
+    		ScavHuntSubItem item = i.next();
+    		out.writeString(item.getTitle());
+    		out.writeString(item.getBody());
+    	}
     }
 
     public static final Parcelable.Creator<ScavHunt> CREATOR
@@ -69,37 +58,16 @@ public class ScavHunt implements Parcelable {
         }
     };
     
-    private JsonNode createJson(String json){
-    	ObjectMapper mMapper = new ObjectMapper();
-		try
-		{
-			JsonParser jp = mMapper.getJsonFactory().createJsonParser(json);
-			return mMapper.readTree(jp);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			Log.e("json parse exception?", "exception", e);
-			return null;
-		}
-    }
-    
-    private ScavHunt(Parcel in) {  
-    	int titles_size = in.readInt();
-    	ArrayList<String> titles = new ArrayList<String>();
-    	for(int i = 0; i < titles_size ; i++){
-    		titles.add(in.readString());
-    	}
-    	item_titles = titles;
-    	
-    	int bodies_size = in.readInt();
-    	ArrayList<String> bodies = new ArrayList<String>();
-    	for(int i = 0; i < bodies_size; i++){
-    		bodies.add(in.readString());
-    	}
-    	
-    	item_bodies = bodies;
-    	
+    private ScavHunt(Parcel in) {
     	title = in.readString();
+    	int titles_size = in.readInt();
+    	
+    	sub_items = new ArrayList<ScavHuntSubItem>();
+    	
+    	for(int i = 0; i < titles_size; i++){
+    		String title = in.readString();
+    		String body = in.readString();
+    		sub_items.add(new ScavHuntSubItem(title, body));
+    	}
     }
 }
