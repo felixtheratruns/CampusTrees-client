@@ -48,6 +48,57 @@ public class ScavHuntListAdapter extends ArrayAdapter<ScavHuntSubItem> implement
 		LoadSelections();
 	}
 	
+	private void LoadSelections() {
+		// TODO Auto-generated method stub
+		SharedPreferences settingsActivity =
+			this.context.getSharedPreferences(
+					SETTING_TODOLIST,
+			android.content.Context.MODE_PRIVATE);
+		
+		if(settingsActivity.contains(SETTING_TODOLIST)){
+			String savedItems = settingsActivity.getString(SETTING_TODOLIST, "");
+			this.selectedItems.addAll(Arrays.asList(savedItems.split("")));
+			
+		}
+		
+	}
+
+	/*	
+	private void LoadSelections() {
+		// TODO Auto-generated method stub
+		SharedPreferences settingsActivity =
+				this.context.getSharedPreferences(
+						SETTING_TODOLIST,
+				android.content.Context.MODE_PRIVATE);
+			
+			if(settingsActivity.contains(SETTING_TODOLIST)){
+				String savedItems = settingsActivity.getString(SETTING_TODOLIST, "");
+				this.selectedItems.addAll(Arrays.asList(savedItems.split("")));
+				
+			}
+			
+	}
+*/
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		CheckBox cBox = (CheckBox) v;
+		String itemText = (String) cBox.getTag();
+		
+		Log.d("debug", "message from click listener");
+		if (cBox.isChecked()){
+			if(!this.selectedItems.contains(itemText))
+				this.selectedItems.add(itemText);
+		} else {
+			if(this.selectedItems.contains(itemText))
+				this.selectedItems.remove(itemText);
+		}
+		
+		SaveSelections();
+	}
+	
+	
+	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent){
 		// TODO Auto-generated method stub
@@ -58,7 +109,7 @@ public class ScavHuntListAdapter extends ArrayAdapter<ScavHuntSubItem> implement
 			v = inflater.inflate(R.layout.scavhunt_row, null);
 		}
 		ScavHuntSubItem item = this.todoItems.get(position);
-		TextView bTitle = (TextView) v.findViewById(R.id.txtTitle);
+		TextView bTitle = (TextView) v.findViewById(R.id.title);
 		CheckBox bCheck = (CheckBox) v.findViewById(R.id.bcheck);
 
 		bCheck.setTag(item.getTitle());
@@ -70,8 +121,43 @@ public class ScavHuntListAdapter extends ArrayAdapter<ScavHuntSubItem> implement
 		
 	}
 	
+
+	public void ClearSelections(){
+		this.selectedItems.clear();
+		SaveSelections();
+	}
+	
+	private String getSavedItems() {
+		String savedItems = "";
+		for(int i =0; i <selectedItems.size(); i++){
+			if(savedItems.length() >0){
+				savedItems += "," + this.selectedItems.get(i);
+			} else {
+				savedItems += this.selectedItems.get(i);
+			}
+			
+		}
+		return savedItems;
+	}
 	
 	
+	private void SaveSelections(){
+		SharedPreferences settingsActivity =
+			this.context.getSharedPreferences(
+					SETTING_TODOLIST,
+					android.content.Context.MODE_PRIVATE);
+		SharedPreferences.Editor prefEditor = settingsActivity.edit();
+		String savedItems = getSavedItems();
+		prefEditor.putString(SETTING_TODOLIST, savedItems);
+		prefEditor.commit();
+		
+		
+	}
+	
+	
+
+
+
 	
 /*
 	@Override

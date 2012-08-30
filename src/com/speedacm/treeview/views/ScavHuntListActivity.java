@@ -113,7 +113,6 @@ public class ScavHuntListActivity extends ListActivity {
 			LinearLayout v = (LinearLayout) this.mainListView.getChildAt(i);
 			CheckBox chk = (CheckBox) v.getChildAt(0);
 			chk.setChecked(false);
-			
 		}
 		this.adapter.ClearSelections();
 		
@@ -126,7 +125,7 @@ public class ScavHuntListActivity extends ListActivity {
 		SaveSelections();
 		*/
 	}
-
+/*
 	private void LoadSelections() {
 		// if the selections were previously saved load them
 		SharedPreferences settingsActivity = getPreferences(MODE_PRIVATE);
@@ -146,6 +145,7 @@ public class ScavHuntListActivity extends ListActivity {
 			}
 		}
 	}
+	*/
 /*
 	private void SaveSelections() {
 		// save the selections in the shared preference in private mode for the user
