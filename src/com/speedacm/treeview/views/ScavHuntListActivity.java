@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.content.*;
@@ -21,7 +23,9 @@ public class ScavHuntListActivity extends ListActivity {
 
 	private String[] lv_arr = {};
 	private ArrayList<ScavHunt> menuEntries = new ArrayList<ScavHunt>();
-
+	private ScavHuntListAdapter adapter;
+	
+	
 	private ListView mainListView = null;
 	final String SETTING_TODOLIST = "todolist";
 
@@ -35,6 +39,16 @@ public class ScavHuntListActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.scavhuntbox);
 		
+		Button btnClear = (Button) findViewById(R.id.btnClear);
+		btnClear.setOnClickListener(new OnClickListener() {
+			public void onClick(View v){
+				Toast.makeText(getApplicationContext(), " You clicked Clear button", Toast.LENGTH_SHORT).show(); 
+				ClearSelections();
+			}
+		});
+		
+		
+		
 		String position = getIntent().getStringExtra("position");
 
 		System.out.println("the position is: "+ position);
@@ -43,28 +57,39 @@ public class ScavHuntListActivity extends ListActivity {
 		
 		scavHuntTitle = s_hunt.getTitle();
 		
+		
+		
+		
+		
 		// Prepare an ArrayList of todo items
-		ArrayList<String> listTODO = PrepareListFromSelected(s_hunt);
+		ArrayList<ScavHuntSubItem> sub_menu_items = s_hunt.getSubItems();
+		//PrepareListFromSelected(s_hunt);
 		
 		//ArrayList<String> listTODO = PrepareListFromXML();
 		this.mainListView = getListView();
 		mainListView.setCacheColorHint(0);
 
 		// Bind the data with the list
-		lv_arr = (String[]) listTODO.toArray(new String[0]);
-		mainListView.setAdapter(new ArrayAdapter<String>(ScavHuntListActivity.this,
-				android.R.layout.simple_list_item_multiple_choice, lv_arr));
+		//lv_arr = (String[]) listTODO.toArray(new String[0]);
+		
+		
+		
+		
+		this.adapter = new ScavHuntListAdapter(getApplicationContext(), R.layout.scavhunt_row, sub_menu_items);
+		
+		mainListView.setAdapter(adapter);
 		mainListView.setItemsCanFocus(false);
 		mainListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-		LoadSelections();
+		//LoadSelections();
 		
-		Button btnSave = (Button) findViewById(R.id.btnSave);
-		btnSave.setOnClickListener(new OnClickListener() {
+		//Button btnSave = (Button) findViewById(R.id.btnSave);
+		/*btnSave.setOnClickListener(new OnClickListener() {
+
+			
 			public void onClick(View v) {
 
 				Toast.makeText(getApplicationContext(),
 						" You clicked Save button", Toast.LENGTH_SHORT).show();
-
 				SaveSelections();
 			}
 		});
@@ -78,23 +103,28 @@ public class ScavHuntListActivity extends ListActivity {
 				ClearSelections();
 			}
 		});
+		*/
 	}
 
-	@Override
-	protected void onPause() {
-		// always handle the onPause to make sure selections are saved if user clicks back button
-		SaveSelections();
-		super.onPause();
-	}
 
 	private void ClearSelections() {
 		// user has clicked clear button so uncheck all the items
+		for(int i = 0; i<this.adapter.getCount(); i++){
+			LinearLayout v = (LinearLayout) this.mainListView.getChildAt(i);
+			CheckBox chk = (CheckBox) v.getChildAt(0);
+			chk.setChecked(false);
+			
+		}
+		this.adapter.ClearSelections();
+		
+		/*
 		int count = this.mainListView.getAdapter().getCount();
 		for (int i = 0; i < count; i++) {
 			this.mainListView.setItemChecked(i, false);
 		}
 		// also clear the saved selections
 		SaveSelections();
+		*/
 	}
 
 	private void LoadSelections() {
@@ -116,7 +146,7 @@ public class ScavHuntListActivity extends ListActivity {
 			}
 		}
 	}
-
+/*
 	private void SaveSelections() {
 		// save the selections in the shared preference in private mode for the user
 		SharedPreferences settingsActivity = getPreferences(MODE_PRIVATE);
@@ -142,7 +172,18 @@ public class ScavHuntListActivity extends ListActivity {
 		return savedItems;
 	}
 	
-	private ArrayList<String> PrepareListFromSelected(ScavHunt s_hunt) {
+	
+
+	@Override
+	protected void onPause() {
+		// always handle the onPause to make sure selections are saved if user clicks back button
+		SaveSelections();
+		super.onPause();
+	}
+	
+	*/
+/*	
+	private ArrayList<ScavHuntSubItem> PrepareListFromSelected(ScavHunt s_hunt) {
 		ArrayList<String> todoItems = new ArrayList<String>();
 		ArrayList<ScavHuntSubItem> items = s_hunt.getSubItems();
 
@@ -153,5 +194,5 @@ public class ScavHuntListActivity extends ListActivity {
 		
 		return todoItems;
 	}
-
+*/
 }
