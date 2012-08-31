@@ -143,7 +143,10 @@ public class DataParser
 	
 	public ScavHunt[] parseAllScavHuntResponse(String json)
 	{
+		if(json == null || json.equals("")) return null;
 		JsonNode rootNode = mapNode(json);
+		
+		
 		if(rootNode == null) return null;
 		
 		ArrayList<ScavHunt> ScavHunt = new ArrayList<ScavHunt>(rootNode.size());

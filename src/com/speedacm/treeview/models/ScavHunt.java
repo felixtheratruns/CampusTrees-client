@@ -23,6 +23,11 @@ public class ScavHunt implements Parcelable {
 		sub_items = p_sub_items;
 	}
 	
+	public String toString(){
+		return title;
+	}
+	
+	
 	public ArrayList<ScavHuntSubItem> getSubItems(){
 		return sub_items;
 	}

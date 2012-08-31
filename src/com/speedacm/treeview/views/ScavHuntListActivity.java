@@ -9,6 +9,7 @@ import com.speedacm.treeview.models.ScavHuntSubItem;
 
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -30,7 +31,6 @@ public class ScavHuntListActivity extends ListActivity {
 	final String SETTING_TODOLIST = "todolist";
 
 	private ArrayList<String> selectedItems = new ArrayList<String>();
-	
 	private String scavHuntTitle = "";
 	
 	/** Called when the activity is first created. */
@@ -47,23 +47,15 @@ public class ScavHuntListActivity extends ListActivity {
 			}
 		});
 		
-		
-		
 		String position = getIntent().getStringExtra("position");
 
 		System.out.println("the position is: "+ position);
 		ScavHunt s_hunt = getIntent().getParcelableExtra("s_hunt");
-		//System.out.println("body string: "+ s_hunt.getBody().toString());
-		
+	
 		scavHuntTitle = s_hunt.getTitle();
-		
-		
-		
-		
 		
 		// Prepare an ArrayList of todo items
 		ArrayList<ScavHuntSubItem> sub_menu_items = s_hunt.getSubItems();
-		//PrepareListFromSelected(s_hunt);
 		
 		//ArrayList<String> listTODO = PrepareListFromXML();
 		this.mainListView = getListView();
@@ -71,39 +63,10 @@ public class ScavHuntListActivity extends ListActivity {
 
 		// Bind the data with the list
 		//lv_arr = (String[]) listTODO.toArray(new String[0]);
-		
-		
-		
-		
-		this.adapter = new ScavHuntListAdapter(getApplicationContext(), R.layout.scavhunt_row, sub_menu_items);
-		
+		this.adapter = new ScavHuntListAdapter(getApplicationContext(), R.layout.scavhunt_row, sub_menu_items, scavHuntTitle);
 		mainListView.setAdapter(adapter);
 		mainListView.setItemsCanFocus(false);
 		mainListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-		//LoadSelections();
-		
-		//Button btnSave = (Button) findViewById(R.id.btnSave);
-		/*btnSave.setOnClickListener(new OnClickListener() {
-
-			
-			public void onClick(View v) {
-
-				Toast.makeText(getApplicationContext(),
-						" You clicked Save button", Toast.LENGTH_SHORT).show();
-				SaveSelections();
-			}
-		});
-
-		Button btnClear = (Button) findViewById(R.id.btnClear);
-		btnClear.setOnClickListener(new OnClickListener() {
-
-			public void onClick(View v) {
-				Toast.makeText(getApplicationContext(),
-						" You clicked Clear button", Toast.LENGTH_SHORT).show();
-				ClearSelections();
-			}
-		});
-		*/
 	}
 
 
@@ -115,15 +78,6 @@ public class ScavHuntListActivity extends ListActivity {
 			chk.setChecked(false);
 		}
 		this.adapter.ClearSelections();
-		
-		/*
-		int count = this.mainListView.getAdapter().getCount();
-		for (int i = 0; i < count; i++) {
-			this.mainListView.setItemChecked(i, false);
-		}
-		// also clear the saved selections
-		SaveSelections();
-		*/
 	}
 /*
 	private void LoadSelections() {

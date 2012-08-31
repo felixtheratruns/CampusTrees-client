@@ -18,4 +18,8 @@ public class ScavHuntSubItem {
 		return body;
 	}
 	
+	public String toString(){
+		return title;
+	}
+	
 }

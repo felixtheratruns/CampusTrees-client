@@ -25,7 +25,7 @@ import android.widget.TextView;
 
 
 public class ScavHuntMainArrayAdapter extends ArrayAdapter<ScavHuntMenuItem>{
-	private static final String tag = "MenuItemArrayAdapter";
+	private static final String tag = "ScavHuntMainArrayAdapter";
 	private Context context;
 	private ImageView menuitemIcon;
 	private TextView menuitemName;
@@ -50,7 +50,7 @@ public class ScavHuntMainArrayAdapter extends ArrayAdapter<ScavHuntMenuItem>{
 		View row = convertView;
 		if (row == null) {
 			// ROW INFLATION
-			Log.d(tag, "Starting XML Row Inflation ... ");
+			Log.d(tag, "Starting XML Row inflation ... ");
 			LayoutInflater inflater = (LayoutInflater) this.getContext()
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			row = inflater.inflate(R.layout.menuitem_listitem, parent, false);
