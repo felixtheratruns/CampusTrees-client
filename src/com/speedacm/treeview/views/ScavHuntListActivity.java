@@ -37,7 +37,7 @@ public class ScavHuntListActivity extends ListActivity {
 		Button btnClear = (Button) findViewById(R.id.btnClear);
 		btnClear.setOnClickListener(new OnClickListener() {
 			public void onClick(View v){
-				Toast.makeText(getApplicationContext(), " You clicked Clear button", Toast.LENGTH_SHORT).show(); 
+				//Toast.makeText(getApplicationContext(), " You clicked Clear button", Toast.LENGTH_SHORT).show(); 
 				ClearSelections();
 			}
 		});
