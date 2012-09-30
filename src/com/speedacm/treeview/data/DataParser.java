@@ -14,6 +14,7 @@ import com.google.android.maps.GeoPoint;
 import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.PlantFact;
 import com.speedacm.treeview.models.ScavHunt;
+import com.speedacm.treeview.models.ScavHuntSubItem;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Species.NativeType;
 import com.speedacm.treeview.models.Tree;
@@ -22,6 +23,7 @@ import com.speedacm.treeview.models.Zone;
 
 public class DataParser
 {
+	private String tag = "DataParser";
 	private ObjectMapper mMapper;
 	
 	public DataParser()
@@ -141,25 +143,41 @@ public class DataParser
 	
 	public ScavHunt[] parseAllScavHuntResponse(String json)
 	{
-		
+		if(json == null || json.equals("")) return null;
 		JsonNode rootNode = mapNode(json);
+		
+		
 		if(rootNode == null) return null;
 		
 		ArrayList<ScavHunt> ScavHunt = new ArrayList<ScavHunt>(rootNode.size());
-		
 		Iterator<JsonNode> scavhuntIter = rootNode.getElements();
 		//Iterator<String> newsNames = rootNode.getFieldNames();
 		while(scavhuntIter.hasNext())
-		{			
-			JsonNode newsNode = scavhuntIter.next();
+		{
+			JsonNode scavHuntNode = scavhuntIter.next();
 			//String newsName = newsNames.next();
-
 			try
-			{	
-				String title = newsNode.path("title").asText();
-				String date = newsNode.path("date").asText();
-				String body = newsNode.path("body").asText();
-				ScavHunt.add(new ScavHunt(title, date, body));
+			{
+				String title = scavHuntNode.path("title").asText();
+				JsonNode items = scavHuntNode.findValue("items");
+				Iterator<JsonNode> item_bodies = items.getElements();
+				JsonNode cur;
+				String item_title;
+				String item;
+				ArrayList<String> bodies = new ArrayList<String>();
+				ArrayList<String> titles = new ArrayList<String>();
+				ArrayList<ScavHuntSubItem> sub_items = new ArrayList<ScavHuntSubItem>();
+				
+				while(item_bodies.hasNext()){
+					cur = item_bodies.next();
+					item_title = cur.path("item_title").asText();
+					item = cur.path("item").asText();
+					titles.add(item_title);
+					bodies.add(item);
+					
+					sub_items.add(new ScavHuntSubItem(item_title,item));
+				}
+				ScavHunt.add(new ScavHunt(title, sub_items));
 			}
 			catch(Exception e)
 			{
@@ -167,7 +185,6 @@ public class DataParser
 				return null;
 			}
 		}
-		
 		return ScavHunt.toArray(new ScavHunt[ScavHunt.size()]);
 	}
 	

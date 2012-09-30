@@ -26,13 +26,12 @@
         <activity android:name=".views.PlantFactsActivity"></activity>
         <activity android:name=".views.NewsActivity"></activity>
         <activity android:name=".views.WildLifeFactsActivity"></activity>
-        <activity android:name=".views.ScavHuntActivity"></activity>
+        <activity android:name=".views.ScavHuntMainActivity"></activity>
         <activity android:name=".views.CredsActivity"></activity>
+        <activity android:name=".views.ScavHuntListActivity"></activity>
         <activity android:name=".views.DynamicMapActivity" android:theme="@android:style/Theme" android:label="Tree Map"></activity>
         <activity android:name=".views.TreeInfoActivity" android:theme="@android:style/Theme" android:label="Tree Info"></activity>
         <activity android:name=".views.SpeciesSearchActivity" android:theme="@android:style/Theme" android:label="Species Search"></activity>
-        
         <uses-library android:name="com.google.android.maps" />
     </application>
-
 </manifest>

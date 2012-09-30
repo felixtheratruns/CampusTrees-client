@@ -1,0 +1,13 @@
+       //will get this from the name of list you clicked on to get here
+        String name = "normal"; 
+        //will get the actual name
+
+        //	mCurrentFetchID = DataStore.getInstance().beginGetAllScavHunt(name, this);
+        ArrayList<String> ScavHuntList = new ArrayList<String>();
+        ScavHuntList.add(name);
+        
+        
+        lv_arr = ScavHuntList.toArray(new String[ScavHuntList.size()]);
+
+
+<Button android:id="@+id/btnSimple" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Scavenger Hunt" android:textSize="25sp" android:layout_marginLeft="10px" android:layout_marginRight="10px" android:layout_marginBottom="5px" android:layout_marginTop="5px" android:height="50dp" android:width="50dp"></Button>

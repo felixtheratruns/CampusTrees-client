@@ -1,7 +1,7 @@
 package com.speedacm.treeview.menu;
 
-public class MenuItem {
-	
+
+public class MenuItem {	
 	private String mName;
 	private int mIcon;
 	private MenuActionListener mListener;

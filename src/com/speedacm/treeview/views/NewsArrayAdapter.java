@@ -53,6 +53,7 @@ public class NewsArrayAdapter extends ArrayAdapter<News>{
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			row = inflater.inflate(R.layout.news_row, parent, false);
 			Log.d(tag, "Successfully completed XML Row Inflation!");
+
 		}
 
 		// Get item
