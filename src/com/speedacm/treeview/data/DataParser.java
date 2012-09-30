@@ -248,7 +248,7 @@ public class DataParser
 			
 			try
 			{
-				int zoneID = zoneNode.path("id").asInt(-1);
+				int zoneID = zoneNode.path("zpid").asInt(-1);
 				if(zoneID == -1) return null;
 				
 				ArrayList<GeoPoint> points = getPointsFromNode(zoneNode.path("points"));

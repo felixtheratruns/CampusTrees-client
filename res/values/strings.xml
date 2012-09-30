@@ -7,6 +7,7 @@
     <string name="mmenu_plantfacts">Plant Facts</string>
     <string name="mmenu_wildfacts">Wildlife Facts</string>
     <string name="mmenu_scavhunt">Scavenger Hunt</string>
+    <string name="mmenu_scanbarcode">Scan Tree QR Code</string>
     <string name="mmenu_about">About</string>
     <string name="mmenu_creds">Credits</string>
     <string name="about_label">About This App</string>
