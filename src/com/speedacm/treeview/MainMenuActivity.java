@@ -1,11 +1,8 @@
 package com.speedacm.treeview;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,20 +10,14 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
-import com.speedacm.treeview.data.DataStore;
 import com.speedacm.treeview.menu.ActivityStarter;
 import com.speedacm.treeview.menu.DynamicMapStarter;
-import com.speedacm.treeview.menu.MenuActionListener;
 import com.speedacm.treeview.menu.MenuItem;
-import com.speedacm.treeview.models.Tree;
 import com.speedacm.treeview.views.AboutActivity;
 import com.speedacm.treeview.views.CredsActivity;
 import com.speedacm.treeview.views.DynamicMapActivity;
 import com.speedacm.treeview.views.NewsActivity;
 import com.speedacm.treeview.views.PlantFactsActivity;
-import com.speedacm.treeview.views.TreeInfoActivity;
 import com.speedacm.treeview.views.ScavHuntMainActivity;
 import com.speedacm.treeview.views.WildLifeFactsActivity;
 
@@ -34,6 +25,9 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
 {
 	
 	private ArrayList<MenuItem> menuEntries = new ArrayList<MenuItem>();
+	
+	
+	/* commented out until barcode scanning is actually used
 	
 	// in order for "this" to be accessible to the inner class, define
 	// it here so mScanListener can get a proper pointer to the outer activity
@@ -47,6 +41,7 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
 			ii.initiateScan();
 		}
 	};
+	
 	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -83,7 +78,7 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
 				showText("Could not find tree ID.");	
 			}	
 		}
-	}
+	} */
 	
 	private void showText(String text)
 	{
@@ -128,7 +123,10 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
 				new DynamicMapStarter(this, DynamicMapActivity.TREE_MODE)));
 		//menuEntries.add(new MenuItem(getString(R.string.mmenu_sustmap), R.drawable.browse_sustainability_map,
 		//		new DynamicMapStarter(this, DynamicMapActivity.SUSTAIN_MODE)));
+		
+		// uncomment this and section at top of file for barcode scanning
 		//menuEntries.add(new MenuItem(getString(R.string.mmenu_scanbarcode), R.drawable.about, mScanListener));
+		
 		menuEntries.add(new MenuItem(getString(R.string.mmenu_plantfacts), R.drawable.plant_facts,
 				new ActivityStarter(this, PlantFactsActivity.class)));
 		menuEntries.add(new MenuItem(getString(R.string.mmenu_wildfacts), R.drawable.wildlife_facts,

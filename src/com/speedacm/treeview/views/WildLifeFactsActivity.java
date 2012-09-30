@@ -2,16 +2,14 @@ package com.speedacm.treeview.views;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.ListView;
+
 import com.speedacm.treeview.R;
 import com.speedacm.treeview.data.DSResultListener;
 import com.speedacm.treeview.data.DataStore;
-import com.speedacm.treeview.models.PlantFact;
 import com.speedacm.treeview.models.WildLifeFact;
-
-import android.app.Activity;
-import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 public class WildLifeFactsActivity extends Activity implements DSResultListener<WildLifeFact[]>{
 	private ArrayList<WildLifeFact> menuEntries = new ArrayList<WildLifeFact>();

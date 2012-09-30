@@ -1,6 +1,5 @@
 package com.speedacm.treeview.models;
 
-import com.google.android.maps.GeoPoint;
 
 public class WildLifeFact {
 

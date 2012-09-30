@@ -1,9 +1,5 @@
 package com.speedacm.treeview.submenus;
 
-import java.util.List;
-
-import org.codehaus.jackson.JsonNode;
-
 import com.speedacm.treeview.models.ScavHunt;
 
 public class ScavHuntMenuItem {

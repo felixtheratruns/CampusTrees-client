@@ -2,35 +2,19 @@ package com.speedacm.treeview.views;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.TextView;
+
 import com.speedacm.treeview.R;
-import com.speedacm.treeview.models.News;
-import com.speedacm.treeview.models.ScavHunt;
 import com.speedacm.treeview.models.ScavHuntSubItem;
-
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.text.Html;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.TextView;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.TextView;
 
 public class ScavHuntListAdapter extends ArrayAdapter<ScavHuntSubItem> implements
 		OnClickListener {

@@ -12,13 +12,9 @@ import android.widget.ListView;
 import com.speedacm.treeview.R;
 import com.speedacm.treeview.data.DSResultListener;
 import com.speedacm.treeview.data.DataStore;
-import com.speedacm.treeview.menu.ActivityStarter;
-import com.speedacm.treeview.menu.MenuItem;
-import com.speedacm.treeview.models.PlantFact;
 import com.speedacm.treeview.models.ScavHunt;
 import com.speedacm.treeview.submenus.ScavHuntActivityStarter;
 import com.speedacm.treeview.submenus.ScavHuntMenuItem;
-import com.speedacm.treeview.views.ScavHuntMainActivity;
 
 
 public class ScavHuntMainActivity extends Activity implements DSResultListener<ScavHunt[]>, OnItemClickListener

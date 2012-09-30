@@ -1,24 +1,19 @@
 package com.speedacm.treeview.views;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-
-import com.speedacm.treeview.R;
-import com.speedacm.treeview.models.ScavHunt;
-import com.speedacm.treeview.models.ScavHuntSubItem;
 
 import android.app.ListActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.content.*;
+
+import com.speedacm.treeview.R;
+import com.speedacm.treeview.models.ScavHunt;
+import com.speedacm.treeview.models.ScavHuntSubItem;
 
 public class ScavHuntListActivity extends ListActivity {
 

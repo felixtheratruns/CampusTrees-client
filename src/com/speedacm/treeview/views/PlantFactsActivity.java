@@ -1,16 +1,15 @@
 package com.speedacm.treeview.views;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.ListView;
 
 import com.speedacm.treeview.R;
 import com.speedacm.treeview.data.DSResultListener;
 import com.speedacm.treeview.data.DataStore;
 import com.speedacm.treeview.models.PlantFact;
-import android.app.Activity;
-import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 public class PlantFactsActivity extends Activity implements DSResultListener<PlantFact[]>
 {

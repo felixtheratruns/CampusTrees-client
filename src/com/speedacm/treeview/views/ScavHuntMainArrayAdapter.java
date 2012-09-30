@@ -3,23 +3,17 @@ package com.speedacm.treeview.views;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.speedacm.treeview.R;
-import com.speedacm.treeview.menu.MenuItem;
-import com.speedacm.treeview.submenus.ScavHuntMenuItem;
-
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.speedacm.treeview.R;
+import com.speedacm.treeview.submenus.ScavHuntMenuItem;
 
 
 

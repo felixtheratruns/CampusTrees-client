@@ -2,15 +2,9 @@ package com.speedacm.treeview.models;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.map.ObjectMapper;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 public class ScavHunt implements Parcelable {
 

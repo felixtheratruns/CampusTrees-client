@@ -1,14 +1,8 @@
 package com.speedacm.treeview.submenus;
 
-import java.util.List;
-
-import org.codehaus.jackson.JsonNode;
-
 import android.app.Activity;
 import android.content.Intent;
 
-import com.speedacm.treeview.menu.MenuActionListener;
-import com.speedacm.treeview.menu.MenuItem;
 import com.speedacm.treeview.models.ScavHunt;
 
 public class ScavHuntActivityStarter implements ScavHuntMenuActionListener {
