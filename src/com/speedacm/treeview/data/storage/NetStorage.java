@@ -15,6 +15,7 @@ import com.speedacm.treeview.models.Building;
 import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.ScavHunt;
 import com.speedacm.treeview.models.PlantFact;
+import com.speedacm.treeview.models.ScavHuntSubItem;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Tree;
 import com.speedacm.treeview.models.WildLifeFact;
@@ -25,6 +26,8 @@ public class NetStorage extends AbstractStorage
 	
 	private static final String baseURL = "http://trees.cecsresearch.org/AppHandler.php";
 	private static final String joelBaseURL = "http://trees.cecsresearch.org/joelapi/AppHandler";
+	private static final String devURL = "http://trees.cecsresearch.org/dev/AppHandler";
+	
 	private HttpClient mClient;
 	private DataParser mParser;
 
@@ -135,9 +138,17 @@ public class NetStorage extends AbstractStorage
 	
 	@Override
 	public ScavHunt[] getAllScavHunt() {
-		String json = getHTTPResponse(joelBaseURL + "?scavHunt=1");
-		return mParser.parseAllScavHuntResponse(json);
+		String json = getHTTPResponse(devURL + "?sHunt=1");
+		return mParser.parseAllScavHuntsResponse(json);
 	}
+	
+	
+	@Override
+	public ScavHuntSubItem[] getSubItemsForScavHunt(int scav_id) {
+		String json = getHTTPResponse(devURL + "?sHuntSubItems=" + scav_id);
+		return mParser.parseAllScavHuntSubItemsResponse(json);
+	}
+	
 	
 	@Override
 	public WildLifeFact[] getAllWildLifeFacts() {

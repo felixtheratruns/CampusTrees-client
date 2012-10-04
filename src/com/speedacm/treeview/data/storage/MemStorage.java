@@ -8,6 +8,7 @@ import com.speedacm.treeview.models.Building;
 import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.PlantFact;
 import com.speedacm.treeview.models.ScavHunt;
+import com.speedacm.treeview.models.ScavHuntSubItem;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Tree;
 import com.speedacm.treeview.models.WildLifeFact;
@@ -19,8 +20,11 @@ public class MemStorage extends AbstractStorage
 	//private HashMap<Integer, Building> mBuildings;	
 	private WildLifeFact[] wildLifeFactsArray;
 	private News[] newsArray;
-	private ScavHunt[] scavHuntArray;
+	private ScavHuntSubItem[] scavHuntSubItemArray;
+	private HashMap<Integer, ScavHuntSubItem[]> mScavHuntSubItems;
 
+	private ScavHunt[] scavHuntArray;
+	
 	private PlantFact[] plantFactsArray;
 	private Zone[] mZoneArray;
 	private Species[] mSpeciesArray;
@@ -174,6 +178,19 @@ public class MemStorage extends AbstractStorage
 			scavHuntArray = mFallback.getAllScavHunt();
 		return scavHuntArray;
 	}
+
+	@Override
+	public ScavHuntSubItem[] getSubItemsForScavHunt(int scav_id) {
+		// TODO Auto-generated method stub
+
+		if(mFallback != null){
+			
+			scavHuntSubItemArray = mFallback.getSubItemsForScavHunt(scav_id);
+		}
+			//		scavHuntSubItemArray = mFallback.getAllScavHuntSubItems(scav_id);
+		return scavHuntSubItemArray;
+	}
+
 	
 	@Override
 	public WildLifeFact[] getAllWildLifeFacts() {

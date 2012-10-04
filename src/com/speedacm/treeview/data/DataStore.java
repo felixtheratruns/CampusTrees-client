@@ -15,6 +15,7 @@ import com.speedacm.treeview.models.Building;
 import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.PlantFact;
 import com.speedacm.treeview.models.ScavHunt;
+import com.speedacm.treeview.models.ScavHuntSubItem;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Tree;
 import com.speedacm.treeview.models.WildLifeFact;
@@ -70,6 +71,20 @@ public class DataStore
 			@Override
 			protected ScavHunt[] doInBackground(Void... params) {
 				return getAllScavHunt();
+			}
+		};
+		
+		return putTask(newRequestID, task);
+	}
+	
+	public int beginGetAllScavHuntSubItems(final DSResultListener<ScavHuntSubItem[]> listener, final int scav_id)
+	{
+		final int newRequestID = mNextRequestID++;
+		
+		DSTask<ScavHuntSubItem[]> task = new DSTask<ScavHuntSubItem[]>(listener, newRequestID) {
+			@Override
+			protected ScavHuntSubItem[] doInBackground(Void... params) {
+				return getAllScavHuntSubItems(scav_id);
 			}
 		};
 		
@@ -240,6 +255,11 @@ public class DataStore
 		return mStorage.getAllScavHunt();
 	}
 	
+	public ScavHuntSubItem[] getAllScavHuntSubItems(int scav_id)
+	{	
+		return mStorage.getSubItemsForScavHunt(scav_id);
+	}
+	
 	public Zone[] getAllZones()
 	{	
 		return mStorage.getAllZones();
@@ -328,5 +348,4 @@ public class DataStore
 		task.execute();
 		return id;
 	}
-	
 }

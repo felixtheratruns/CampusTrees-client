@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 import com.speedacm.treeview.R;
+import com.speedacm.treeview.data.DSResultListener;
+import com.speedacm.treeview.data.DataStore;
+import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.ScavHunt;
 import com.speedacm.treeview.models.ScavHuntSubItem;
 
@@ -12,26 +15,29 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.content.*;
 
-public class ScavHuntListActivity extends ListActivity {
+public class ScavHuntListActivity extends ListActivity implements DSResultListener<ScavHuntSubItem[]>{
 
 	private String[] lv_arr = {};
 	private ArrayList<ScavHunt> menuEntries = new ArrayList<ScavHunt>();
 	private ScavHuntListAdapter adapter;
-	
 	
 	private ListView mainListView = null;
 	final String SETTING_TODOLIST = "todolist";
 
 	private ArrayList<String> selectedItems = new ArrayList<String>();
 	private String scavHuntTitle = "";
+	private int mCurrentFetchID = DataStore.NO_REQUEST;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -52,10 +58,25 @@ public class ScavHuntListActivity extends ListActivity {
 		System.out.println("the position is: "+ position);
 		ScavHunt s_hunt = getIntent().getParcelableExtra("s_hunt");
 	
-		scavHuntTitle = s_hunt.getTitle();
+		int scav_id = s_hunt.getScavId();
 		
+		scavHuntTitle = s_hunt.getTitle();
+		mCurrentFetchID = DataStore.getInstance().beginGetAllScavHuntSubItems(this,scav_id);
+	}	
+
+
+	@Override
+	public void onDSResultReceived(int requestID, ScavHuntSubItem[] payload) {
+		// TODO Auto-generated method stub
 		// Prepare an ArrayList of todo items
-		ArrayList<ScavHuntSubItem> sub_menu_items = s_hunt.getSubItems();
+		ArrayList<ScavHuntSubItem> sub_menu_items = new ArrayList<ScavHuntSubItem>();
+		
+		
+		if(payload != null){
+			for(ScavHuntSubItem item : payload){
+				sub_menu_items.add(item);
+			}
+		}
 		
 		//ArrayList<String> listTODO = PrepareListFromXML();
 		this.mainListView = getListView();
@@ -67,7 +88,10 @@ public class ScavHuntListActivity extends ListActivity {
 		mainListView.setAdapter(adapter);
 		mainListView.setItemsCanFocus(false);
 		mainListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+	//	TextView emptyText = (TextView)findViewById(android.R.id.empty);
+	//	mainListView.setEmptyView(emptyText); 
 	}
+	
 
 
 	private void ClearSelections() {
@@ -149,4 +173,11 @@ public class ScavHuntListActivity extends ListActivity {
 		return todoItems;
 	}
 */
+
+
+
+
+
+
+
 }

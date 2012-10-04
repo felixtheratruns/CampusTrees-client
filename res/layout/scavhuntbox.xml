@@ -6,7 +6,6 @@
 			<TextView android:id="@+id/txtTest" android:layout_width="fill_parent" android:layout_height="fill_parent" android:textStyle="bold" android:textColor="#FFFFFF" android:text="@string/app_name" android:textSize="15sp" android:gravity="center_vertical" android:paddingLeft="5dp">
 </TextView></LinearLayout>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/buttonlayout2" android:orientation="horizontal" android:layout_height="wrap_content" android:gravity="right" android:layout_width="fill_parent" android:layout_gravity="right|center_vertical">
-			<Button android:id="@+id/btnSave" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Save" android:textSize="15sp" android:layout_marginLeft="10px" android:layout_marginRight="10px" android:layout_marginBottom="2px" android:layout_marginTop="2px" android:height="15dp" android:width="70dp"></Button>
 			<Button android:id="@+id/btnClear" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Clear" android:textSize="15sp" android:layout_marginLeft="10px" android:layout_marginRight="10px" android:layout_marginBottom="2px" android:layout_marginTop="2px" android:height="15dp" android:width="70dp"></Button>
 		</LinearLayout>
 </LinearLayout>

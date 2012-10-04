@@ -15,32 +15,37 @@ import android.util.Log;
 public class ScavHunt implements Parcelable {
 
 	private String title;
-	private ArrayList<ScavHuntSubItem> sub_items;
+	private int scav_id;
+//	private ArrayList<ScavHuntSubItem> sub_items;
+
 	
-	
-	public ScavHunt(String pTitle, ArrayList<ScavHuntSubItem> p_sub_items){
+	public ScavHunt(String pTitle, int num){
 		title = pTitle;
-		sub_items = p_sub_items;
+		scav_id = num;
+	//	sub_items = p_sub_items;
 	}
 	
 	public String toString(){
 		return title;
-	}
-	
-	
-	public ArrayList<ScavHuntSubItem> getSubItems(){
-		return sub_items;
 	}
 
 	public String getTitle(){
 		return title;
 	}
 	
+	public int getScavId(){
+		return scav_id;
+	}
 	
     public int describeContents() {
         return 0;
     }
 
+    public void writeToParcel(Parcel out, int flags) {
+    	out.writeString(title);
+    	out.writeInt(scav_id);
+    }
+    /*
     public void writeToParcel(Parcel out, int flags) {
     	out.writeString(title);
     	out.writeInt(sub_items.size());
@@ -51,7 +56,7 @@ public class ScavHunt implements Parcelable {
     		out.writeString(item.getBody());
     	}
     }
-
+*/
     public static final Parcelable.Creator<ScavHunt> CREATOR
             = new Parcelable.Creator<ScavHunt>() {
         public ScavHunt createFromParcel(Parcel in) {
@@ -65,14 +70,6 @@ public class ScavHunt implements Parcelable {
     
     private ScavHunt(Parcel in) {
     	title = in.readString();
-    	int titles_size = in.readInt();
-    	
-    	sub_items = new ArrayList<ScavHuntSubItem>();
-    	
-    	for(int i = 0; i < titles_size; i++){
-    		String title = in.readString();
-    		String body = in.readString();
-    		sub_items.add(new ScavHuntSubItem(title, body));
-    	}
+    	scav_id = in.readInt();
     }
 }

@@ -6,6 +6,7 @@ import com.speedacm.treeview.models.Building;
 import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.ScavHunt;
 import com.speedacm.treeview.models.PlantFact;
+import com.speedacm.treeview.models.ScavHuntSubItem;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Tree;
 import com.speedacm.treeview.models.WildLifeFact;
@@ -31,5 +32,6 @@ public abstract class AbstractStorage
 	public abstract List<Integer> getFruitingSpecies(int month);
 	public abstract News[] getAllNews();
 	public abstract ScavHunt[] getAllScavHunt();
+	public abstract ScavHuntSubItem[] getSubItemsForScavHunt(int scav_id);
 	public abstract WildLifeFact[] getAllWildLifeFacts();
 }
