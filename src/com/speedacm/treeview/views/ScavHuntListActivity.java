@@ -10,6 +10,7 @@ import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.ScavHunt;
 import com.speedacm.treeview.models.ScavHuntSubItem;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,7 +45,6 @@ public class ScavHuntListActivity extends ListActivity implements DSResultListen
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.scavhuntbox);
-		
 		Button btnClear = (Button) findViewById(R.id.btnClear);
 		btnClear.setOnClickListener(new OnClickListener() {
 			public void onClick(View v){
@@ -79,6 +79,14 @@ public class ScavHuntListActivity extends ListActivity implements DSResultListen
 		}
 		
 		//ArrayList<String> listTODO = PrepareListFromXML();
+		
+//		NewsArrayAdapter adapter = new NewsArrayAdapter(
+//				getApplicationContext(), R.layout.news_row, menuEntries);
+				
+		
+//		ListView lv = (ListView) this.findViewById(R.id.newsList);
+		
+		
 		this.mainListView = getListView();
 		mainListView.setCacheColorHint(0);
 
@@ -88,6 +96,26 @@ public class ScavHuntListActivity extends ListActivity implements DSResultListen
 		mainListView.setAdapter(adapter);
 		mainListView.setItemsCanFocus(false);
 		mainListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+		
+		
+
+		/*
+		mainListView.requestLayout();
+	    if(adapter.arrayValue().size() > 0) {
+	        mainListView.setVisibility(ListView.VISIBLE);
+	       // setListAdapter(adapter);
+	    }
+	    else {
+	        mainListView.setVisibility(ListView.INVISIBLE);
+	        TextView tv = (TextView) findViewById(android.R.id.empty);
+	     //   tv.requestLayout();
+	      //  tv.setVisibility(TextView.VISIBLE);
+	    }
+
+		*/
+		
+	//	mainListView.
+		
 	//	TextView emptyText = (TextView)findViewById(android.R.id.empty);
 	//	mainListView.setEmptyView(emptyText); 
 	}

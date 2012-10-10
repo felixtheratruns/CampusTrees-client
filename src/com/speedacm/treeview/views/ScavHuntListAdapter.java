@@ -130,6 +130,9 @@ public class ScavHuntListAdapter extends ArrayAdapter<ScavHuntSubItem> implement
 		prefEditor.commit();
 	}
 	
+	public ArrayList<ScavHuntSubItem> arrayValue(){
+		return todoItems;
+	}
 	
 	private void LoadSelections() {
 		// TODO Auto-generated method stub

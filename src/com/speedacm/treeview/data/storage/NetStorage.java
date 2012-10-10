@@ -138,14 +138,14 @@ public class NetStorage extends AbstractStorage
 	
 	@Override
 	public ScavHunt[] getAllScavHunt() {
-		String json = getHTTPResponse(devURL + "?sHunt=1");
+		String json = getHTTPResponse(baseURL + "?sHunt=1");
 		return mParser.parseAllScavHuntsResponse(json);
 	}
 	
 	
 	@Override
 	public ScavHuntSubItem[] getSubItemsForScavHunt(int scav_id) {
-		String json = getHTTPResponse(devURL + "?sHuntSubItems=" + scav_id);
+		String json = getHTTPResponse(baseURL + "?sHuntSubItems=" + scav_id);
 		return mParser.parseAllScavHuntSubItemsResponse(json);
 	}
 	
