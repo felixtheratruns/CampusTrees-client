@@ -223,7 +223,8 @@ public class DataParser
 			{
 				String title = scavHuntNode.path("title").asText();
 				String body = scavHuntNode.path("body").asText();
-				scavHuntSubItems.add(new ScavHuntSubItem(title, body));
+				String png_name = scavHuntNode.path("png_name").asText();
+				scavHuntSubItems.add(new ScavHuntSubItem(title, body, png_name));
 				
 			}
 			catch(Exception e)

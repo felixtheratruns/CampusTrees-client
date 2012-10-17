@@ -1,8 +1,13 @@
 package com.speedacm.treeview.views;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.speedacm.treeview.R;
+import com.speedacm.treeview.data.storage.NetStorage;
 import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.ScavHunt;
 import com.speedacm.treeview.models.ScavHuntSubItem;
@@ -17,12 +22,14 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,6 +88,17 @@ public class ScavHuntListAdapter extends ArrayAdapter<ScavHuntSubItem> implement
 		TextView bTitle = (TextView) v.findViewById(R.id.title);
 		TextView bBody = (TextView) v.findViewById(R.id.body);
 		CheckBox bCheck = (CheckBox) v.findViewById(R.id.bcheck);
+		ImageView Image01 = (ImageView) v.findViewById(R.id.ImageView01);
+		
+		try{
+	        String url =  NetStorage.getImageBaseURL() + item.getPngName();           
+	        Drawable image = ImageOperations(this,url);
+	        Image01.setImageDrawable(image);
+	    }
+	    catch(Exception ex)
+	    {
+	        ex.printStackTrace();
+	    }
 
 		bCheck.setTag(item.getTitle());
 		if (this.selectedItems.contains(item.getTitle())){
@@ -96,6 +114,26 @@ public class ScavHuntListAdapter extends ArrayAdapter<ScavHuntSubItem> implement
 		
 	}
 	
+	public Object fetch(String address) throws MalformedURLException,
+    IOException {
+        URL url = new URL(address);
+        Object content = url.getContent();
+        return content;
+    }  
+	
+	
+	public Drawable ImageOperations(ScavHuntListAdapter ctx, String url) {
+        try {
+            InputStream is = (InputStream) this.fetch(url);
+            Drawable d = Drawable.createFromStream(is, "src");
+            return d;
+        } catch (MalformedURLException e) {
+            return null;
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
 
 	public void ClearSelections(){
 		this.selectedItems.clear();

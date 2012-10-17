@@ -1,14 +1,20 @@
 package com.speedacm.treeview.data.storage;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 
 import com.speedacm.treeview.data.DataParser;
 import com.speedacm.treeview.models.Building;
@@ -27,11 +33,16 @@ public class NetStorage extends AbstractStorage
 	private static final String baseURL = "http://trees.cecsresearch.org/AppHandler.php";
 	private static final String joelBaseURL = "http://trees.cecsresearch.org/joelapi/AppHandler";
 	private static final String devURL = "http://trees.cecsresearch.org/dev/AppHandler";
+	private static final String imageBaseURL = "http://trees.cecsresearch.org/dev/AppHandler?image=";
 	
 	private HttpClient mClient;
 	private DataParser mParser;
 
 
+	public static String getImageBaseURL(){
+		return imageBaseURL;
+	}
+	
 	public NetStorage(AbstractStorage fallback)
 	{
 		super(fallback);
@@ -39,6 +50,7 @@ public class NetStorage extends AbstractStorage
 		mParser = new DataParser();
 	}
 
+	
 	@Override
 	public Zone[] getAllZones()
 	{
@@ -148,6 +160,27 @@ public class NetStorage extends AbstractStorage
 		String json = getHTTPResponse(baseURL + "?sHuntSubItems=" + scav_id);
 		return mParser.parseAllScavHuntSubItemsResponse(json);
 	}
+/*	
+	@Override
+	public Object fetch(String address) throws MalformedURLException,
+    IOException {
+        URL url = new URL(address);
+        Object content = url.getContent();
+        return content;
+    }  
+
+    private Drawable ImageOperations(Context ctx, String url) {
+        try {
+            InputStream is = (InputStream) this.fetch(url);
+            Drawable d = Drawable.createFromStream(is, "src");
+            return d;
+        } catch (MalformedURLException e) {
+            return null;
+        } catch (IOException e) {
+            return null;
+        }
+    }
+*/
 	
 	
 	@Override

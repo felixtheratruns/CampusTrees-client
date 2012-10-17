@@ -1,5 +1,8 @@
 package com.speedacm.treeview.data;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,6 +93,14 @@ public class DataStore
 		
 		return putTask(newRequestID, task);
 	}
+/*	
+	public Object fetch(String address) throws MalformedURLException,
+    IOException {
+        URL url = new URL(address);
+        Object content = url.getContent();
+        return content;
+    }  
+	*/
 	
 	public int beginGetAllNews(final DSResultListener<News[]> listener)
 	{
