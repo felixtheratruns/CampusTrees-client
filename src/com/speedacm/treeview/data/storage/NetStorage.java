@@ -38,7 +38,6 @@ public class NetStorage extends AbstractStorage
 	private HttpClient mClient;
 	private DataParser mParser;
 
-
 	public static String getImageBaseURL(){
 		return imageBaseURL;
 	}
