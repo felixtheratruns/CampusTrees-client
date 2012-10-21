@@ -151,8 +151,6 @@ public class ScavHuntListAdapter extends ArrayAdapter<ScavHuntSubItem> implement
 			}
 		}
 		Log.d("debug", "Saved items: "+ savedItems);
-
-		
 		return savedItems;
 	}
 	
