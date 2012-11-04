@@ -77,6 +77,8 @@ public class ScavHuntListAdapter extends ArrayAdapter<ScavHuntSubItem> implement
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent){
 		// TODO Auto-generated method stub
+		
+		
 		View v = convertView;
 		if (v == null) {
 			LayoutInflater inflater = (LayoutInflater) context
@@ -110,6 +112,9 @@ public class ScavHuntListAdapter extends ArrayAdapter<ScavHuntSubItem> implement
 		bCheck.setOnClickListener(this);
 		bTitle.setText(item.getTitle());
 		bBody.setText(item.getBody());
+		
+		Log.d("POSITION_:", new Integer(position).toString());
+		
 		return (v);
 		
 	}

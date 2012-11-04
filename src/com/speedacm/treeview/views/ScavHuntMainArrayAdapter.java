@@ -50,11 +50,11 @@ public class ScavHuntMainArrayAdapter extends ArrayAdapter<ScavHuntMenuItem>{
 		View row = convertView;
 		if (row == null) {
 			// ROW INFLATION
-			Log.d(tag, "Starting XML Row inflation ... ");
+		//	Log.d(tag, "Starting XML Row inflation ... ");
 			LayoutInflater inflater = (LayoutInflater) this.getContext()
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			row = inflater.inflate(R.layout.menuitem_listitem, parent, false);
-			Log.d(tag, "Successfully completed XML Row Inflation!");
+		//	Log.d(tag, "Successfully completed XML Row Inflation!");
 		}
 
 		// Get item
@@ -63,6 +63,8 @@ public class ScavHuntMainArrayAdapter extends ArrayAdapter<ScavHuntMenuItem>{
 		// get references to subviews
 		//menuitemIcon = (ImageView) row.findViewById(R.id.menuitem_icon);
 		menuitemName = (TextView) row.findViewById(R.id.menuitem_name);
+		
+		
 		
 		//Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), menuitem.getDrawable());
 		
