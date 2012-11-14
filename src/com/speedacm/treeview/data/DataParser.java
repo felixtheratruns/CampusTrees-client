@@ -83,6 +83,7 @@ public class DataParser
 		double crownarea = treeNode.path("crownarea").asDouble(Double.NaN);
 		double vol = treeNode.path("vol").asDouble(Double.NaN);
 		double carbonwt = treeNode.path("carbonwt").asDouble(Double.NaN);
+		String monetary = "$" + treeNode.path("mvalue").asText();
 		
 		if(id == -1 || lat == Double.NaN || lng == Double.NaN || sid == -1)
 		{
@@ -95,7 +96,7 @@ public class DataParser
 		return new Tree(
 				id, sid, new GeoPoint(latE6, lngE6), (float)dbh, (float)height,
 				(float)greenwt, (float)drywt, age, (float)co2seqtot, (float)co2seqyr,
-				(float)crownarea, (float)vol, (float)carbonwt);
+				(float)crownarea, (float)vol, (float)carbonwt, monetary);
 	}
 	
 	private ArrayList<GeoPoint> getPointsFromNode(JsonNode arrayNode)

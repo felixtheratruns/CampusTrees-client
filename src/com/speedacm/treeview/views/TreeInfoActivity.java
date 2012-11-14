@@ -101,6 +101,7 @@ public class TreeInfoActivity extends Activity
 		
 		stats.add(buildFactoid("Latitude", mTree.getLocation().getLatitudeE6() / 1E6f));
 		stats.add(buildFactoid("Longitude", mTree.getLocation().getLongitudeE6() / 1E6f));
+		stats.add(buildFactoid("Monetary Value", mTree.getMonetary()));
 		stats.add(buildFactoid("Height (ft)", mTree.getHeight()));
 		stats.add(buildFactoid("Volume (board ft)", mTree.getVolume()));
 		stats.add(buildFactoid("Diam. at Breast Height (ft)", mTree.getDBH()));
