@@ -1,11 +1,14 @@
 package com.speedacm.treeview.data.storage;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 
 import com.speedacm.treeview.models.Building;
 import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.ScavHunt;
 import com.speedacm.treeview.models.PlantFact;
+import com.speedacm.treeview.models.ScavHuntSubItem;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Tree;
 import com.speedacm.treeview.models.WildLifeFact;
@@ -31,5 +34,12 @@ public abstract class AbstractStorage
 	public abstract List<Integer> getFruitingSpecies(int month);
 	public abstract News[] getAllNews();
 	public abstract ScavHunt[] getAllScavHunt();
+	public abstract ScavHuntSubItem[] getSubItemsForScavHunt(int scav_id);
 	public abstract WildLifeFact[] getAllWildLifeFacts();
+
+	public Object fetch(String address) throws MalformedURLException,
+			IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

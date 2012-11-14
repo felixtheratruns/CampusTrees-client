@@ -21,6 +21,14 @@
 	android:layout_height="wrap_content"
 	android:paddingTop="0dip"
 	android:paddingBottom="0dip">
+	
+        <ImageView android:id="@+id/ImageView01" 
+    		android:layout_width="fill_parent" 
+    		android:layout_height="wrap_content"
+    		android:scaleType="fitCenter"
+    		android:adjustViewBounds="true">
+</ImageView>
+        
         <TextView
            	android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -34,6 +42,9 @@
 			android:layout_gravity="left"
             android:id="@+id/body"
 	    	 />
+        
+        
+        
 	</LinearLayout>
 </LinearLayout>
 

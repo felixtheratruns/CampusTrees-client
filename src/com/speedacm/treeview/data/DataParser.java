@@ -36,11 +36,10 @@ public class DataParser
 		// at this point, we're "all or nothing" with regards to the JSON stuff,
 		// so if any error occurs during the parsing process, just return null
 		// hence, all Exception types regardless of subclass are caught here
-		
+		JsonParser jp = null;
 		try
 		{
-			JsonParser jp = mMapper.getJsonFactory().createJsonParser(json);
-			return mMapper.readTree(jp);
+			jp = mMapper.getJsonFactory().createJsonParser(json);
 		}
 		catch(Exception e)
 		{
@@ -48,6 +47,16 @@ public class DataParser
 			Log.e("json parse exception?", "exception", e);
 			return null;
 		}
+		
+		try
+		{
+			return mMapper.readTree(jp);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 	
 	public Tree parseTreeResponse(String json)
@@ -141,7 +150,96 @@ public class DataParser
 		return plantFacts.toArray(new PlantFact[plantFacts.size()]);
 	}
 	
-	public ScavHunt[] parseAllScavHuntResponse(String json)
+	public ScavHunt[] parseAllScavHuntsResponse(String json)
+	{
+		if(json == null || json.equals("")) return null;
+		JsonNode rootNode = mapNode(json);
+		
+		if(rootNode == null) return null;
+		
+		ArrayList<ScavHunt> scavHunt = new ArrayList<ScavHunt>(rootNode.size());
+		Iterator<JsonNode> scavhuntIter = rootNode.getElements();
+		//Iterator<String> newsNames = rootNode.getFieldNames();
+		while(scavhuntIter.hasNext())
+		{
+			JsonNode scavHuntNode = scavhuntIter.next();
+			//String newsName = newsNames.next();
+			try
+			{
+				String title = scavHuntNode.path("title").asText();
+				String scavid = scavHuntNode.path("scavid").asText();
+			//	int scav_id = (int)(new Integer(scavid));
+				scavHunt.add(new ScavHunt(title,(int)(new Integer(scavid))));
+				
+				
+			/*
+				JsonNode items = scavHuntNode.findValue("items");
+				Iterator<JsonNode> item_bodies = items.getElements();
+				JsonNode cur;
+				String item_title;
+				String item;
+				ArrayList<String> bodies = new ArrayList<String>();
+				ArrayList<String> titles = new ArrayList<String>();
+				ArrayList<ScavHuntSubItem> sub_items = new ArrayList<ScavHuntSubItem>();
+				
+				while(item_bodies.hasNext()){
+					cur = item_bodies.next();
+					item_title = cur.path("item_title").asText();
+					item = cur.path("item").asText();
+					titles.add(item_title);
+					bodies.add(item);
+					
+					sub_items.add(new ScavHuntSubItem(item_title,item));
+				}
+				ScavHunt.add(new ScavHunt(title, sub_items));
+			*/
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				return null;
+			}
+		}
+		return scavHunt.toArray(new ScavHunt[scavHunt.size()]);
+	}
+	
+	
+	
+	public ScavHuntSubItem[] parseAllScavHuntSubItemsResponse(String json)
+	{
+		if(json == null || json.equals("")) return null;
+		JsonNode rootNode = mapNode(json);
+		
+		if(rootNode == null) return null;
+		
+		ArrayList<ScavHuntSubItem> scavHuntSubItems = new ArrayList<ScavHuntSubItem>(rootNode.size());
+		Iterator<JsonNode> scavhuntsubitemIter = rootNode.getElements();
+		//Iterator<String> newsNames = rootNode.getFieldNames();
+		while(scavhuntsubitemIter.hasNext())
+		{
+			JsonNode scavHuntNode = scavhuntsubitemIter.next();
+			//String newsName = newsNames.next();
+			try
+			{
+				String title = scavHuntNode.path("title").asText();
+				String body = scavHuntNode.path("body").asText();
+				String png_name = scavHuntNode.path("png_name").asText();
+				scavHuntSubItems.add(new ScavHuntSubItem(title, body, png_name));
+				
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+				return null;
+			}
+		}
+		return scavHuntSubItems.toArray(new ScavHuntSubItem[scavHuntSubItems.size()]);
+	}
+	
+	
+	
+	/*
+		public ScavHunt[] parseAllScavHuntResponse(String json)
 	{
 		if(json == null || json.equals("")) return null;
 		JsonNode rootNode = mapNode(json);
@@ -187,6 +285,8 @@ public class DataParser
 		}
 		return ScavHunt.toArray(new ScavHunt[ScavHunt.size()]);
 	}
+	
+	*/
 	
 	public News[] parseAllNewsResponse(String json)
 	{

@@ -1,5 +1,8 @@
 package com.speedacm.treeview.data;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +18,7 @@ import com.speedacm.treeview.models.Building;
 import com.speedacm.treeview.models.News;
 import com.speedacm.treeview.models.PlantFact;
 import com.speedacm.treeview.models.ScavHunt;
+import com.speedacm.treeview.models.ScavHuntSubItem;
 import com.speedacm.treeview.models.Species;
 import com.speedacm.treeview.models.Tree;
 import com.speedacm.treeview.models.WildLifeFact;
@@ -75,6 +79,28 @@ public class DataStore
 		
 		return putTask(newRequestID, task);
 	}
+	
+	public int beginGetAllScavHuntSubItems(final DSResultListener<ScavHuntSubItem[]> listener, final int scav_id)
+	{
+		final int newRequestID = mNextRequestID++;
+		
+		DSTask<ScavHuntSubItem[]> task = new DSTask<ScavHuntSubItem[]>(listener, newRequestID) {
+			@Override
+			protected ScavHuntSubItem[] doInBackground(Void... params) {
+				return getAllScavHuntSubItems(scav_id);
+			}
+		};
+		
+		return putTask(newRequestID, task);
+	}
+/*	
+	public Object fetch(String address) throws MalformedURLException,
+    IOException {
+        URL url = new URL(address);
+        Object content = url.getContent();
+        return content;
+    }  
+	*/
 	
 	public int beginGetAllNews(final DSResultListener<News[]> listener)
 	{
@@ -240,6 +266,11 @@ public class DataStore
 		return mStorage.getAllScavHunt();
 	}
 	
+	public ScavHuntSubItem[] getAllScavHuntSubItems(int scav_id)
+	{	
+		return mStorage.getSubItemsForScavHunt(scav_id);
+	}
+	
 	public Zone[] getAllZones()
 	{	
 		return mStorage.getAllZones();
@@ -328,5 +359,4 @@ public class DataStore
 		task.execute();
 		return id;
 	}
-	
 }

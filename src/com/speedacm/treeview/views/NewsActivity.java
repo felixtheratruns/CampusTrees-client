@@ -38,6 +38,7 @@ public class NewsActivity extends Activity implements DSResultListener<News[]>{
 	    NewsArrayAdapter adapter = new NewsArrayAdapter(
 				getApplicationContext(), R.layout.news_row, menuEntries);
 	    
+	    
 		ListView lv = (ListView) this.findViewById(R.id.newsList);
 		
 		// Set the ListView adapter
