@@ -131,8 +131,8 @@ public class MainMenuActivity extends Activity implements OnItemClickListener
 				new ActivityStarter(this, PlantFactsActivity.class)));
 		menuEntries.add(new MenuItem(getString(R.string.mmenu_wildfacts), R.drawable.wildlife_facts,
 				new ActivityStarter(this, WildLifeFactsActivity.class)));
-		menuEntries.add(new MenuItem(getString(R.string.mmenu_scavhunt), R.drawable.scavenger_hunt,
-				new ActivityStarter(this, ScavHuntMainActivity.class)));
+		//menuEntries.add(new MenuItem(getString(R.string.mmenu_scavhunt), R.drawable.scavenger_hunt,
+		//		new ActivityStarter(this, ScavHuntMainActivity.class)));
 		menuEntries.add(new MenuItem(getString(R.string.mmenu_about), R.drawable.about,
 				new ActivityStarter(this, AboutActivity.class)));
 		menuEntries.add(new MenuItem(getString(R.string.mmenu_creds), R.drawable.about,
