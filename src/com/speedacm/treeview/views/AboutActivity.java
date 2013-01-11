@@ -11,7 +11,7 @@ public class AboutActivity extends Activity
 {
 	private static final String nbsp4 = "&nbsp;&nbsp;&nbsp;&nbsp;";
 	private static final String aboutText =
-		"<p>The Uofl Trees application was originally developed for Android as " +
+		"<p>The CampTree application was originally developed for Android as " +
 		"a Computer Engineering Capstone Design project in Spring 2012, for " +
 		"the University of Louisville's Urban Wildlife Research Lab.</p>" +
 		

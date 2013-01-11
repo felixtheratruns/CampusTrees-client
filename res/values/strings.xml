@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">UofL Trees</string>
+    <string name="app_name">CampTree</string>
     <string name="mmenu_news">News</string>
     <string name="mmenu_treemap">Browse Tree Map</string>
     <string name="mmenu_sustmap">Browse Sustainability Map</string>
